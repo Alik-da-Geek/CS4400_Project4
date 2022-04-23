@@ -1,4 +1,32 @@
-.centered {
-    margin: auto;
-    
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    font-family: Verdana;
+    /* font-family: 'Times New Roman', Times, serif; */
+}
+.test{
+    padding-top: 400px;
+}
+.mainHeader {
+    display: flex;
+    /* height: 20vh; */
+    padding: 20px;
+    padding-bottom: 10px;
+    width: 100vw;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background: #e1e1e1;
+    color: black;
+    font-size: 30px;
+}
+
+.mainHeader h1 {
+    margin: 0;
+    font-weight: normal;
+}
+
+.list {
+    /* margin: auto; */
 }

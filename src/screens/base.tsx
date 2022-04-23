@@ -5,9 +5,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className="centeredText">
-        <ol>
-          <li>Test</li>
-        </ol>
+        <p>Base</p>
       </div>
     );
   }
