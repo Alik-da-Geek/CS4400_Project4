@@ -6,8 +6,14 @@ export interface CreateCorpState {
 }
 
 export interface CreateBankState {
+    bankID: string,
+    bankName: string,
+    street: string,
+    city: string,
+    state: string,
+    zip: string,
+    reservedAssets: number,
     corpID: string,
-    longName: string,
-    shortName: string,
-    reservedAssets: number
+    manager: string,
+    bank_employee: string
 }

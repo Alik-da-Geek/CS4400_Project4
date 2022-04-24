@@ -13,9 +13,9 @@ const db = mysql.createConnection({
   database: "bank_management",
 });
 
-///////////////////////
-// create_corp route //
-///////////////////////
+////////////////////////////////////
+////// Q1: create_corp route ///////
+////////////////////////////////////
 
 app.post("/create_corp", (req, res) => {
     const corpID = req.body.corpID;
@@ -30,12 +30,46 @@ app.post("/create_corp", (req, res) => {
         if (err) {
             console.log(err);
         } else {
+            console.log(result);
             console.log("\n create_corp: values inserted");
             res.send("create_corp: values inserted");
         }
       }
     );
   });
+
+
+////////////////////////////////////
+////// Q2: create_bank route ///////
+////////////////////////////////////
+
+app.post("/create_bank", (req, res) => {
+  const bankID = req.body.bankID;
+  const bankName = req.body.bankName;
+  const street = req.body.street;
+  const city = req.body.city;
+  const state = req.body.state;
+  const zip = req.body.zip;
+  const reservedAssets = req.body.reservedAssets;
+  const corpID = req.body.corpID;
+  const manager = req.body.manager;
+  const bank_employee = req.body.bank_employee;
+
+  db.query(
+    "call create_bank(?,?,?,?,?,?,?,?,?,?)",
+    [bankID, bankName, street, city, state, zip, reservedAssets, corpID, manager, bank_employee],
+    (err, result) => {
+      if (err) {
+          console.log(err);
+      } else {
+          console.log(result)
+          console.log("\n create_bank: values inserted");
+          res.send("create_bank: values inserted");
+      }
+    }
+  );
+});
+
 
 
 

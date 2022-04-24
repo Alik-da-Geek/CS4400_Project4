@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Axios from 'axios';
 import "../styles/main.css";
 import "../styles/forms.css";
 import { CreateBankState } from '../types/Props'
@@ -50,19 +51,19 @@ class CreateBank extends React.Component<{}, CreateBankState> {
     this.setState({ state: event.target.value });
   }
   handle_zip_change(event) {
-    this.setState({ state: event.target.zip });
+    this.setState({ zip: event.target.zip });
   }
   handle_reservedAssets_change(event) {
-    this.setState({ state: event.target.reservedAssets });
+    this.setState({ reservedAssets: event.target.reservedAssets });
   }
   handle_corpID_change(event) {
-    this.setState({ state: event.target.corpID });
+    this.setState({ corpID: event.target.corpID });
   }
   handle_manager_change(event) {
-    this.setState({ state: event.target.manager });
+    this.setState({ manager: event.target.manager });
   }
   handle_bank_employee_change(event) {
-    this.setState({ state: event.target.bank_employee });
+    this.setState({ bank_employee: event.target.bank_employee });
   }
 
   clearState(event) {
@@ -84,7 +85,23 @@ class CreateBank extends React.Component<{}, CreateBankState> {
   }
 
   handleSubmit(event) {
-    console.log("corporation created")
+    // send data to back end route {create_corp}
+    Axios.post("http://localhost:3001/create_bank", {
+      bankID: this.state.bankID,
+      bankName: this.state.bankName,
+      street: this.state.street,
+      city: this.state.city,
+      state: this.state.state,
+      zip: this.state.zip,
+      reservedAssets: this.state.reservedAssets,
+      corpID: this.state.corpID,
+      manager: this.state.manager,
+      bank_employee: this.state.bank_employee
+    }).then(() => {
+      console.log("Corporation data sent!");
+    })
+
+    console.log("\ncorporation created")
     console.log(    this.state.bankID + ", " 
                     + this.state.bankName + ", " 
                     + this.state.street + ", "
