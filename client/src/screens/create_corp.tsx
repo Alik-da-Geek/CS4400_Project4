@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Axios from 'axios';
 import "../styles/main.css";
 import "../styles/forms.css";
 import { CreateCorpState } from '../types/Props'
@@ -48,6 +49,16 @@ class CreateCorp extends React.Component<{}, CreateCorpState> {
   }
 
   handleSubmit(event) {
+    // send data to back end route {create_corp}
+    Axios.post("http://localhost:3001/create_corp", {
+      corpID: this.state.corpID,
+      longName: this.state.longName,
+      shortName: this.state.shortName,
+      reservedAssets: this.state.reservedAssets
+    }).then(() => {
+      console.log("Corporation data sent!");
+    })
+
     console.log("corporation created")
     console.log(this.state.corpID + ", " + this.state.longName + ", " + this.state.shortName + ", " + this.state.reservedAssets)
     this.clearState(event)
