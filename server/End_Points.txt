@@ -3,3 +3,6 @@ http://localhost:3001/create_corp
 
 Q2: (create_bank)
 http://localhost:3001/create_bank
+
+Q3: (start_employee_role)
+http://localhost:3001/start_employee_role
