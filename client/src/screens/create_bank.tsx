@@ -9,16 +9,16 @@ class CreateBank extends React.Component<{}, CreateBankState> {
   constructor(props) {
     super(props);
     this.state = {
-        bankID: '',
-        bankName: '',
-        street: '',
-        city: '',
-        state: '',
-        zip: '',
-        reservedAssets: 0,
-        corpID: '',
-        manager: '',
-        bank_employee: ''
+      bankID: '',
+      bankName: '',
+      street: '',
+      city: '',
+      state: '',
+      zip: '',
+      reservedAssets: 0,
+      corpID: '',
+      manager: '',
+      bank_employee: ''
     };
 
     this.handle_bankID_change = this.handle_bankID_change.bind(this);
@@ -69,16 +69,16 @@ class CreateBank extends React.Component<{}, CreateBankState> {
   clearState(event) {
     console.log('cleared')
     this.setState({
-        bankID: '',
-        bankName: '',
-        street: '',
-        city: '',
-        state: '',
-        zip: '',
-        reservedAssets: 0,
-        corpID: '',
-        manager: '',
-        bank_employee: ''
+      bankID: '',
+      bankName: '',
+      street: '',
+      city: '',
+      state: '',
+      zip: '',
+      reservedAssets: 0,
+      corpID: '',
+      manager: '',
+      bank_employee: ''
     })
     event.preventDefault();
 
@@ -102,16 +102,16 @@ class CreateBank extends React.Component<{}, CreateBankState> {
     })
 
     console.log("\ncorporation created")
-    console.log(    this.state.bankID + ", " 
-                    + this.state.bankName + ", " 
-                    + this.state.street + ", "
-                    + this.state.city + ", "
-                    + this.state.state + ", "
-                    + this.state.zip + ", "
-                    + this.state.reservedAssets + ", "
-                    + this.state.corpID + ", "
-                    + this.state.manager + ", "
-                    + this.state.bank_employee  )
+    console.log(this.state.bankID + ", "
+      + this.state.bankName + ", "
+      + this.state.street + ", "
+      + this.state.city + ", "
+      + this.state.state + ", "
+      + this.state.zip + ", "
+      + this.state.reservedAssets + ", "
+      + this.state.corpID + ", "
+      + this.state.manager + ", "
+      + this.state.bank_employee)
     this.clearState(event)
     event.preventDefault();
   }
@@ -180,7 +180,7 @@ class CreateBank extends React.Component<{}, CreateBankState> {
               </label>
               <input type="text" value={this.state.corpID} onChange={this.handle_corpID_change} />
             </div>
-            
+
             <div className="formItem">
               <label>
                 Manager ID:
@@ -194,13 +194,14 @@ class CreateBank extends React.Component<{}, CreateBankState> {
               </label>
               <input type="text" value={this.state.bank_employee} onChange={this.handle_bank_employee_change} />
             </div>
-
-            <button onClick={this.clearState} className="formCancel">
-              Cancel
-            </button>
-            <button onClick={this.handleSubmit} className="formSubmit">
-              Submit
-            </button>
+            <div className="formButtons">
+              <button onClick={this.clearState} className="formCancel">
+                Cancel
+              </button>
+              <button onClick={this.handleSubmit} className="formSubmit">
+                Submit
+              </button>
+            </div>
           </form>
         </div>
       </div>
