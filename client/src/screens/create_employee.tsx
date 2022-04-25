@@ -65,7 +65,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
       // TODO would it be possible to get a response about whether the request succeeded or not?
     })
 
-    console.log("\employee created")
+    console.log("employee created")
     console.log(this.state)
     this.clearState(event)
     event.preventDefault();
