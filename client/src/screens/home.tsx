@@ -17,6 +17,9 @@ class Home extends React.Component {
             <li>
               <Link to="create_bank">Create Bank</Link>
             </li>
+            <li>
+              <Link to="create_employee">Create Employee</Link>
+            </li>
           </ol>
         </div>
       </div>

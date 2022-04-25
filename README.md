@@ -17,3 +17,5 @@ Try executing the following commands in the MySQL Workbench
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 flush privileges;
+
+** node_modules will not be synced to the remote repo
