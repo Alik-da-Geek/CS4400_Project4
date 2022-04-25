@@ -98,12 +98,14 @@ class CreateCorp extends React.Component<{}, CreateCorpState> {
               </label>
               <input type="text" value={this.state.reservedAssets} onChange={this.handleReservedAssetsChange} />
             </div>
-            <button onClick={this.clearState} className="formCancel">
-              Cancel
-            </button>
-            <button onClick={this.handleSubmit} className="formSubmit">
-              Submit
-            </button>
+            <div className="formButtons">
+              <button onClick={this.clearState} className="formCancel">
+                Cancel
+              </button>
+              <button onClick={this.handleSubmit} className="formSubmit">
+                Submit
+              </button>
+            </div>
           </form>
         </div>
       </div>
