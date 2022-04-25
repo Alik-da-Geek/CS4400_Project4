@@ -51,19 +51,19 @@ class CreateBank extends React.Component<{}, CreateBankState> {
     this.setState({ state: event.target.value });
   }
   handle_zip_change(event) {
-    this.setState({ zip: event.target.zip });
+    this.setState({ zip: event.target.value });
   }
   handle_reservedAssets_change(event) {
-    this.setState({ reservedAssets: event.target.reservedAssets });
+    this.setState({ reservedAssets: event.target.value });
   }
   handle_corpID_change(event) {
-    this.setState({ corpID: event.target.corpID });
+    this.setState({ corpID: event.target.value });
   }
   handle_manager_change(event) {
-    this.setState({ manager: event.target.manager });
+    this.setState({ manager: event.target.value });
   }
   handle_bank_employee_change(event) {
-    this.setState({ bank_employee: event.target.bank_employee });
+    this.setState({ bank_employee: event.target.value });
   }
 
   clearState(event) {
