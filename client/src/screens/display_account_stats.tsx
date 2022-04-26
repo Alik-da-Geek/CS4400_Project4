@@ -1,17 +1,21 @@
-import React from "react";
+import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
 import "../styles/main.css";
 import "../styles/forms.css";
 
 class DisplayAccountStats extends React.Component<any, any> {
-    constructor(props: any) {
+    constructor(props) {
         super(props);
+        this.state = {
+            rowData: []
+        };
     }
 
-    handleLoad() {
+    componentDidMount() {
         Axios.get("http://localhost:3001/display_account_stats").then(r => {
-            console.log(r.data)
+            const res = r.data;
+            this.setState({rowData: res});
         });
     }
 
@@ -20,15 +24,51 @@ class DisplayAccountStats extends React.Component<any, any> {
             <div className="container">
                 <div className="mainHeader">
                     <h6><Link to="../">Home</Link></h6>
-                    <h1>Q1: Create Corporation</h1>
+                    <h1>Q20: Display Account Stats</h1>
                 </div>
-                <div>
-                    <button onClick={this.handleLoad} className="formSubmit">
-                        Load
-                    </button>
-                </div>
+                <table style={{ width: 1000 }}>
+                    <thead>
+                        <th>
+                            Bank
+                        </th>
+                        <th>
+                            Account ID
+                        </th>
+                        <th>
+                            Account Balance ($)
+                        </th>
+                        <th>
+                            Number of Owners
+                        </th>
+                    </thead>
+                    <tbody>
+                        {this.state.rowData.map(row => <TableRow row={row} />)}
+                    </tbody>
+                </table>
             </div>
         );
+    }
+}
+
+class TableRow extends Component {
+    render() {
+        var row = this.props.row;
+        return (
+            <tr>
+                <td>
+                    {row.name_of_bank}
+                </td>
+                <td>
+                    {row.account_identifier}
+                </td>
+                <td>
+                    {row.account_assets}
+                </td>
+                <td>
+                    {row.account_owners}
+                </td>
+            </tr>
+        )
     }
 }
 
