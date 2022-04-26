@@ -12,6 +12,8 @@ import CreateEmployee from "./screens/create_employee.tsx";
 // @ts-ignore
 import Login from "./screens/login.tsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+// @ts-ignore
+import DisplayAccountStats from "./screens/display_account_stats.tsx";
 
 
 const rootElement = document.getElementById("root");
@@ -24,6 +26,7 @@ ReactDOM.render(
                 <Route path="create_bank" element={<CreateBank />}></Route>
                 <Route path="create_employee" element={<CreateEmployee />}></Route>
                 <Route path="login" element={<Login />}></Route>
+                <Route path="display_account_stats" element={<DisplayAccountStats />}></Route>
             </Routes>
         </BrowserRouter>
     </div>

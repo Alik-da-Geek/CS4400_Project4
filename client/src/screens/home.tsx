@@ -23,6 +23,9 @@ class Home extends React.Component {
             <li>
               <Link to="login">Login</Link>
             </li>
+            <li>
+              <Link to="display_account_stats">Account Stats</Link>
+            </li>
           </ol>
         </div>
       </div>

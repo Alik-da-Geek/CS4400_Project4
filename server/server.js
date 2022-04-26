@@ -797,6 +797,25 @@ app.post("/accrue_interest", (req, res) => {
 });
 
 
+///////////////////////////////////////////
+//// Q20: display_account_stats ////
+///////////////////////////////////////////
+app.get("/display_account_stats", (req, res) => {
+    db.query(
+        "select * from display_account_stats",
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("\n!!!!! DISPLAY_ACCOUNT_STATS: ERROR RETRIEVING VALUES !!!!!");
+            } else {
+                console.log("\nDISPLAY_ACCOUNT_STATS: VALUES RETRIEVED");
+                res.send(result);
+            }
+            console.log('/////////////////////////////////////////////////////////////////\n')
+        }
+    );
+});
+
 app.listen(3001, () => {
     console.log("Server running on port 3001 ...");
-  });
+});
