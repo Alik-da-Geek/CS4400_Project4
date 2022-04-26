@@ -19,8 +19,7 @@ export interface CreateBankState {
 }
 
 export interface CreateEmployeeState {
-    accountName: string,
-    // accountNumber: number,
+    personID: string,
     salary: number,
     numPayments: number,
     accumulatedEarnings: number
