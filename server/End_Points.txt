@@ -6,3 +6,51 @@ http://localhost:3001/create_bank
 
 Q3: (start_employee_role)
 http://localhost:3001/start_employee_role
+
+Q4: (start_customer_role)
+http://localhost:3001/start_customer_role
+
+Q5: (stop_employee_role)
+http://localhost:3001/stop_employee_role
+
+Q6: (stop_customer_role)
+http://localhost:3001/stop_customer_role
+
+Q7: (hire_worker)
+http://localhost:3001/hire_worker
+
+Q8: (replace_manager)
+http://localhost:3001/replace_manager
+
+Q9: (add_account_access)
+http://localhost:3001/add_account_access
+
+Q10: (remove_account_access)
+http://localhost:3001/remove_account_access
+
+Q11: (create_fee)
+http://localhost:3001/create_fee
+
+Q12: (start_overdraft)
+http://localhost:3001/start_overdraft
+
+Q13: (stop_overdraft)
+http://localhost:3001/stop_overdraft
+
+Q14: (account_deposit)
+http://localhost:3001/account_deposit
+
+Q15: (account_withdrawal)
+http://localhost:3001/account_withdrawal
+
+Q16: (account_transfer)
+http://localhost:3001/account_transfer
+
+Q17: (pay_employees)
+http://localhost:3001/pay_employees
+
+Q18: (penalize_accounts)
+http://localhost:3001/penalize_accounts
+
+Q19: (accrue_interest)
+http://localhost:3001/accrue_interest
