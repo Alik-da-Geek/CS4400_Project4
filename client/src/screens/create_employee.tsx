@@ -9,13 +9,13 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   constructor(props) {
     super(props);
     this.state = {
-      accountName: "",
+      personID: "",
       salary: 0,
       numPayments: 0,
       accumulatedEarnings: 0
     };
 
-    this.handleAccountNameChange = this.handleAccountNameChange.bind(this);
+    this.handlePersonIDChange = this.handlePersonIDChange.bind(this);
     this.handleSalaryChange = this.handleSalaryChange.bind(this);
     this.handleNumPaymentsChange = this.handleNumPaymentsChange.bind(this);
     this.handleAccumulatedEarningsChange = this.handleAccumulatedEarningsChange.bind(this);
@@ -23,8 +23,8 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
     this.clearState = this.clearState.bind(this);
   }
 
-  handleAccountNameChange(event) {
-    this.setState({ accountName: event.target.value });
+  handlePersonIDChange(event) {
+    this.setState({ personID: event.target.value });
   }
   handleSalaryChange(event) {
     if (event.target.validity.valid) {
@@ -45,7 +45,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   clearState(event) {
     console.log('cleared')
     this.setState({
-      accountName: "",
+      personID: "",
       salary: 0,
       numPayments: 0,
       accumulatedEarnings: 0
@@ -53,10 +53,14 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
     event.preventDefault();
   }
 
+  getPeople() {
+
+  }
+
   handleSubmit(event) {
     // send data to back end route {create_corp}
     Axios.post("http://localhost:3001/create_employee", {
-      accountName: this.state.accountName,
+      personID: this.state.personID,
       salary: this.state.salary,
       numPayments: this.state.numPayments,
       accumulatedEarnings: this.state.accumulatedEarnings
@@ -84,10 +88,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
               <label>
                 Account Name:
               </label>
-              <div onChange={this.handleAccountNameChange}>
-                <input type="radio" value="test" name="gender" /> Test
-              </div>
-              <input type="text" value={this.state.accountName} onChange={this.handleAccountNameChange} />
+              <input type="text" value={this.state.personID} onChange={this.handlePersonIDChange} />
             </div>
             <div className="formItem">
               <label>

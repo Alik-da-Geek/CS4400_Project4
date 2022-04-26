@@ -14,6 +14,12 @@ import Login from "./screens/login.tsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // @ts-ignore
 import DisplayAccountStats from "./screens/display_account_stats.tsx";
+// @ts-ignore
+import { CreateCustomer } from "./screens/create_customer.tsx";
+// @ts-ignore
+import { StopCustomer } from "./screens/stop_customer.tsx";
+// @ts-ignore
+import { StopEmployee } from "./screens/stop_employee.tsx";
 
 
 const rootElement = document.getElementById("root");
@@ -25,6 +31,9 @@ ReactDOM.render(
                 <Route path="create_corp" element={<CreateCorp />}></Route>
                 <Route path="create_bank" element={<CreateBank />}></Route>
                 <Route path="create_employee" element={<CreateEmployee />}></Route>
+                <Route path="create_customer" element={<CreateCustomer />}></Route>
+                <Route path="stop_employee" element={<StopEmployee />}></Route>
+                <Route path="stop_customer" element={<StopCustomer />}></Route>
                 <Route path="login" element={<Login />}></Route>
                 <Route path="display_account_stats" element={<DisplayAccountStats />}></Route>
             </Routes>

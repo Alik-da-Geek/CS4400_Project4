@@ -19,11 +19,21 @@ export interface CreateBankState {
 }
 
 export interface CreateEmployeeState {
-    accountName: string,
-    // accountNumber: number,
+    personID: string,
     salary: number,
     numPayments: number,
     accumulatedEarnings: number
+}
+
+export interface CreateCustomerState {
+    accountName: string,
+}
+
+export interface StopEmployeeState {
+    accountName: string,
+}
+export interface StopCustomerState {
+    accountName: string,
 }
 
 export interface LoginState {

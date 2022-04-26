@@ -21,6 +21,15 @@ class Home extends React.Component {
               <Link to="create_employee">Create Employee</Link>
             </li>
             <li>
+              <Link to="create_customer">Create Customer</Link>
+            </li>
+            <li>
+              <Link to="stop_employee">Stop Employee</Link>
+            </li>
+            <li>
+              <Link to="stop_customer">Stop Customer</Link>
+            </li>
+            <li>
               <Link to="login">Login</Link>
             </li>
             <li>
