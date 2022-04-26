@@ -3,48 +3,42 @@ import { Link } from "react-router-dom";
 import Axios from 'axios';
 import "../styles/main.css";
 import "../styles/forms.css";
-import { LoginState } from '../types/State'
+import { StopCustomerState } from '../types/State'
 
-class Login extends React.Component<{}, LoginState> {
+export class StopCustomer extends React.Component<{}, StopCustomerState> {
     constructor(props) {
         super(props);
         this.state = {
-            id: '',
-            password: '',
+            accountName: "",
         };
-        this.handleIDChange = this.handleIDChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+
+        this.handleAccountNameChange = this.handleAccountNameChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearState = this.clearState.bind(this);
     }
 
-    handleIDChange(event) {
-        this.setState({ id: event.target.value });
-    }
-    handlePasswordChange(event) {
-        this.setState({ password: event.target.value });
+    handleAccountNameChange(event) {
+        this.setState({ accountName: event.target.value });
     }
 
     clearState(event) {
         console.log('cleared')
         this.setState({
-            id: '',
-            password: '',
+            accountName: "",
         })
         event.preventDefault();
-
     }
 
     handleSubmit(event) {
         // send data to back end route {create_corp}
-        Axios.post("http://localhost:3001/create_corp", {
-            id: this.state.id,
-            password: this.state.password,
+        Axios.post("http://localhost:3001/create_employee", {
+            accountName: this.state.accountName,
         }).then(() => {
-            console.log("Corporation data sent!");
+            console.log("Customer data sent!");
+            // TODO would it be possible to get a response about whether the request succeeded or not?
         })
 
-        console.log("\ncorporation created")
+        console.log("customer created")
         console.log(this.state)
         this.clearState(event)
         event.preventDefault();
@@ -55,21 +49,15 @@ class Login extends React.Component<{}, LoginState> {
             <div className="container">
                 <div className="mainHeader">
                     <h6><Link to="../">Home</Link></h6>
-                    <h1>Q19: Login</h1>
+                    <h1>Q6: Stop Customer</h1>
                 </div>
                 <div className="formContainer">
                     <form onSubmit={this.handleSubmit}>
                         <div className="formItem">
                             <label>
-                                ID:
+                                Account Name:
                             </label>
-                            <input type="text" value={this.state.id} onChange={this.handleIDChange} />
-                        </div>
-                        <div className="formItem">
-                            <label>
-                                Password:
-                            </label>
-                            <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
+                            <input type="text" value={this.state.accountName} onChange={this.handleAccountNameChange} />
                         </div>
                         <div className="formButtons">
                             <button onClick={this.clearState} className="formCancel">
@@ -85,5 +73,3 @@ class Login extends React.Component<{}, LoginState> {
         );
     }
 }
-
-export default Login;

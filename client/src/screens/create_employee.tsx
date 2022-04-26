@@ -84,9 +84,6 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
               <label>
                 Account Name:
               </label>
-              <div onChange={this.handleAccountNameChange}>
-                <input type="radio" value="test" name="gender" /> Test
-              </div>
               <input type="text" value={this.state.accountName} onChange={this.handleAccountNameChange} />
             </div>
             <div className="formItem">

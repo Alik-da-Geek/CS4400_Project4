@@ -26,6 +26,17 @@ export interface CreateEmployeeState {
     accumulatedEarnings: number
 }
 
+export interface CreateCustomerState {
+    accountName: string,
+}
+
+export interface StopEmployeeState {
+    accountName: string,
+}
+export interface StopCustomerState {
+    accountName: string,
+}
+
 export interface LoginState {
     id: string,
     password: string,
