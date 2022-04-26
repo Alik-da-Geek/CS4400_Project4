@@ -20,6 +20,9 @@ class Home extends React.Component {
             <li>
               <Link to="create_employee">Create Employee</Link>
             </li>
+            <li>
+              <Link to="login">Login</Link>
+            </li>
           </ol>
         </div>
       </div>

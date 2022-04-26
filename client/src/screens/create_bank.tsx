@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Axios from 'axios';
 import "../styles/main.css";
 import "../styles/forms.css";
-import { CreateBankState } from '../types/Props'
+import { CreateBankState } from '../types/State'
 
 class CreateBank extends React.Component<{}, CreateBankState> {
   constructor(props) {

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Axios from 'axios';
 import "../styles/main.css";
 import "../styles/forms.css";
-import { CreateCorpState } from '../types/Props'
+import { CreateCorpState } from '../types/State'
 
 class CreateCorp extends React.Component<{}, CreateCorpState> {
   constructor(props) {

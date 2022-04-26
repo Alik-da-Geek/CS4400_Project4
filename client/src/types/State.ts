@@ -25,3 +25,8 @@ export interface CreateEmployeeState {
     numPayments: number,
     accumulatedEarnings: number
 }
+
+export interface LoginState {
+    id: string,
+    password: string,
+}
