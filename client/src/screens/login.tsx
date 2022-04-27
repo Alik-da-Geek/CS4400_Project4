@@ -53,9 +53,6 @@ class Login extends React.Component<{}, LoginState> {
     render() {
         return (
             <div className="container">
-                <div className="mainHeader">
-                    <h1>Q19: Login</h1>
-                </div>
                 <div className="formContainer">
                     <form onSubmit={this.handleSubmit}>
                         <div className="formItem">

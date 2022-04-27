@@ -16,12 +16,12 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       state: '',
       zip: '',
       reservedAssets: 0,
+      corpIDList: [],
       corpID: '',
+      managerList: [],
       manager: '',
-      managers: [],
-      bank_employee: '',
-      employees: [],
-      corp: []
+      employeeList: [],
+      employee: '',
     };
 
     this.handle_bankID_change = this.handle_bankID_change.bind(this);
@@ -45,8 +45,9 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       for (let i = 0; i < data.length; i++) {
         data[i] = data[i].perID;
       }
-      this.setState({ employees: data });
-      this.setState({ bank_employee: data[0] });
+      console.log(data)
+      this.setState({ employeeList: data });
+      this.setState({ employee: data[0] });
     });
 
     Axios.get("http://localhost:3001/get_corp_ids").then(r => {
@@ -54,7 +55,7 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       for (let i = 0; i < data.length; i++) {
         data[i] = data[i].corpID;
       }
-      this.setState({ corp: data });
+      this.setState({ corpIDList: data });
       this.setState({ corpID: data[0] });
     });
 
@@ -63,7 +64,7 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       for (let i = 0; i < data.length; i++) {
         data[i] = data[i].perID;
       }
-      this.setState({ managers: data });
+      this.setState({ managerList: data });
       this.setState({ manager: data[0] });
     });
   }
@@ -96,7 +97,7 @@ class CreateBank extends React.Component<{}, CreateBankState> {
     this.setState({ manager: event.target.value });
   }
   handle_bank_employee_change(event) {
-    this.setState({ bank_employee: event.target.value });
+    this.setState({ employee: event.target.value });
   }
 
   clearState(event) {
@@ -108,7 +109,10 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       city: '',
       state: '',
       zip: '',
-      reservedAssets: 0
+      reservedAssets: 0,
+      corpID: '',
+      manager: '',
+      employee: '',
     })
     event.preventDefault();
 
@@ -126,7 +130,7 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       reservedAssets: this.state.reservedAssets,
       corpID: this.state.corpID,
       manager: this.state.manager,
-      bank_employee: this.state.bank_employee
+      bankEmployee: this.state.employee
     }).then(() => {
       console.log("Corporation data sent!");
     })
@@ -141,7 +145,7 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       + this.state.reservedAssets + ", "
       + this.state.corpID + ", "
       + this.state.manager + ", "
-      + this.state.bank_employee)
+      + this.state.employee)
     this.clearState(event)
     event.preventDefault();
   }
@@ -209,7 +213,7 @@ class CreateBank extends React.Component<{}, CreateBankState> {
                 Parent Corporation ID:
               </label>
               <select name="selectList" id="selectList" onChange={this.handle_corpID_change}>
-                {this.state.corp.map(id => <option value={id}>{id}</option>)}
+                {this.state.corpIDList.map(id => <option value={id}>{id}</option>)}
               </select>
             </div>
 
@@ -218,7 +222,7 @@ class CreateBank extends React.Component<{}, CreateBankState> {
                 Manager ID:
               </label>
               <select name="selectList" id="selectList" onChange={this.handle_manager_change}>
-                {this.state.managers.map(id => <option value={id}>{id}</option>)}
+                {this.state.managerList.map(id => <option value={id}>{id}</option>)}
               </select>
             </div>
 
@@ -227,7 +231,7 @@ class CreateBank extends React.Component<{}, CreateBankState> {
                 Bank Employee ID:
               </label>
               <select name="selectList" id="selectList" onChange={this.handle_bank_employee_change}>
-                {this.state.employees.map(name => <option value={name}>{name}</option>)}
+                {this.state.employeeList.map(name => <option value={name}>{name}</option>)}
               </select>
             </div>
             <div className="formButtons">

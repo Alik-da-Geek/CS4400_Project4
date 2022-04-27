@@ -3,6 +3,9 @@ export interface HomeState {
     password: string,
     accountID: string,
     loggedIn: boolean,
+    admin: boolean,
+    manager: boolean,
+    customer: boolean,
 }
 export interface CreateCorpState {
     corpID: string,
@@ -19,9 +22,21 @@ export interface CreateBankState {
     state: string,
     zip: string,
     reservedAssets: number,
-    corpID: string,
-    manager: string,
-    bank_employee: string
+    corpIDList: Array<string>,
+    corpID: "",
+    managerList: Array<string>,
+    manager: "",
+    employeeList: Array<string>,
+    employee: ""
+}
+
+export interface CreateBankProps {
+    corpIDList: Array<string>,
+    peopleIDList: Array<string>,
+}
+
+export interface GeneralProps {
+
 }
 
 export interface CreateEmployeeState {

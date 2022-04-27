@@ -12,12 +12,13 @@
   text-align: center;
   align-items: center;
   justify-content: center;
-  background: #6699CC;
-  color: #FFFFFF;
+  background: #6699cc;
+  color: #ffffff;
   font-size: 30px;
+  margin-bottom: 20px;
 
-  -webkit-box-shadow: 0px -3px 25px 3px rgba(0,0,0,0.76);
-  box-shadow: 0px -3px 25px 3px rgba(0,0,0,0.76);
+  -webkit-box-shadow: 0px -3px 25px 3px rgba(0, 0, 0, 0.76);
+  box-shadow: 0px -3px 25px 3px rgba(0, 0, 0, 0.76);
 }
 
 .mainHeader h1 {
@@ -48,12 +49,12 @@ body {
   font-family: sans-serif;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .styled-table thead tr {
-  background-color: #6699CC;
+  background-color: #6699cc;
   color: #ffffff;
   text-align: left;
 }
@@ -72,7 +73,7 @@ body {
 }
 
 .styled-table tbody tr:last-of-type {
-  border-bottom: thin solid #6699CC;
+  border-bottom: thin solid #6699cc;
 }
 
 .styled-table tbody tr.active-row {
