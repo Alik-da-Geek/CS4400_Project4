@@ -18,7 +18,10 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       reservedAssets: 0,
       corpID: '',
       manager: '',
-      bank_employee: ''
+      managers: [],
+      bank_employee: '',
+      employees: [],
+      corp: []
     };
 
     this.handle_bankID_change = this.handle_bankID_change.bind(this);
@@ -33,6 +36,36 @@ class CreateBank extends React.Component<{}, CreateBankState> {
     this.handle_bank_employee_change = this.handle_bank_employee_change.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearState = this.clearState.bind(this);
+  }
+
+  componentDidMount() {
+    let data = [];
+    Axios.get("http://localhost:3001/get_per_id").then(r => {
+      data = r.data;
+      for (let i = 0; i < data.length; i++) {
+        data[i] = data[i].perID;
+      }
+      this.setState({ employees: data });
+      this.setState({ bank_employee: data[0] });
+    });
+
+    Axios.get("http://localhost:3001/get_corp_ids").then(r => {
+      data = r.data;
+      for (let i = 0; i < data.length; i++) {
+        data[i] = data[i].corpID;
+      }
+      this.setState({ corp: data });
+      this.setState({ corpID: data[0] });
+    });
+
+    Axios.get("http://localhost:3001/get_available_manager_ids").then(r => {
+      data = r.data;
+      for (let i = 0; i < data.length; i++) {
+        data[i] = data[i].perID;
+      }
+      this.setState({ managers: data });
+      this.setState({ manager: data[0] });
+    });
   }
 
   handle_bankID_change(event) {
@@ -75,10 +108,7 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       city: '',
       state: '',
       zip: '',
-      reservedAssets: 0,
-      corpID: '',
-      manager: '',
-      bank_employee: ''
+      reservedAssets: 0
     })
     event.preventDefault();
 
@@ -178,21 +208,27 @@ class CreateBank extends React.Component<{}, CreateBankState> {
               <label>
                 Parent Corporation ID:
               </label>
-              <input type="text" value={this.state.corpID} onChange={this.handle_corpID_change} />
+              <select name="selectList" id="selectList" onChange={this.handle_corpID_change}>
+                {this.state.corp.map(id => <option value={id}>{id}</option>)}
+              </select>
             </div>
 
             <div className="formItem">
               <label>
                 Manager ID:
               </label>
-              <input type="text" value={this.state.manager} onChange={this.handle_manager_change} />
+              <select name="selectList" id="selectList" onChange={this.handle_manager_change}>
+                {this.state.managers.map(id => <option value={id}>{id}</option>)}
+              </select>
             </div>
 
             <div className="formItem">
               <label>
                 Bank Employee ID:
               </label>
-              <input type="text" value={this.state.bank_employee} onChange={this.handle_bank_employee_change} />
+              <select name="selectList" id="selectList" onChange={this.handle_bank_employee_change}>
+                {this.state.employees.map(name => <option value={name}>{name}</option>)}
+              </select>
             </div>
             <div className="formButtons">
               <button onClick={this.clearState} className="formCancel">

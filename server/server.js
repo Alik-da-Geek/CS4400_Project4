@@ -898,6 +898,67 @@ app.get("/display_employee_stats", (req, res) => {
     );
 });
 
+
+//Gets Employees for banks
+app.get("/get_per_id", (req, res) => {
+    console.log('\n/////////////////////////////////////////////////////////////////')
+    db.query(
+        "select perID from employee " +
+        "where perID not in (select perID from system_admin)" +
+        "and perID not in (select manager from bank)",
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("\n!!!!! GET_PER_IDS: ERROR RETRIEVING VALUES !!!!!");
+            } else {
+                console.log("\nGET_PER_IDS: VALUES RETRIEVED");
+                res.send(result);
+            }
+            console.log('/////////////////////////////////////////////////////////////////\n')
+        }
+    );
+});
+
+//Gets Corporation IDS
+app.get("/get_corp_ids", (req, res) => {
+    console.log('\n/////////////////////////////////////////////////////////////////')
+    db.query(
+        "select corpID from corporation ",
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("\n!!!!! GET_CORP_IDS: ERROR RETRIEVING VALUES !!!!!");
+            } else {
+                console.log("\nGET_CORP_IDS: VALUES RETRIEVED");
+                res.send(result);
+            }
+            console.log('/////////////////////////////////////////////////////////////////\n')
+        }
+    );
+});
+
+//Gets available managers
+app.get("/get_available_manager_ids", (req, res) => {
+    console.log('\n/////////////////////////////////////////////////////////////////')
+    db.query(
+        "select perID from employee " +
+        "where perID not in (select perID from system_admin) " +
+        "and perID not in (select manager from bank)" +
+        "and PerID not in (select perID from workFor)",
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("\n!!!!! get_available_manager_ids: ERROR RETRIEVING VALUES !!!!!");
+            } else {
+                console.log("\nget_available_manager_ids: VALUES RETRIEVED");
+                res.send(result);
+            }
+            console.log('/////////////////////////////////////////////////////////////////\n')
+        }
+    );
+});
+
+
 app.listen(3001, () => {
     console.log("Server running on port 3001 ...");
 });
