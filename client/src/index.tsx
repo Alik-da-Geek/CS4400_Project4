@@ -22,6 +22,12 @@ import { CreateCustomer } from "./screens/create_customer.tsx";
 import { StopCustomer } from "./screens/stop_customer.tsx";
 // @ts-ignore
 import { StopEmployee } from "./screens/stop_employee.tsx";
+// @ts-ignore
+import DisplayCustomerStats from "./screens/display_customer_stats.tsx";
+// @ts-ignore
+import DisplayBankStats from "./screens/display_bank_stats.tsx";
+// @ts-ignore
+import DisplayEmployeeStats from "./screens/display_employee_stats.tsx";
 
 
 const rootElement = document.getElementById("root");
@@ -38,7 +44,10 @@ ReactDOM.render(
                 <Route path="stop_customer" element={<StopCustomer />}></Route>
                 <Route path="login" element={<Login />}></Route>
                 <Route path="display_account_stats" element={<DisplayAccountStats />}></Route>
+                <Route path="display_bank_stats" element={<DisplayBankStats />}></Route>
                 <Route path="display_corporation_stats" element={<DisplayCorporationStats />}></Route>
+                <Route path="display_customer_stats" element={<DisplayCustomerStats />}></Route>
+                <Route path="display_employee_stats" element={<DisplayEmployeeStats />}></Route>
             </Routes>
         </BrowserRouter>
     </div>

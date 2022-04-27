@@ -26,8 +26,9 @@ class DisplayAccountStats extends React.Component<any, any> {
                     <h6><Link to="../">Home</Link></h6>
                     <h1>Q20: Display Account Stats</h1>
                 </div>
-                <table style={{ width: 1000 }}>
+                <table className="styled-table">
                     <thead>
+                        <tr>
                         <th>
                             Bank
                         </th>
@@ -40,6 +41,7 @@ class DisplayAccountStats extends React.Component<any, any> {
                         <th>
                             Number of Owners
                         </th>
+                        </tr>
                     </thead>
                     <tbody>
                         {this.state.rowData.map(row => <TableRow row={row} />)}

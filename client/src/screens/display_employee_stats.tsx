@@ -4,7 +4,7 @@ import Axios from 'axios';
 import "../styles/main.css";
 import "../styles/forms.css";
 
-class DisplayCorporationStats extends React.Component<any, any> {
+class DisplayEmployeeStats extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,7 +13,7 @@ class DisplayCorporationStats extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        Axios.get("http://localhost:3001/display_corporation_stats").then(r => {
+        Axios.get("http://localhost:3001/display_employee_stats").then(r => {
             const res = r.data;
             this.setState({rowData: res});
         });
@@ -24,28 +24,43 @@ class DisplayCorporationStats extends React.Component<any, any> {
             <div className="container">
                 <div className="mainHeader">
                     <h6><Link to="../">Home</Link></h6>
-                    <h1>Q22: Display Corporation Stats</h1>
+                    <h1>Q24: Display Employee Stats</h1>
                 </div>
                 <table className="styled-table">
                     <thead>
                     <tr>
                     <th>
-                        Corporation ID
+                        Per ID
                     </th>
                     <th>
-                        Short Name
+                        TAX ID
                     </th>
                     <th>
-                        Formal Name
+                        Name
+                    </th>
+                    <th>
+                        DOB
+                    </th>
+                    <th>
+                        Date Joined
+                    </th>
+                    <th>
+                        Street
+                    </th>
+                    <th>
+                        City
+                    </th>
+                    <th>
+                        State
+                    </th>
+                    <th>
+                        Zip
                     </th>
                     <th>
                         Number of Banks
                     </th>
                     <th>
-                        Corporation Assets ($)
-                    </th>
-                    <th>
-                        Total Assets ($)
+                        Bank Assets
                     </th>
                     </tr>
                     </thead>
@@ -64,26 +79,41 @@ class TableRow extends Component {
         return (
             <tr>
                 <td>
-                    {row.corporation_identifier}
+                    {row.person_identifier}
                 </td>
                 <td>
-                    {row.short_name}
+                    {row.tax_identifier}
                 </td>
                 <td>
-                    {row.formal_name}
+                    {row.customer_name}
+                </td>
+                <td>
+                    {row.date_of_birth}
+                </td>
+                <td>
+                    {row.joined_system}
+                </td>
+                <td>
+                    {row.street}
+                </td>
+                <td>
+                    {row.city}
+                </td>
+                <td>
+                    {row.state}
+                </td>
+                <td>
+                    {row.zip}
                 </td>
                 <td>
                     {row.number_of_banks}
                 </td>
                 <td>
-                    {row.corporation_assets}
-                </td>
-                <td>
-                    {row.total_assets}
+                    {row.bank_assets}
                 </td>
             </tr>
         )
     }
 }
 
-export default DisplayCorporationStats;
+export default DisplayEmployeeStats;
