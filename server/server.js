@@ -801,6 +801,7 @@ app.post("/accrue_interest", (req, res) => {
 //// Q20: display_account_stats ////
 ///////////////////////////////////////////
 app.get("/display_account_stats", (req, res) => {
+    console.log('\n/////////////////////////////////////////////////////////////////')
     db.query(
         "select * from display_account_stats",
         (err, result) => {
@@ -809,6 +810,87 @@ app.get("/display_account_stats", (req, res) => {
                 console.log("\n!!!!! DISPLAY_ACCOUNT_STATS: ERROR RETRIEVING VALUES !!!!!");
             } else {
                 console.log("\nDISPLAY_ACCOUNT_STATS: VALUES RETRIEVED");
+                res.send(result);
+            }
+            console.log('/////////////////////////////////////////////////////////////////\n')
+        }
+    );
+});
+
+
+///////////////////////////////////////////
+//// Q21: display_bank_stats ////
+///////////////////////////////////////////
+app.get("/display_bank_stats", (req, res) => {
+    console.log('\n/////////////////////////////////////////////////////////////////')
+    db.query(
+        "select * from display_bank_stats",
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("\n!!!!! DISPLAY_BANK_STATS: ERROR RETRIEVING VALUES !!!!!");
+            } else {
+                console.log("\nDISPLAY_BANK_STATS: VALUES RETRIEVED");
+                res.send(result);
+            }
+            console.log('/////////////////////////////////////////////////////////////////\n')
+        }
+    );
+});
+
+///////////////////////////////////////////
+//// Q22: display_corporation_stats ////
+///////////////////////////////////////////
+app.get("/display_corporation_stats", (req, res) => {
+    console.log('\n/////////////////////////////////////////////////////////////////')
+    db.query(
+        "select * from display_corporation_stats",
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("\n!!!!! DISPLAY_CORPORATION_STATS: ERROR RETRIEVING VALUES !!!!!");
+            } else {
+                console.log("\nDISPLAY_CORPORATION_STATS: VALUES RETRIEVED");
+                res.send(result);
+            }
+            console.log('/////////////////////////////////////////////////////////////////\n')
+        }
+    );
+});
+
+///////////////////////////////////////////
+//// Q23: display_customer_stats ////
+///////////////////////////////////////////
+app.get("/display_customer_stats", (req, res) => {
+    console.log('\n/////////////////////////////////////////////////////////////////')
+    db.query(
+        "select * from display_customer_stats",
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("\n!!!!! DISPLAY_CUSTOMER_STATS: ERROR RETRIEVING VALUES !!!!!");
+            } else {
+                console.log("\nDISPLAY_CUSTOMER_STATS: VALUES RETRIEVED");
+                res.send(result);
+            }
+            console.log('/////////////////////////////////////////////////////////////////\n')
+        }
+    );
+});
+
+///////////////////////////////////////////
+//// Q24: display_employee_stats ////
+///////////////////////////////////////////
+app.get("/display_employee_stats", (req, res) => {
+    console.log('\n/////////////////////////////////////////////////////////////////')
+    db.query(
+        "select * from display_employee_stats",
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("\n!!!!! DISPLAY_EMPLOYEE_STATS: ERROR RETRIEVING VALUES !!!!!");
+            } else {
+                console.log("\nDISPLAY_EMPLOYEE_STATS: VALUES RETRIEVED");
                 res.send(result);
             }
             console.log('/////////////////////////////////////////////////////////////////\n')

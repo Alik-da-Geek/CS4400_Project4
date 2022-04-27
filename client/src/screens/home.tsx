@@ -35,6 +35,9 @@ class Home extends React.Component {
             <li>
               <Link to="display_account_stats">Account Stats</Link>
             </li>
+            <li>
+              <Link to="display_corporation_stats">Corporation Stats</Link>
+            </li>
           </ol>
         </div>
       </div>

@@ -15,6 +15,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // @ts-ignore
 import DisplayAccountStats from "./screens/display_account_stats.tsx";
 // @ts-ignore
+import DisplayCorporationStats from "./screens/display_corporation_stats.tsx";
+// @ts-ignore
 import { CreateCustomer } from "./screens/create_customer.tsx";
 // @ts-ignore
 import { StopCustomer } from "./screens/stop_customer.tsx";
@@ -36,6 +38,7 @@ ReactDOM.render(
                 <Route path="stop_customer" element={<StopCustomer />}></Route>
                 <Route path="login" element={<Login />}></Route>
                 <Route path="display_account_stats" element={<DisplayAccountStats />}></Route>
+                <Route path="display_corporation_stats" element={<DisplayCorporationStats />}></Route>
             </Routes>
         </BrowserRouter>
     </div>
