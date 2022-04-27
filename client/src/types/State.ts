@@ -1,3 +1,9 @@
+export interface HomeState {
+    username: string,
+    password: string,
+    accountID: string,
+    loggedIn: boolean,
+}
 export interface CreateCorpState {
     corpID: string,
     longName: string,
@@ -40,3 +46,4 @@ export interface LoginState {
     id: string,
     password: string,
 }
+
