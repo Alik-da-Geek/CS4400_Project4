@@ -54,7 +54,6 @@ class Login extends React.Component<{}, LoginState> {
         return (
             <div className="container">
                 <div className="mainHeader">
-                    <h6><Link to="../">Home</Link></h6>
                     <h1>Q19: Login</h1>
                 </div>
                 <div className="formContainer">

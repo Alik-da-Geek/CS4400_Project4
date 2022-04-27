@@ -1,14 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/main.css";
+import { HomeState } from "../types/State";
+//@ts-ignore
+import Login from "./login.tsx";
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div className="container">
-        <div className="mainHeader">
-          <h1>CS 4400 Phase 4</h1>
-        </div>
+class Home extends React.Component<{}, HomeState> {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loggedIn: true,
+      username: "",
+      password: "",
+      accountID: "",
+    }
+    this.getScreen = this.getScreen.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
+  }
+
+  getScreen() {
+    if (this.state.loggedIn) {
+      return (
         <div className="list">
           <ol>
             <li>
@@ -30,9 +42,6 @@ class Home extends React.Component {
               <Link to="stop_customer">Stop Customer</Link>
             </li>
             <li>
-              <Link to="login">Login</Link>
-            </li>
-            <li>
               <Link to="display_account_stats">Account Stats</Link>
             </li>
             <li>
@@ -40,6 +49,30 @@ class Home extends React.Component {
             </li>
           </ol>
         </div>
+      )
+    } else {
+      return <Login />
+    }
+  }
+
+  handleLogout() {
+    this.setState({
+      loggedIn: false,
+      username: "",
+      password: "",
+      accountID: "",
+    })
+  }
+
+  render() {
+    let homePage = this.getScreen()
+    return (
+      <div className="container">
+        <div className="mainHeader">
+          <h1>CS 4400 Phase 4</h1>
+          <h6 onClick={this.handleLogout}>Logout</h6>
+        </div>
+        {homePage}
       </div>
     );
   }
