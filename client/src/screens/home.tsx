@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/main.css";
 import { HomeState } from "../types/State";
+import { LoginProps } from "../types/props";
 //@ts-ignore
 import Login from "./login.tsx";
 
@@ -11,14 +12,41 @@ class Home extends React.Component<{}, HomeState> {
     this.state = {
       loggedIn: true,
       admin: true,
-      manager: true,
-      customer: true,
+      manager: false,
+      customer: false,
       username: "",
       password: "",
       accountID: "",
     }
+    this.changeRole = this.changeRole.bind(this)
     this.getScreen = this.getScreen.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+  }
+
+  changeRole(role: string, username: string, password: string) {
+    if (role === 'NA') {
+      return
+    }
+    // TODO discrepancy between admin, customer, employee and admin, manager, customer
+    this.setState({
+      loggedIn: true,
+      username: username,
+      password: password,
+    })
+    if (role === 'admin') {
+      this.setState({
+        admin: true,
+      })
+    } else if (role === 'employee' || role === 'double') {
+      this.setState({
+        manager: true,
+        customer: true,
+      })
+    } else if (role === 'customer') {
+      this.setState({
+        customer: true,
+      })
+    }
   }
 
   getScreen() {
@@ -125,7 +153,10 @@ class Home extends React.Component<{}, HomeState> {
         </div>
       )
     } else {
-      return <Login />
+      const LoginProp: LoginProps = {
+        setRole: this.changeRole,
+      }
+      return <Login {...LoginProp} />
     }
   }
 

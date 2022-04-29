@@ -40,16 +40,6 @@ class CreateBank extends React.Component<{}, CreateBankState> {
 
   componentDidMount() {
     let data = [];
-    Axios.get("http://localhost:3001/get_per_id").then(r => {
-      data = r.data;
-      for (let i = 0; i < data.length; i++) {
-        data[i] = data[i].perID;
-      }
-      console.log(data)
-      this.setState({ employeeList: data });
-      this.setState({ employee: data[0] });
-    });
-
     Axios.get("http://localhost:3001/get_corp_ids").then(r => {
       data = r.data;
       for (let i = 0; i < data.length; i++) {
@@ -66,6 +56,15 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       }
       this.setState({ managerList: data });
       this.setState({ manager: data[0] });
+    });
+    //TODO I changed this to get_employee_id from get_per_id (which doesn't exist), is this the correct behavior?
+    Axios.get("http://localhost:3001/get_employee_id").then(r => {
+      data = r.data;
+      for (let i = 0; i < data.length; i++) {
+        data[i] = data[i].perID;
+      }
+      this.setState({ employeeList: data });
+      this.setState({ employee: data[0] });
     });
   }
 
@@ -132,10 +131,8 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       manager: this.state.manager,
       bankEmployee: this.state.employee
     }).then(() => {
-      console.log("Corporation data sent!");
+      console.log("Bank data sent!");
     })
-
-    console.log("\ncorporation created")
     console.log(this.state.bankID + ", "
       + this.state.bankName + ", "
       + this.state.street + ", "

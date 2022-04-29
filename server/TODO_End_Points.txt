@@ -1,0 +1,14 @@
+Q19: given a username and password, return true or false depending on whether the login information is correct. 
+Also return their role (e.g. admin, employee, manager)
+
+
+Q3, Q4, Q5, Q6: get a list of people from the database. 
+If you give me all the infromation I can manage it and send it back in accordance to the query we have in the sql
+
+Q7: Given, a customer ID, get a list of banks
+
+Q8,Q9: Given a customer ID, return list of accounts. Then, given an account, return customers that have access
+
+Q11, Q14, Q15, Q16: Given a customer ID, return a list of their banks and accounts
+
+
