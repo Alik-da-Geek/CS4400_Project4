@@ -1,14 +1,14 @@
-Q19: given a username and password, return true or false depending on whether the login information is correct. 
-Also return their role (e.g. admin, employee, manager)
+POSSIBLE ERRORS:
 
+Create Bank: Am I getting the right vlaues for Bank Employee
 
-Q3, Q4, Q5, Q6: get a list of people from the database. 
-If you give me all the infromation I can manage it and send it back in accordance to the query we have in the sql
+Create Employee: I need a list of people, not just employees, for the dropdown.
+I am currently using get_employee_id but I need get_person_id I think?
 
-Q7: Given, a customer ID, get a list of banks
+Create Customer: I need a list of people, not just employees, for the dropdown.
+I am currently using get_employee_id but I need get_person_id I think?
 
-Q8,Q9: Given a customer ID, return list of accounts. Then, given an account, return customers that have access
+Hire Worker: I don't have a salary to pass the database
 
-Q11, Q14, Q15, Q16: Given a customer ID, return a list of their banks and accounts
-
-
+Create Fee: How do I send a get request with the request data? 
+(I can figure this out on my own, I just don't want to forget)

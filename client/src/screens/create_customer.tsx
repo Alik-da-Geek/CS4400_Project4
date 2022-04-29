@@ -20,6 +20,7 @@ export class CreateCustomer extends React.Component<{}, CreateCustomerState> {
 
   componentDidMount() {
     let data = [];
+    //TODO should I get employees or people too
     Axios.get("http://localhost:3001/get_employee_id").then(r => {
       data = r.data;
       for (let i = 0; i < data.length; i++) {

@@ -207,28 +207,28 @@ class CreateBank extends React.Component<{}, CreateBankState> {
 
             <div className="formItem">
               <label>
-                Parent Corporation ID:
+                Parent Corporation:
               </label>
               <select name="selectList" id="selectList" onChange={this.handle_corpID_change}>
-                {this.state.corpIDList.map(id => <option value={id}>{id}</option>)}
+                {this.state.corpIDList.map(id => <option key={id} value={id}>{id}</option>)}
               </select>
             </div>
 
             <div className="formItem">
               <label>
-                Manager ID:
+                Manager:
               </label>
               <select name="selectList" id="selectList" onChange={this.handle_manager_change}>
-                {this.state.managerList.map(id => <option value={id}>{id}</option>)}
+                {this.state.managerList.map(id => <option key={id} value={id}>{id}</option>)}
               </select>
             </div>
 
             <div className="formItem">
               <label>
-                Bank Employee ID:
+                Bank Employee:
               </label>
               <select name="selectList" id="selectList" onChange={this.handle_bank_employee_change}>
-                {this.state.employeeList.map(name => <option value={name}>{name}</option>)}
+                {this.state.employeeList.map(name => <option key={name} value={name}>{name}</option>)}
               </select>
             </div>
             <div className="formButtons">

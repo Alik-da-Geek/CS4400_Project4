@@ -12,8 +12,8 @@ class Home extends React.Component<{}, HomeState> {
     this.state = {
       loggedIn: true,
       admin: true,
-      manager: false,
-      customer: false,
+      manager: true,
+      customer: true,
       username: "",
       password: "",
       accountID: "",
@@ -83,15 +83,16 @@ class Home extends React.Component<{}, HomeState> {
             {(this.state.admin || this.state.manager) &&
               <li>
                 <Link to="hire_worker">Hire Worker</Link>
-              </li>}
-            {(this.state.admin || this.state.manager) &&
-              <li>
-                <Link to="pay_employees">Pay Employees</Link>
               </li>
             }
             {this.state.admin &&
               <li>
                 <Link to="replace_manager">Replace Manager</Link>
+              </li>
+            }
+            {(this.state.admin || this.state.manager) &&
+              <li>
+                <Link to="pay_employees">Pay Employees</Link>
               </li>
             }
             {this.state.admin &&

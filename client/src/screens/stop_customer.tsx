@@ -20,8 +20,9 @@ export class StopCustomer extends React.Component<{}, StopCustomerState> {
 
     componentDidMount() {
         let data = [];
-        Axios.get("http://localhost:3001/get_employee_id").then(r => {
+        Axios.get("http://localhost:3001/get_customer_IDs").then(r => {
             data = r.data;
+            console.log(data)
             for (let i = 0; i < data.length; i++) {
                 data[i] = data[i].perID;
             }
@@ -44,7 +45,7 @@ export class StopCustomer extends React.Component<{}, StopCustomerState> {
 
     handleSubmit(event) {
         Axios.post("http://localhost:3001/stop_customer_role", {
-            accountName: this.state.personID,
+            perID: this.state.personID,
         }).then(() => {
             console.log("Customer data sent!");
         })

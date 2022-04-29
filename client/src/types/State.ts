@@ -57,3 +57,25 @@ export interface LoginState {
     password: string,
 }
 
+export interface HireWorkerState {
+    bankList: Array<string>,
+    bank: string,
+    employeeList: Array<string>,
+    employee: string,
+}
+
+export interface ReplaceManagerState {
+    bankList: Array<string>,
+    bank: string,
+    employeeList: Array<string>,
+    employee: string,
+    salary: number,
+}
+
+export interface CreateFeeState {
+    bankList: Array<string>,
+    bank: string,
+    accountList: Array<string>,
+    account: string,
+    feeType: string,
+}

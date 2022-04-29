@@ -44,9 +44,10 @@ export class StopEmployee extends React.Component<{}, StopEmployeeState> {
 
     handleSubmit(event) {
         Axios.post("http://localhost:3001/stop_employee_role", {
-            accountName: this.state.personID,
-        }).then(() => {
-            console.log("Customer data sent!");
+            perID: this.state.personID,
+        }).then((res) => {
+            console.log("Response:");
+            console.log(res.data)
         })
         this.clearState(event)
         event.preventDefault();

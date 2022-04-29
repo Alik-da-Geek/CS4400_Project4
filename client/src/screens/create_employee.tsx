@@ -26,6 +26,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
 
   componentDidMount() {
     let data = [];
+    //TODO check this endpoint
     Axios.get("http://localhost:3001/get_employee_id").then(r => {
       data = r.data;
       for (let i = 0; i < data.length; i++) {
