@@ -30,16 +30,8 @@ export interface CreateBankState {
     employee: ""
 }
 
-export interface CreateBankProps {
-    corpIDList: Array<string>,
-    peopleIDList: Array<string>,
-}
-
-export interface GeneralProps {
-
-}
-
 export interface CreateEmployeeState {
+    personList: Array<string>,
     personID: string,
     salary: number,
     numPayments: number,
@@ -47,14 +39,17 @@ export interface CreateEmployeeState {
 }
 
 export interface CreateCustomerState {
-    accountName: string,
+    personList: Array<string>,
+    personID: string,
 }
 
 export interface StopEmployeeState {
-    accountName: string,
+    personList: Array<string>,
+    personID: string,
 }
 export interface StopCustomerState {
-    accountName: string,
+    personList: Array<string>,
+    personID: string,
 }
 
 export interface LoginState {
