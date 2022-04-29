@@ -810,6 +810,7 @@ app.get("/display_account_stats", (req, res) => {
                 console.log("\n!!!!! DISPLAY_ACCOUNT_STATS: ERROR RETRIEVING VALUES !!!!!");
             } else {
                 console.log("\nDISPLAY_ACCOUNT_STATS: VALUES RETRIEVED");
+                console.log(result);
                 res.send(result);
             }
             console.log('/////////////////////////////////////////////////////////////////\n')
@@ -831,6 +832,7 @@ app.get("/display_bank_stats", (req, res) => {
                 console.log("\n!!!!! DISPLAY_BANK_STATS: ERROR RETRIEVING VALUES !!!!!");
             } else {
                 console.log("\nDISPLAY_BANK_STATS: VALUES RETRIEVED");
+                console.log(result);
                 res.send(result);
             }
             console.log('/////////////////////////////////////////////////////////////////\n')
@@ -851,6 +853,7 @@ app.get("/display_corporation_stats", (req, res) => {
                 console.log("\n!!!!! DISPLAY_CORPORATION_STATS: ERROR RETRIEVING VALUES !!!!!");
             } else {
                 console.log("\nDISPLAY_CORPORATION_STATS: VALUES RETRIEVED");
+                console.log(result);
                 res.send(result);
             }
             console.log('/////////////////////////////////////////////////////////////////\n')
@@ -871,6 +874,7 @@ app.get("/display_customer_stats", (req, res) => {
                 console.log("\n!!!!! DISPLAY_CUSTOMER_STATS: ERROR RETRIEVING VALUES !!!!!");
             } else {
                 console.log("\nDISPLAY_CUSTOMER_STATS: VALUES RETRIEVED");
+                console.log(result);
                 res.send(result);
             }
             console.log('/////////////////////////////////////////////////////////////////\n')
@@ -891,6 +895,7 @@ app.get("/display_employee_stats", (req, res) => {
                 console.log("\n!!!!! DISPLAY_EMPLOYEE_STATS: ERROR RETRIEVING VALUES !!!!!");
             } else {
                 console.log("\nDISPLAY_EMPLOYEE_STATS: VALUES RETRIEVED");
+                console.log(result);
                 res.send(result);
             }
             console.log('/////////////////////////////////////////////////////////////////\n')
@@ -898,9 +903,9 @@ app.get("/display_employee_stats", (req, res) => {
     );
 });
 
-
-//Gets Employees for banks
-app.get("/get_per_id", (req, res) => {
+// H1
+//Gets Employee ID for banks
+app.get("/get_employee_id", (req, res) => {
     console.log('\n/////////////////////////////////////////////////////////////////')
     db.query(
         "select perID from employee " +
@@ -909,9 +914,10 @@ app.get("/get_per_id", (req, res) => {
         (err, result) => {
             if (err) {
                 console.log(err);
-                console.log("\n!!!!! GET_PER_IDS: ERROR RETRIEVING VALUES !!!!!");
+                console.log("\n!!!!! GET_EMPLOYEE_ID: ERROR RETRIEVING VALUES !!!!!");
             } else {
-                console.log("\nGET_PER_IDS: VALUES RETRIEVED");
+                console.log("\nGET_EMPLOYEE_ID: VALUES RETRIEVED");
+                console.log(result);
                 res.send(result);
             }
             console.log('/////////////////////////////////////////////////////////////////\n')
@@ -919,6 +925,7 @@ app.get("/get_per_id", (req, res) => {
     );
 });
 
+// H2
 //Gets Corporation IDS
 app.get("/get_corp_ids", (req, res) => {
     console.log('\n/////////////////////////////////////////////////////////////////')
@@ -928,8 +935,10 @@ app.get("/get_corp_ids", (req, res) => {
             if (err) {
                 console.log(err);
                 console.log("\n!!!!! GET_CORP_IDS: ERROR RETRIEVING VALUES !!!!!");
+                res.send(error)
             } else {
                 console.log("\nGET_CORP_IDS: VALUES RETRIEVED");
+                console.log(result);
                 res.send(result);
             }
             console.log('/////////////////////////////////////////////////////////////////\n')
@@ -937,6 +946,7 @@ app.get("/get_corp_ids", (req, res) => {
     );
 });
 
+// H3
 //Gets available managers
 app.get("/get_available_manager_ids", (req, res) => {
     console.log('\n/////////////////////////////////////////////////////////////////')
@@ -944,13 +954,14 @@ app.get("/get_available_manager_ids", (req, res) => {
         "select perID from employee " +
         "where perID not in (select perID from system_admin) " +
         "and perID not in (select manager from bank)" +
-        "and PerID not in (select perID from workFor)",
+        "and perID not in (select perID from workFor)",
         (err, result) => {
             if (err) {
                 console.log(err);
-                console.log("\n!!!!! get_available_manager_ids: ERROR RETRIEVING VALUES !!!!!");
+                console.log("\n!!!!! GET_AVAILABLE_MANAGER_IDS: ERROR RETRIEVING VALUES !!!!!");
             } else {
-                console.log("\nget_available_manager_ids: VALUES RETRIEVED");
+                console.log("\nGET_AVAILABLE_MANAGER_IDS: VALUES RETRIEVED");
+                console.log(result);
                 res.send(result);
             }
             console.log('/////////////////////////////////////////////////////////////////\n')
@@ -958,6 +969,217 @@ app.get("/get_available_manager_ids", (req, res) => {
     );
 });
 
+// H4
+// Check person role in database provided perID and password
+// Inputs: varchar perID, varchar pwd
+// Returns: 'admin', 'customer', 'employee', 'double' (employee and customer at the same time), 'NA' (not found in databse)
+var check_per_type_idx = 0;
+app.post("/check_per_type", (req, res) => {
+  check_per_type_idx++;
+
+  const perID = req.body.perID;
+  const pwd = req.body.pwd;
+
+  console.log('\n/////////////////////////////////////////////////////////////////')
+  console.log('CHECK_PER_TYPE call ' + check_per_type_idx + '\n');
+  console.log(  'Received Data\n' +
+                '--------------------------\n' +
+                'perID: ' + perID + '\n' +
+                'pwd: ' + pwd + '\n' + 
+                '--------------------------\n'  );
+
+  db.query(
+    "select check_per_type(?,?);",
+    [perID, pwd],
+    (err, result) => {
+      if (err) {
+          console.log(err);
+          console.log("\n!!!!! CHECK_PER_TYPE: ERROR CHECKING !!!!!");
+          res.send("CHECK_PER_TYPE call " + check_per_type_idx + ": ERROR CHECKING");
+      } else {
+        console.log(result);
+        console.log("\nCHECK_PER_TYPE: SUCCESSFUL");
+        res.send(result);
+      }
+      console.log('/////////////////////////////////////////////////////////////////\n')
+    }
+  );
+});
+
+
+// H5
+// Get customers IDs
+app.get("/get_customer_IDs", (req, res) => {
+  console.log('\n/////////////////////////////////////////////////////////////////')
+  db.query(
+      "select perID from customer;",
+      (err, result) => {
+          if (err) {
+              console.log(err);
+              console.log("\n!!!!! GET_CUSTOMER_IDS: ERROR RETRIEVING VALUES !!!!!");
+          } else {
+              console.log("\nGET_CUSTOMER_IDS: VALUES RETRIEVED");
+              console.log(result);
+              res.send(result);
+          }
+          console.log('/////////////////////////////////////////////////////////////////\n')
+      }
+  );
+});
+
+// H6
+// Get bank IDs
+app.get("/get_bank_IDs", (req, res) => {
+  console.log('\n/////////////////////////////////////////////////////////////////')
+  db.query(
+      "select bankID from bank;",
+      (err, result) => {
+          if (err) {
+              console.log(err);
+              console.log("\n!!!!! GET_BANK_IDS: ERROR RETRIEVING VALUES !!!!!");
+          } else {
+              console.log("\nGET_BANK_IDS: VALUES RETRIEVED");
+              console.log(result);
+              res.send(result);
+          }
+          console.log('/////////////////////////////////////////////////////////////////\n')
+      }
+  );
+});
+
+// H7
+// Get accessible accounts
+var get_accessible_accounts_idx = 0;
+app.post("/get_accessible_accounts", (req, res) => {
+  get_accessible_accounts_idx++;
+
+  const customerID = req.body.customerID;
+
+  console.log('\n/////////////////////////////////////////////////////////////////')
+  console.log('GET_ACCESSIBLE_ACCOUNTS call ' + get_accessible_accounts_idx + '\n');
+  console.log(  'Received Data\n' +
+                '--------------------------\n' +
+                'customerID: ' + customerID + '\n' +
+                '--------------------------\n'  );
+
+  db.query(
+    "select bankID, accountID from access where perID = ?;",
+    [customerID],
+    (err, result) => {
+      if (err) {
+          console.log(err);
+          console.log("\n!!!!! GET_ACCESSIBLE_ACCOUNTS: ERROR RETRIEVING VALUES !!!!!");
+          res.send("GET_ACCESSIBLE_ACCOUNTS call " + get_accessible_accounts_idx + ": ERROR RETRIEVING VALUES");
+      } else {
+        console.log(result);
+        console.log("\nGET_ACCESSIBLE_ACCOUNTS: SUCCESSFUL");
+        res.send(result);
+      }
+      console.log('/////////////////////////////////////////////////////////////////\n')
+    }
+  );
+});
+
+// H8
+// Get account owners
+var get_account_owners_idx = 0;
+app.post("/get_account_owners", (req, res) => {
+  get_account_owners_idx++;
+
+  const bankID = req.body.bankID;
+  const accountID = req.body.accountID;
+
+  console.log('\n/////////////////////////////////////////////////////////////////')
+  console.log('GET_ACCOUNT_OWNERS call ' + get_account_owners_idx + '\n');
+  console.log(  'Received Data\n' +
+                '--------------------------\n' +
+                'bankID: ' + bankID + '\n' +
+                'accountID: ' + accountID + '\n' +
+                '--------------------------\n'  );
+
+  db.query(
+    "select perID from access where bankID = ? and accountID = ?;",
+    [bankID, accountID],
+    (err, result) => {
+      if (err) {
+          console.log(err);
+          console.log("\n!!!!! GET_ACCOUNT_OWNERS: ERROR RETRIEVING VALUES !!!!!");
+          res.send("GET_ACCOUNT_OWNERS call " + get_account_owners_idx + ": ERROR RETRIEVING VALUES");
+      } else {
+        console.log(result);
+        console.log("\nGET_ACCOUNT_OWNERS: SUCCESSFUL");
+        res.send(result);
+      }
+      console.log('/////////////////////////////////////////////////////////////////\n')
+    }
+  );
+});
+
+// H9
+// Get accessible checking accounts
+var get_accessible_chk_accounts_idx = 0;
+app.post("/get_accessible_chk_accounts", (req, res) => {
+  get_accessible_chk_accounts_idx++;
+
+  const customerID = req.body.customerID;
+
+  console.log('\n/////////////////////////////////////////////////////////////////')
+  console.log('GET_ACCESSIBLE_CHK_ACCOUNTS call ' + get_accessible_chk_accounts_idx + '\n');
+  console.log(  'Received Data\n' +
+                '--------------------------\n' +
+                'customerID: ' + customerID + '\n' +
+                '--------------------------\n'  );
+
+  db.query(
+    "select bankID, accountID from access where perID = ? and (bankID, accountID) in (select bankID, accountID from checking);",
+    [customerID],
+    (err, result) => {
+      if (err) {
+          console.log(err);
+          console.log("\n!!!!! GET_ACCESSIBLE_CHK_ACCOUNTS: ERROR RETRIEVING VALUES !!!!!");
+          res.send("GET_ACCESSIBLE_CHK_ACCOUNTS call " + get_accessible_chk_accounts_idx + ": ERROR RETRIEVING VALUES");
+      } else {
+        console.log(result);
+        console.log("\nGET_ACCESSIBLE_CHK_ACCOUNTS: SUCCESSFUL");
+        res.send(result);
+      }
+      console.log('/////////////////////////////////////////////////////////////////\n')
+    }
+  );
+});
+
+// H10
+// Get accessible savings accounts
+var get_accessible_sav_accounts_idx = 0;
+app.post("/get_accessible_sav_accounts", (req, res) => {
+  get_accessible_sav_accounts_idx++;
+
+  const customerID = req.body.customerID;
+
+  console.log('\n/////////////////////////////////////////////////////////////////')
+  console.log('GET_ACCESSIBLE_SAV_ACCOUNTS call ' + get_accessible_sav_accounts_idx + '\n');
+  console.log(  'Received Data\n' +
+                '--------------------------\n' +
+                'customerID: ' + customerID + '\n' +
+                '--------------------------\n'  );
+
+  db.query(
+    "select bankID, accountID from access where perID = ? and (bankID, accountID) in (select bankID, accountID from savings);",
+    [customerID],
+    (err, result) => {
+      if (err) {
+          console.log(err);
+          console.log("\n!!!!! GET_ACCESSIBLE_SAV_ACCOUNTS: ERROR RETRIEVING VALUES !!!!!");
+          res.send("GET_ACCESSIBLE_SAV_ACCOUNTS call " + get_accessible_sav_accounts_idx + ": ERROR RETRIEVING VALUES");
+      } else {
+        console.log(result);
+        console.log("\nGET_ACCESSIBLE_SAV_ACCOUNTS: SUCCESSFUL");
+        res.send(result);
+      }
+      console.log('/////////////////////////////////////////////////////////////////\n')
+    }
+  );
+});
 
 app.listen(3001, () => {
     console.log("Server running on port 3001 ...");
