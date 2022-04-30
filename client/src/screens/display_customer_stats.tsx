@@ -88,10 +88,10 @@ class TableRow extends Component {
                     {row.customer_name}
                 </td>
                 <td>
-                    {row.date_of_birth}
+                    {new Date(row.date_of_birth).toDateString()}
                 </td>
                 <td>
-                    {row.joined_system}
+                    {new Date(row.joined_system).toDateString()}
                 </td>
                 <td>
                     {row.street}
