@@ -23,11 +23,17 @@ import { StopCustomer } from "./screens/stop_customer.tsx";
 // @ts-ignore
 import { StopEmployee } from "./screens/stop_employee.tsx";
 // @ts-ignore
+import { HireWorker } from "./screens/hire_worker.tsx";
+// @ts-ignore
 import DisplayCustomerStats from "./screens/display_customer_stats.tsx";
 // @ts-ignore
 import DisplayBankStats from "./screens/display_bank_stats.tsx";
 // @ts-ignore
 import DisplayEmployeeStats from "./screens/display_employee_stats.tsx";
+// @ts-ignore
+import { ReplaceManager } from "./screens/replace_manager.tsx";
+// @ts-ignore
+import { CreateFee } from "./screens/create_fee.tsx";
 
 
 const rootElement = document.getElementById("root");
@@ -42,7 +48,10 @@ ReactDOM.render(
                 <Route path="create_customer" element={<CreateCustomer />}></Route>
                 <Route path="stop_employee" element={<StopEmployee />}></Route>
                 <Route path="stop_customer" element={<StopCustomer />}></Route>
-                <Route path="login" element={<Login />}></Route>
+                <Route path="hire_worker" element={<HireWorker />}></Route>
+                <Route path="replace_manager" element={<ReplaceManager />}></Route>
+                <Route path="create_fee" element={<CreateFee />}></Route>
+                {/* <Route path="pay_employees" element={<PayEmployees />}></Route> */}
                 <Route path="display_account_stats" element={<DisplayAccountStats />}></Route>
                 <Route path="display_bank_stats" element={<DisplayBankStats />}></Route>
                 <Route path="display_corporation_stats" element={<DisplayCorporationStats />}></Route>

@@ -40,16 +40,6 @@ class CreateBank extends React.Component<{}, CreateBankState> {
 
   componentDidMount() {
     let data = [];
-    Axios.get("http://localhost:3001/get_per_id").then(r => {
-      data = r.data;
-      for (let i = 0; i < data.length; i++) {
-        data[i] = data[i].perID;
-      }
-      console.log(data)
-      this.setState({ employeeList: data });
-      this.setState({ employee: data[0] });
-    });
-
     Axios.get("http://localhost:3001/get_corp_ids").then(r => {
       data = r.data;
       for (let i = 0; i < data.length; i++) {
@@ -66,6 +56,15 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       }
       this.setState({ managerList: data });
       this.setState({ manager: data[0] });
+    });
+    //TODO I changed this to get_employee_id from get_per_id (which doesn't exist), is this the correct behavior?
+    Axios.get("http://localhost:3001/get_employee_id").then(r => {
+      data = r.data;
+      for (let i = 0; i < data.length; i++) {
+        data[i] = data[i].perID;
+      }
+      this.setState({ employeeList: data });
+      this.setState({ employee: data[0] });
     });
   }
 
@@ -132,10 +131,8 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       manager: this.state.manager,
       bankEmployee: this.state.employee
     }).then(() => {
-      console.log("Corporation data sent!");
+      console.log("Bank data sent!");
     })
-
-    console.log("\ncorporation created")
     console.log(this.state.bankID + ", "
       + this.state.bankName + ", "
       + this.state.street + ", "
@@ -210,28 +207,28 @@ class CreateBank extends React.Component<{}, CreateBankState> {
 
             <div className="formItem">
               <label>
-                Parent Corporation ID:
+                Parent Corporation:
               </label>
               <select name="selectList" id="selectList" onChange={this.handle_corpID_change}>
-                {this.state.corpIDList.map(id => <option value={id}>{id}</option>)}
+                {this.state.corpIDList.map(id => <option key={id} value={id}>{id}</option>)}
               </select>
             </div>
 
             <div className="formItem">
               <label>
-                Manager ID:
+                Manager:
               </label>
               <select name="selectList" id="selectList" onChange={this.handle_manager_change}>
-                {this.state.managerList.map(id => <option value={id}>{id}</option>)}
+                {this.state.managerList.map(id => <option key={id} value={id}>{id}</option>)}
               </select>
             </div>
 
             <div className="formItem">
               <label>
-                Bank Employee ID:
+                Bank Employee:
               </label>
               <select name="selectList" id="selectList" onChange={this.handle_bank_employee_change}>
-                {this.state.employeeList.map(name => <option value={name}>{name}</option>)}
+                {this.state.employeeList.map(name => <option key={name} value={name}>{name}</option>)}
               </select>
             </div>
             <div className="formButtons">

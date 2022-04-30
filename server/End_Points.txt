@@ -54,3 +54,52 @@ http://localhost:3001/penalize_accounts
 
 Q19: (accrue_interest)
 http://localhost:3001/accrue_interest
+
+Q20: (display_account_stats)
+http://localhost:3001/display_account_stats
+
+Q21: (display_bank_stats)
+http://localhost:3001/display_bank_stats
+
+Q22: (display_corporation_stats)
+http://localhost:3001/display_corporation_stats
+
+Q23: (display_customer_stats)
+http://localhost:3001/display_customer_stats
+
+Q24: (display_employee_stats)
+http://localhost:3001/display_employee_stats
+
+----------------------------------------------------
+
+Helper Queries
+
+H1: (Gets employees IDs)
+http://localhost:3001/get_employee_id
+
+H2: (Gets corporation IDS)
+http://localhost:3001/get_corp_ids
+
+H3: (Gets available managers)
+http://localhost:3001/get_available_manager_ids
+
+H4: (Check person type)
+http://localhost:3001/check_per_type
+
+H5: (Get customers IDs)
+http://localhost:3001/get_customer_IDs
+
+H6: (Get bank IDs)
+http://localhost:3001/get_bank_IDs
+
+H7: (Get accessible accounts)
+http://localhost:3001/get_accessible_accounts
+
+H8: (Get account owners)
+http://localhost:3001/get_account_owners
+
+H9: (Get accessible checking accounts)
+http://localhost:3001/get_accessible_chk_accounts
+
+H10: (Get accessible saving accounts)
+http://localhost:3001/get_accessible_sav_accounts

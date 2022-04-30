@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Axios from 'axios';
 import "../styles/main.css";
 import "../styles/forms.css";
 import { LoginState } from '../types/State'
+import { LoginProps } from "../types/props";
 
-class Login extends React.Component<{}, LoginState> {
+class Login extends React.Component<LoginProps, LoginState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,19 +32,22 @@ class Login extends React.Component<{}, LoginState> {
             password: '',
         })
         event.preventDefault();
-
     }
 
     handleSubmit(event) {
         // send data to back end route {create_corp}
-        Axios.post("http://localhost:3001/create_corp", {
-            id: this.state.id,
-            password: this.state.password,
-        }).then(() => {
-            console.log("Corporation data sent!");
+        const key = "check_per_type('" + this.state.id + "','" + this.state.password + "')"
+        const id = this.state.id
+        const password = this.state.password
+        Axios.post("http://localhost:3001/check_per_type", {
+            perID: this.state.id,
+            pwd: this.state.password,
+        }).then((res) => {
+            // TODO get data from res
+            console.log("Login data recieved!");
+            const data = res.data[0][key]
+            this.props.setRole(data, id, password)
         })
-
-        console.log("\ncorporation created")
         console.log(this.state)
         this.clearState(event)
         event.preventDefault();

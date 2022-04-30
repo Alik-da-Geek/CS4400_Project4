@@ -9,37 +9,46 @@ export class StopEmployee extends React.Component<{}, StopEmployeeState> {
     constructor(props) {
         super(props);
         this.state = {
-            accountName: "",
+            personList: [],
+            personID: "",
         };
 
-        this.handleAccountNameChange = this.handleAccountNameChange.bind(this);
+        this.handlePersonIDChange = this.handlePersonIDChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearState = this.clearState.bind(this);
     }
 
-    handleAccountNameChange(event) {
-        this.setState({ accountName: event.target.value });
+    componentDidMount() {
+        let data = [];
+        Axios.get("http://localhost:3001/get_employee_id").then(r => {
+            data = r.data;
+            for (let i = 0; i < data.length; i++) {
+                data[i] = data[i].perID;
+            }
+            this.setState({ personList: data });
+            this.setState({ personID: data[0] });
+        });
+    }
+
+    handlePersonIDChange(event) {
+        this.setState({ personID: event.target.value });
     }
 
     clearState(event) {
         console.log('cleared')
         this.setState({
-            accountName: "",
+            personID: "",
         })
         event.preventDefault();
     }
 
     handleSubmit(event) {
-        // send data to back end route {create_corp}
-        Axios.post("http://localhost:3001/create_employee", {
-            accountName: this.state.accountName,
-        }).then(() => {
-            console.log("Customer data sent!");
-            // TODO would it be possible to get a response about whether the request succeeded or not?
+        Axios.post("http://localhost:3001/stop_employee_role", {
+            perID: this.state.personID,
+        }).then((res) => {
+            console.log("Response:");
+            console.log(res.data)
         })
-
-        console.log("customer created")
-        console.log(this.state)
         this.clearState(event)
         event.preventDefault();
     }
@@ -55,9 +64,11 @@ export class StopEmployee extends React.Component<{}, StopEmployeeState> {
                     <form onSubmit={this.handleSubmit}>
                         <div className="formItem">
                             <label>
-                                Account Name:
+                                Person ID:
                             </label>
-                            <input type="text" value={this.state.accountName} onChange={this.handleAccountNameChange} />
+                            <select name="selectList" id="selectList" onChange={this.handlePersonIDChange}>
+                                {this.state.personList.map(name => <option key={name} value={name}>{name}</option>)}
+                            </select>
                         </div>
                         <div className="formButtons">
                             <button onClick={this.clearState} className="formCancel">
