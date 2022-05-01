@@ -86,7 +86,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.admin &&
               <li>
-                <Link to="replace_manager">Replace Manager</Link>
+                <Link to="replace_manager">Replace Manager (CHECK)</Link>
               </li>
             }
             {(this.state.admin || this.state.customer) &&
