@@ -35,21 +35,16 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 
     handleSubmit(event) {
-        // send data to back end route {create_corp}
-        const key = "check_per_type('" + this.state.id + "','" + this.state.password + "')"
-        const id = this.state.id
-        const password = this.state.password
         Axios.post("http://localhost:3001/check_per_type", {
             perID: this.state.id,
             pwd: this.state.password,
         }).then((res) => {
-            // TODO get data from res
             console.log("Login data recieved!");
+            const key = "check_per_type('" + this.state.id + "','" + this.state.password + "')"
             const data = res.data[0][key]
-            this.props.setRole(data, id, password)
+            this.props.setRole(data, this.state.id, this.state.password)
+            this.clearState(event)
         })
-        console.log(this.state)
-        this.clearState(event)
         event.preventDefault();
     }
 

@@ -37,9 +37,8 @@ class Home extends React.Component<{}, HomeState> {
       this.setState({
         admin: true,
       })
-    } else if (role === 'employee' || role === 'double') {
+    } else if (role === 'double') {
       this.setState({
-        manager: true,
         customer: true,
       })
     } else if (role === 'customer') {
@@ -56,33 +55,33 @@ class Home extends React.Component<{}, HomeState> {
           <ol>
             {this.state.admin &&
               <li>
-                <Link to="create_corp">Create Corp</Link>
+                <Link to="create_corp">Create Corp (CHECK)</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="create_bank">Create Bank</Link>
+                <Link to="create_bank">Create Bank (CHECK)</Link>
               </li>
             }
             <li>
-              <Link to="create_employee">Create Employee</Link>
+              <Link to="create_employee">Create Employee (CHECK)</Link>
             </li>
             <li>
-              <Link to="create_customer">Create Customer</Link>
+              <Link to="create_customer">Create Customer (CHECK)</Link>
             </li>
             {this.state.admin &&
               <li>
-                <Link to="stop_employee">Stop Employee</Link>
+                <Link to="stop_employee">Stop Employee (CHECK)</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="stop_customer">Stop Customer</Link>
+                <Link to="stop_customer">Stop Customer (CHECK)</Link>
               </li>
             }
             {(this.state.admin || this.state.manager) &&
               <li>
-                <Link to="hire_worker">Hire Worker</Link>
+                <Link to="hire_worker">Hire Worker (CHECK)</Link>
               </li>
             }
             {this.state.admin &&
@@ -90,64 +89,64 @@ class Home extends React.Component<{}, HomeState> {
                 <Link to="replace_manager">Replace Manager</Link>
               </li>
             }
+            {(this.state.admin || this.state.customer) &&
+              <li>
+                <Link to="manage_account_access">Manage Account Access (TODO)</Link>
+              </li>
+            }
+            {this.state.admin &&
+              <li>
+                <Link to="create_fee">Create Fee (CHECK)</Link>
+              </li>
+            }
+            {(this.state.admin || this.state.customer) &&
+              <li>
+                <Link to="manager_overdraft">Manager Overdraft Policies (TODO)</Link>
+              </li>
+            }
+            {this.state.customer &&
+              <li>
+                <Link to="make_deposit">Make Deposit (CHECK)</Link>
+              </li>
+            }
+            {this.state.customer &&
+              <li>
+                <Link to="make_withdrawal">Make Withdrawal (CHECK)</Link>
+              </li>
+            }
+            {this.state.customer &&
+              <li>
+                <Link to="make_transfer">Make Transfer (CHECK)</Link>
+              </li>
+            }
             {(this.state.admin || this.state.manager) &&
               <li>
-                <Link to="pay_employees">Pay Employees</Link>
+                <Link to="pay_employees">Pay Employees (CHECK)</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="create_fee">Create Fee</Link>
-              </li>
-            }
-            {(this.state.admin || this.state.customer) &&
-              <li>
-                <Link to="manage_account_access">Manage Account Access</Link>
-              </li>
-            }
-            {(this.state.admin || this.state.customer) &&
-              <li>
-                <Link to="manager_overdraft">Manager Overdraft Policies</Link>
-              </li>
-            }
-            {this.state.customer &&
-              <li>
-                <Link to="make_deposit">Make Deposit</Link>
-              </li>
-            }
-            {this.state.customer &&
-              <li>
-                <Link to="make_withdrawal">Make Withdrawal</Link>
-              </li>
-            }
-            {this.state.customer &&
-              <li>
-                <Link to="make_transfer">Make Transfer</Link>
+                <Link to="display_account_stats">Account Stats (CHECK)</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="display_account_stats">Account Stats</Link>
+                <Link to="display_bank_stats">Bank Stats (CHECK)</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="display_bank_stats">Bank Stats</Link>
+                <Link to="display_corporation_stats">Corporation Stats (CHECK)</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="display_corporation_stats">Corporation Stats</Link>
+                <Link to="display_customer_stats">Customer Stats (CHECK)</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="display_customer_stats">Customer Stats</Link>
-              </li>
-            }
-            {this.state.admin &&
-              <li>
-                <Link to="display_employee_stats">Employee Stats</Link>
+                <Link to="display_employee_stats">Employee Stats (CHECK)</Link>
               </li>
             }
           </ol>

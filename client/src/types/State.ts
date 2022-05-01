@@ -79,3 +79,21 @@ export interface CreateFeeState {
     account: string,
     feeType: string,
 }
+
+export interface ManageAccountAccessState {
+    accountList: Array<string>,
+    account: string,
+    customerList: Array<string>,
+    customer: string,
+    addOwner: boolean,
+    initialBalance: number,
+    minBalance: number,
+    interestRate: number,
+    maxWithdrawals: number,
+    bankList: Array<string>,
+    bank: string,
+    accountIDList: Array<string>,
+    accountID: string,
+    accountTypeList: Array<string>
+    accountType: string,
+}
