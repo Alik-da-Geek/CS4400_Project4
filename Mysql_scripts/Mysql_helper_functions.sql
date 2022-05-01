@@ -15,6 +15,8 @@ begin
     if (select exists (select * from person where perID = ip_perID and pwd = ip_pwd)) then		# check if there is a matching pair username and password in the database
 		if (select exists (select * from system_admin where perID = ip_perID)) then
 			set per_type = 'admin';
+		elseif (select exists (select * from bank where manager = ip_perID)) then
+			set per_type = 'manager';
 		elseif ((select exists (select * from customer where perID = ip_perID)) and (select exists (select * from employee where perID = ip_perID))) then
 			set per_type = 'double';
 		elseif (select exists (select * from customer where perID = ip_perID)) then
@@ -28,3 +30,5 @@ begin
 	return (per_type);
 end //
 delimiter ;
+
+select check_per_type('ghopper9', 'password16')
