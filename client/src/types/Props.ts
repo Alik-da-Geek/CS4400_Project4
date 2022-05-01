@@ -5,3 +5,8 @@ export interface LoginProps {
 export interface CreateFeeProps {
     customerID: string,
 }
+
+export interface ManageAccountAccessProps {
+    admin: boolean,
+    requesterID: string,
+}

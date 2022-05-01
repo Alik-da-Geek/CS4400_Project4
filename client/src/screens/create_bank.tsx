@@ -57,7 +57,6 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       this.setState({ managerList: data });
       this.setState({ manager: data[0] });
     });
-    //TODO I changed this to get_employee_id from get_per_id (which doesn't exist), is this the correct behavior?
     Axios.get("http://localhost:3001/get_employee_id").then(r => {
       data = r.data;
       for (let i = 0; i < data.length; i++) {

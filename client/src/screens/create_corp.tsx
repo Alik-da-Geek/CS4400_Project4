@@ -57,11 +57,8 @@ class CreateCorp extends React.Component<{}, CreateCorpState> {
       reservedAssets: this.state.reservedAssets
     }).then(() => {
       console.log("Corporation data sent!");
+      this.clearState(event)
     })
-
-    console.log("\ncorporation created")
-    console.log(this.state.corpID + ", " + this.state.longName + ", " + this.state.shortName + ", " + this.state.reservedAssets)
-    this.clearState(event)
     event.preventDefault();
   }
 
