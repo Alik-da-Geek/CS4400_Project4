@@ -95,7 +95,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.admin &&
               <li>
-                <Link to="create_fee">Create Fee (CHECK)</Link>
+                <Link to="create_fee" state={{ username: this.state.username }}>Create Fee (CHECK)</Link>
               </li>
             }
             {(this.state.admin || this.state.customer) &&
@@ -110,7 +110,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.customer &&
               <li>
-                <Link to="make_withdrawal">Make Withdrawal (CHECK)</Link>
+                <Link to={"make_withdrawal"} state={{ username: this.state.username }}>Make Withdrawal (CHECK)</Link>
               </li>
             }
             {this.state.customer &&

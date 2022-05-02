@@ -1,130 +1,94 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "../styles/main.css";
 import "../styles/forms.css";
 import { CreateFeeState } from '../types/State'
 import { CreateFeeProps } from "../types/props";
 
-export class CreateFee extends React.Component<CreateFeeProps, CreateFeeState> {
-  constructor(props) {
-    super(props);
-    console.log(props)
-    this.state = {
-      bankList: [],
-      bank: "",
-      accountList: [],
-      account: "",
-      feeType: "",
-    };
-    // const location = useLocation();
+export function CreateFee() {
+  const [accountList, setAccountList] = useState([])
+  const [account, setAccount] = useState("")
+  const [feeType, setFeeType] = useState("")
 
-    this.handleBankChange = this.handleBankChange.bind(this);
-    this.handleAccountChange = this.handleAccountChange.bind(this);
-    this.handleFeeTypeChange = this.handleFeeTypeChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.clearState = this.clearState.bind(this);
-  }
+  const location = useLocation()
+  const username = location.state['username']
 
-  componentDidMount() {
-    let data = [];
-    Axios.get("http://localhost:3001/get_bank_IDs").then(r => {
+  useEffect(() => {
+    console.log(username)
+    let data = []
+    Axios.get("http://localhost:3001/get_all_acc").then(r => {
       data = r.data;
       for (let i = 0; i < data.length; i++) {
-        data[i] = data[i].bankID;
+        data[i] = data[i].bankID + ": " + data[i].accountID;
       }
-      this.setState({ bankList: data });
-      this.setState({ bank: data[0] });
-    });
+      setAccountList(data)
+      setAccount(data[0])
+    })
+  }, [username])
 
-    //TODO change this up
-    // Axios.get("http://localhost:3001/get_accessible_accounts", {
-    //   customerID: this.props.customerID
-    // }).then(r => {
-    //   data = r.data;
-    //   console.log(data)
-    //   for (let i = 0; i < data.length; i++) {
-    //     data[i] = data[i].perID;
-    //   }
-    //   this.setState({ accountList: data });
-    //   this.setState({ account: data[0] });
-    // });
+  function handleAccountChange(event) {
+    setAccount(event.target.value)
+  }
+  function handleFeeTypeChange(event) {
+    setFeeType(event.target.value)
   }
 
-  handleBankChange(event) {
-    this.setState({ bank: event.target.value });
-  }
-  handleAccountChange(event) {
-    this.setState({ account: event.target.value });
-  }
-  handleFeeTypeChange(event) {
-    this.setState({ feeType: event.target.value })
-  }
-
-  clearState(event) {
+  function clearState(event) {
     console.log('cleared')
-    this.setState({
-      feeType: ""
-    })
+    setFeeType("")
+    setAccount("")
     event.preventDefault();
   }
 
-  handleSubmit(event) {
-    // send data to back end route {create_corp}
+  function handleSubmit(event) {
+    const accountArray = account.split(": ")
+    const bankID = accountArray[0]
+    const accountID = accountArray[1]
     Axios.post("http://localhost:3001/create_fee", {
-      bankID: this.state.bank,
-      accountID: this.state.account,
-      fee_type: this.state.feeType,
+      bankID: bankID,
+      accountID: accountID,
+      fee_type: feeType,
     }).then(() => {
-      console.log("Hire worker data sent!");
-      this.clearState(event)
+      console.log("Create fee data sent!");
+      clearState(event)
     })
     event.preventDefault();
   }
 
-  render() {
-    return (
-      <div className="container">
-        <div className="mainHeader">
-          <h6><Link to="../">Home</Link></h6>
-          <h1>Q11: Create Fee</h1>
-        </div>
-        <div className="formContainer">
-          <form onSubmit={this.handleSubmit}>
-            <div className="formItem">
-              <label>
-                Bank:
-              </label>
-              <select name="selectList" id="selectList" onChange={this.handleBankChange}>
-                {this.state.bankList.map(name => <option key={name} value={name}>{name}</option>)}
-              </select>
-            </div>
-            <div className="formItem">
-              <label>
-                Employee:
-              </label>
-              <select name="selectList" id="selectList" onChange={this.handleAccountChange}>
-                {this.state.accountList.map(name => <option key={name} value={name}>{name}</option>)}
-              </select>
-            </div>
-            <div className="formItem">
-              <label>
-                Fee Type:
-              </label>
-              <input type="text" value={this.state.feeType} onChange={this.handleFeeTypeChange} />
-            </div>
-            <div className="formButtons">
-              <button onClick={this.clearState} className="formCancel">
-                Cancel
-              </button>
-              <button onClick={this.handleSubmit} className="formSubmit">
-                Submit
-              </button>
-            </div>
-          </form>
-        </div>
+  return (
+    <div className="container">
+      <div className="mainHeader">
+        <h6><Link to="../">Home</Link></h6>
+        <h1>Q11: Create Fee</h1>
       </div>
-    );
-  }
+      <div className="formContainer">
+        <form onSubmit={handleSubmit}>
+          <div className="formItem">
+            <label>
+              Account:
+            </label>
+            <select name="selectList" id="selectList" onChange={handleAccountChange}>
+              {accountList.map(account => <option key={account} value={account}>{account}</option>)}
+            </select>
+          </div>
+          <div className="formItem">
+            <label>
+              Fee Type:
+            </label>
+            <input type="text" value={feeType} onChange={handleFeeTypeChange} />
+          </div>
+          <div className="formButtons">
+            <button onClick={clearState} className="formCancel">
+              Cancel
+            </button>
+            <button onClick={handleSubmit} className="formSubmit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
