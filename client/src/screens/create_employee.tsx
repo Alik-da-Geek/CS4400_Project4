@@ -28,7 +28,6 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   componentDidMount() {
     Axios.get("http://localhost:3001/get_perID").then(r => {
       this.setState({ temp: r.data });
-      console.log(this.state.temp)
     });
   }
 
@@ -62,17 +61,14 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
     event.preventDefault();
   }
 
-  getPeople() {
-
-  }
-
   handleSubmit(event) {
     console.log(this.state)
     Axios.post("http://localhost:3001/start_employee_role", {
       perID: this.state.personID,
+      emp_password: this.state.password,
       salary: this.state.salary,
-      numPayments: this.state.numPayments,
-      accumulatedEarnings: this.state.accumulatedEarnings
+      payments: this.state.numPayments,
+      earned: this.state.accumulatedEarnings
     }).then(() => {
       console.log("Employee data sent!");
     })
