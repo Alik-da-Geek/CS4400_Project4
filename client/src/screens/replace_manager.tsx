@@ -33,7 +33,7 @@ export class ReplaceManager extends React.Component<{}, ReplaceManagerState> {
       this.setState({ bank: data[0] });
     });
 
-    Axios.get("http://localhost:3001/get_employee_id").then(r => {
+    Axios.get("http://localhost:3001/get_available_manager_ids").then(r => {
       data = r.data;
       for (let i = 0; i < data.length; i++) {
         data[i] = data[i].perID;

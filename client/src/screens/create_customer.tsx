@@ -19,7 +19,7 @@ export class CreateCustomer extends React.Component<{}, CreateCustomerState> {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:3001/get_perID").then(r => {
+    Axios.get("http://localhost:3001/get_non_customers").then(r => {
       this.setState({
         peopleList: r.data,
         personID: r.data[0]['perID'],

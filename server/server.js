@@ -89,7 +89,7 @@ app.post("/create_bank", (req, res) => {
   const reservedAssets = req.body.reservedAssets;
   const corpID = req.body.corpID;
   const manager = req.body.manager;
-  const bank_employee = req.body.bank_employee;
+  const bank_employee = req.body.bankEmployee;
 
   console.log(
     "\n/////////////////////////////////////////////////////////////////"
@@ -1787,6 +1787,51 @@ app.post("/get_acc_from_bank", (req, res) => {
     } else {
       console.log(result);
       console.log("\nGET_ACC_FROM_BANK: SUCCESSFUL");
+      res.send(result);
+    }
+    console.log("/////////////////////////////////////////////////////////////////\n");
+  });
+});
+
+
+// H13
+// Get accounts from a specific bank
+var get_non_employees_idx = 0;
+app.get("/get_non_employees", (req, res) => {
+  get_non_employees_idx++;
+
+  console.log("\n/////////////////////////////////////////////////////////////////");
+  console.log("get_non_employees call " + get_non_employees_idx + "\n");
+  db.query("select perID from person where perID not in (select perID from employee) and perID not in (select * from system_admin);", (err, result) => {
+        if (err) {
+          console.log(err);
+          console.log("\n!!!!! get_non_employees: ERROR RETRIEVING VALUES !!!!!");
+          res.send("get_non_employees call " + get_non_employees_idx + ": ERROR RETRIEVING VALUES");
+        } else {
+          console.log(result);
+          console.log("\nget_non_employees: SUCCESSFUL");
+          res.send(result);
+        }
+        console.log("/////////////////////////////////////////////////////////////////\n");
+      });
+});
+
+// H14
+// Get accounts from a specific bank
+var get_non_customers_idx = 0;
+app.get("/get_non_customers", (req, res) => {
+  get_non_customers_idx++;
+
+  console.log("\n/////////////////////////////////////////////////////////////////");
+  console.log("get_non_customers call " + get_non_customers_idx + "\n");
+  db.query("select perID from person where perID not in (select perID from customer) and perID not in (select * from system_admin);", (err, result) => {
+    if (err) {
+      console.log(err);
+      console.log("\n!!!!! get_non_customers: ERROR RETRIEVING VALUES !!!!!");
+      res.send("get_non_customers call " + get_non_customers_idx + ": ERROR RETRIEVING VALUES");
+    } else {
+      console.log(result);
+      console.log("\nget_non_customers: SUCCESSFUL");
       res.send(result);
     }
     console.log("/////////////////////////////////////////////////////////////////\n");

@@ -26,7 +26,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:3001/get_perID").then(r => {
+    Axios.get("http://localhost:3001/get_non_employees").then(r => {
       this.setState({
         people: r.data,
         personID: r.data[0]['perID'],

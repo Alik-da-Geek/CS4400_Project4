@@ -59,7 +59,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.admin &&
               <li>
-                <Link to="create_bank">Create Bank (CHECK)</Link>
+                <Link to="create_bank">Create Bank</Link>
               </li>
             }
             <li>

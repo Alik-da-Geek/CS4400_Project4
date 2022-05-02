@@ -108,9 +108,6 @@ class CreateBank extends React.Component<{}, CreateBankState> {
       state: '',
       zip: '',
       reservedAssets: 0,
-      corpID: '',
-      manager: '',
-      employee: '',
     })
     event.preventDefault();
 
