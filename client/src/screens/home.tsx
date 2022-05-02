@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/main.css";
 import { HomeState } from "../types/State";
-import { CreateFeeProps, LoginProps } from "../types/props";
+import { LoginProps } from "../types/props";
 //@ts-ignore
 import Login from "./login.tsx";
 
@@ -23,10 +23,10 @@ class Home extends React.Component<{}, HomeState> {
   }
 
   changeRole(role: string, username: string, password: string) {
+    console.log(role, username, password)
     if (role === 'NA') {
       return
     }
-    // TODO discrepancy between admin, customer, employee and admin, manager, customer
     this.setState({
       loggedIn: true,
       username: username,
@@ -49,15 +49,8 @@ class Home extends React.Component<{}, HomeState> {
 
   getScreen() {
     if (this.state.loggedIn) {
-      // const CreateFeeProps: CreateFeeProps = {
-      //   customerID: this.state.username,
-      // }
-      const CreateFeeProps: any = {
-        pathname: "create_fee",
-        param1: "Par1"
-      };
       return (
-        <div className="list">
+        <div className="list" >
           <ol>
             {this.state.admin &&
               <li>
@@ -102,8 +95,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.admin &&
               <li>
-                {/* <Link to="create_fee" {...CreateFeeProps}>Create Fee (CHECK)</Link> */}
-                <Link to={CreateFeeProps}>Create Fee (CHECK: drop down box fix)</Link>
+                <Link to="create_fee">Create Fee (CHECK)</Link>
               </li>
             }
             {(this.state.admin || this.state.customer) &&
@@ -113,7 +105,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.customer &&
               <li>
-                <Link to="make_deposit">Make Deposit (CHECK)</Link>
+                <Link to={"make_deposit"} state={{ username: this.state.username }}>Make Deposit (CHECK)</Link>
               </li>
             }
             {this.state.customer &&

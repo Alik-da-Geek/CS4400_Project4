@@ -104,11 +104,3 @@ export interface ManageAccountAccessState {
     accountTypeList: Array<string>
     accountType: string,
 }
-
-export interface MakeDepositState {
-    amount: number,
-    bankList: Array<string>,
-    bank: string,
-    accountList: Array<string>,
-    account: string
-}
