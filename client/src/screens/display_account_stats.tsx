@@ -15,6 +15,7 @@ class DisplayAccountStats extends React.Component<any, any> {
     componentDidMount() {
         Axios.get("http://localhost:3001/display_account_stats").then(r => {
             const res = r.data;
+            console.table(res);
             this.setState({rowData: res});
         });
     }
@@ -55,6 +56,7 @@ class DisplayAccountStats extends React.Component<any, any> {
 class TableRow extends Component {
     render() {
         var row = this.props.row;
+        console.table(row);
         return (
             <tr>
                 <td>
