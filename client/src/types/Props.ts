@@ -10,7 +10,3 @@ export interface ManageAccountAccessProps {
     admin: boolean,
     requesterID: string,
 }
-
-export interface MakeDepositProps {
-    customerID: string,
-}
