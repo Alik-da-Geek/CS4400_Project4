@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/main.css";
 import { HomeState } from "../types/State";
-import { CreateFeeProps, LoginProps } from "../types/props";
+import { LoginProps } from "../types/props";
 //@ts-ignore
 import Login from "./login.tsx";
 
