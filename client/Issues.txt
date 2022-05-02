@@ -1,1 +1,11 @@
 1. Pay_employee has some issues with its stored procedure in the backend.
+
+CHECK:
+1. make deposit
+2. make withdrawal
+3. create bank
+4. make transfer
+
+TODO:
+1. Manage Account Access
+2. Manage overdraft

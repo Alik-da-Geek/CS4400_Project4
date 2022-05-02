@@ -4,8 +4,6 @@ import Axios from 'axios';
 import { useLocation } from "react-router-dom";
 import "../styles/main.css";
 import "../styles/forms.css";
-import { CreateFeeState } from '../types/State'
-import { CreateFeeProps } from "../types/props";
 
 export function CreateFee() {
   const [accountList, setAccountList] = useState([])

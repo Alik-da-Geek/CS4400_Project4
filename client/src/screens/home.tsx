@@ -100,7 +100,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {(this.state.admin || this.state.customer) &&
               <li>
-                <Link to="manager_overdraft">Manager Overdraft Policies (TODO)</Link>
+                <Link to={"manage_overdraft"} state={{ username: this.state.username }}>Manager Overdraft Policies (TODO)</Link>
               </li>
             }
             {this.state.customer &&
@@ -115,7 +115,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.customer &&
               <li>
-                <Link to="make_transfer">Make Transfer (CHECK)</Link>
+                <Link to={"make_transfer"} state={{ username: this.state.username }}>Make Transfer (CHECK)</Link>
               </li>
             }
             {(this.state.admin || this.state.manager) &&

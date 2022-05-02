@@ -40,6 +40,10 @@ import { PayEmployees } from "./screens/pay_employee.tsx";
 import { MakeDeposit } from "./screens/make_deposit.tsx";
 // @ts-ignore
 import { MakeWithdrawal } from "./screens/make_withdrawal.tsx";
+// @ts-ignore
+import { MakeTransfer } from "./screens/make_transfer.tsx";
+//@ts-ignore
+import { ManagerOverdraft } from "./screens/manage_overdraft.tsx";
 import * as ReactDOMClient from 'react-dom/client';
 const rootElement = document.getElementById("root");
 const root = ReactDOMClient.createRoot(rootElement);
@@ -61,6 +65,8 @@ root.render(
                 <Route path="pay_employees" element={<PayEmployees />}></Route>
                 <Route path="make_deposit" element={<MakeDeposit />}></Route>
                 <Route path="make_withdrawal" element={<MakeWithdrawal />}></Route>
+                <Route path="make_transfer" element={<MakeTransfer />}></Route>
+                <Route path="manage_overdraft" element={<ManagerOverdraft />}></Route>
                 <Route path="display_account_stats" element={<DisplayAccountStats />}></Route>
                 <Route path="display_bank_stats" element={<DisplayBankStats />}></Route>
                 <Route path="display_corporation_stats" element={<DisplayCorporationStats />}></Route>
