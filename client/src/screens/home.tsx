@@ -95,12 +95,12 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.admin &&
               <li>
-                <Link to="create_fee">Create Fee (CHECK)</Link>
+                <Link to="create_fee" state={{ username: this.state.username }}>Create Fee (CHECK)</Link>
               </li>
             }
             {(this.state.admin || this.state.customer) &&
               <li>
-                <Link to="manager_overdraft">Manager Overdraft Policies (TODO)</Link>
+                <Link to={"manage_overdraft"} state={{ username: this.state.username }}>Manager Overdraft Policies (TODO)</Link>
               </li>
             }
             {this.state.customer &&
@@ -110,12 +110,12 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.customer &&
               <li>
-                <Link to="make_withdrawal">Make Withdrawal (CHECK)</Link>
+                <Link to={"make_withdrawal"} state={{ username: this.state.username }}>Make Withdrawal (CHECK)</Link>
               </li>
             }
             {this.state.customer &&
               <li>
-                <Link to="make_transfer">Make Transfer (CHECK)</Link>
+                <Link to={"make_transfer"} state={{ username: this.state.username }}>Make Transfer (CHECK)</Link>
               </li>
             }
             {(this.state.admin || this.state.manager) &&

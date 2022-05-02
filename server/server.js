@@ -1743,7 +1743,9 @@ app.post("/get_accessible_sav_accounts", (req, res) => {
 var get_perID_idx = 0;
 app.get("/get_perID", (req, res) => {
   get_perID_idx++;
-  console.log("\n/////////////////////////////////////////////////////////////////");
+  console.log(
+    "\n/////////////////////////////////////////////////////////////////"
+  );
   console.log("GET_PERID call " + get_perID_idx + "\n");
   db.query("select perID, pwd from person;", (err, result) => {
     if (err) {
@@ -1755,7 +1757,9 @@ app.get("/get_perID", (req, res) => {
       console.log("\nGET_PERID: SUCCESSFUL");
       res.send(result);
     }
-    console.log("/////////////////////////////////////////////////////////////////\n");
+    console.log(
+      "/////////////////////////////////////////////////////////////////\n"
+    );
   });
 });
 
@@ -1774,22 +1778,61 @@ app.post("/get_acc_from_bank", (req, res) => {
   console.log(
     "Received Data\n" +
       "--------------------------\n" +
-      "bankID: " + bankID + "\n" +
+      "bankID: " +
+      bankID +
+      "\n" +
       "--------------------------\n"
   );
 
-  db.query("select accountID from bank_account where bankID = ?;",
-    [bankID], (err, result) => {
+  db.query(
+    "select accountID from bank_account where bankID = ?;",
+    [bankID],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        console.log("\n!!!!! GET_ACC_FROM_BANK: ERROR RETRIEVING VALUES !!!!!");
+        res.send(
+          "GET_ACC_FROM_BANK call " +
+            get_acc_from_bank_idx +
+            ": ERROR RETRIEVING VALUES"
+        );
+      } else {
+        console.log(result);
+        console.log("\nGET_ACC_FROM_BANK: SUCCESSFUL");
+        res.send(result);
+      }
+      console.log(
+        "/////////////////////////////////////////////////////////////////\n"
+      );
+    }
+  );
+});
+
+// H13
+// Get accounts from a specific bank
+var get_all_acc = 0;
+app.get("/get_all_acc", (req, res) => {
+  get_all_acc++;
+  console.log(
+    "\n/////////////////////////////////////////////////////////////////"
+  );
+  console.log("GET_ALL_ACC call " + get_all_acc + "\n");
+
+  db.query("select * from bank_account;", (err, result) => {
     if (err) {
       console.log(err);
       console.log("\n!!!!! GET_ACC_FROM_BANK: ERROR RETRIEVING VALUES !!!!!");
-      res.send("GET_ACC_FROM_BANK call " + get_acc_from_bank_idx + ": ERROR RETRIEVING VALUES");
+      res.send(
+        "GET_ACC_FROM_BANK call " + get_all_acc + ": ERROR RETRIEVING VALUES"
+      );
     } else {
       console.log(result);
       console.log("\nGET_ACC_FROM_BANK: SUCCESSFUL");
       res.send(result);
     }
-    console.log("/////////////////////////////////////////////////////////////////\n");
+    console.log(
+      "/////////////////////////////////////////////////////////////////\n"
+    );
   });
 });
 

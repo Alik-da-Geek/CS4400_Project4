@@ -5,7 +5,7 @@ import moment from "moment";
 import "../styles/main.css";
 import "../styles/forms.css";
 
-export function MakeDeposit() {
+export function MakeWithdrawal() {
   const location = useLocation()
   const username = location.state['username']
   const [amount, setAmount] = useState(0);
@@ -46,14 +46,14 @@ export function MakeDeposit() {
     const accountArray = account.split(": ")
     const bankID = accountArray[0]
     const accountID = accountArray[1]
-    Axios.post("http://localhost:3001/account_deposit", {
+    Axios.post("http://localhost:3001/account_withdrawal", {
       requester: username,
-      depositAmount: amount,
+      withdrawal_amount: amount,
       bankID: bankID,
       accountID: accountID,
       dtAction: date
     }).then(() => {
-      console.log("Make deposit data sent!");
+      console.log("Make withdrawal data sent!");
       clearState(event)
     })
     event.preventDefault();
@@ -63,7 +63,7 @@ export function MakeDeposit() {
     <div className="container">
       <div className="mainHeader">
         <h6><Link to="../">Home</Link></h6>
-        <h1>Q14: Make Deposit</h1>
+        <h1>Q15: Make Withdrawal</h1>
       </div>
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
