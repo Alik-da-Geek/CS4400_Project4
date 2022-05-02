@@ -106,3 +106,6 @@ http://localhost:3001/get_accessible_sav_accounts
 
 H11: (Get Person IDs)
 http://localhost:3001/get_perID
+
+H12: (Get accounts from a specific bank)
+http://localhost:3001/get_acc_from_bank

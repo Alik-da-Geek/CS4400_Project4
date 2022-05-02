@@ -54,12 +54,12 @@ class Home extends React.Component<{}, HomeState> {
           <ol>
             {this.state.admin &&
               <li>
-                <Link to="create_corp">Create Corp (CHECK)</Link>
+                <Link to="create_corp">Create Corp</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="create_bank">Create Bank (CHECK)</Link>
+                <Link to="create_bank">Create Bank</Link>
               </li>
             }
             <li>
@@ -70,22 +70,22 @@ class Home extends React.Component<{}, HomeState> {
             </li>
             {this.state.admin &&
               <li>
-                <Link to="stop_employee">Stop Employee (CHECK)</Link>
+                <Link to="stop_employee">Stop Employee</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="stop_customer">Stop Customer (CHECK)</Link>
+                <Link to="stop_customer">Stop Customer</Link>
               </li>
             }
             {(this.state.admin || this.state.manager) &&
               <li>
-                <Link to="hire_worker">Hire Worker (CHECK)</Link>
+                <Link to="hire_worker">Hire Worker</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="replace_manager">Replace Manager (CHECK)</Link>
+                <Link to="replace_manager">Replace Manager</Link>
               </li>
             }
             {(this.state.admin || this.state.customer) &&

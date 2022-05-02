@@ -55,6 +55,7 @@ class DisplayAccountStats extends React.Component<any, any> {
 class TableRow extends Component<{ row }, {}> {
     render() {
         var row = this.props.row;
+        console.table(row);
         return (
             <tr>
                 <td>

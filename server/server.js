@@ -1738,23 +1738,6 @@ app.post("/get_accessible_sav_accounts", (req, res) => {
   );
 });
 
-// H5
-// Get customers IDs
-app.get("/get_customer_IDs", (req, res) => {
-  console.log("\n/////////////////////////////////////////////////////////////////");
-  db.query("select perID from customer;", (err, result) => {
-    if (err) {
-      console.log(err);
-      console.log("\n!!!!! GET_CUSTOMER_IDS: ERROR RETRIEVING VALUES !!!!!");
-    } else {
-      console.log("\nGET_CUSTOMER_IDS: VALUES RETRIEVED");
-      console.log(result);
-      res.send(result);
-    }
-    console.log("/////////////////////////////////////////////////////////////////\n");
-  });
-});
-
 // H11
 // Get persons in the database
 var get_perID_idx = 0;
@@ -1770,6 +1753,40 @@ app.get("/get_perID", (req, res) => {
     } else {
       console.log(result);
       console.log("\nGET_PERID: SUCCESSFUL");
+      res.send(result);
+    }
+    console.log("/////////////////////////////////////////////////////////////////\n");
+  });
+});
+
+// H12
+// Get accounts from a specific bank
+var get_acc_from_bank_idx = 0;
+app.post("/get_acc_from_bank", (req, res) => {
+  get_acc_from_bank_idx++;
+
+  const bankID = req.body.bankID;
+
+  console.log(
+    "\n/////////////////////////////////////////////////////////////////"
+  );
+  console.log("GET_ACC_FROM_BANK call " + get_acc_from_bank_idx + "\n");
+  console.log(
+    "Received Data\n" +
+      "--------------------------\n" +
+      "bankID: " + bankID + "\n" +
+      "--------------------------\n"
+  );
+
+  db.query("select accountID from bank_account where bankID = ?;",
+    [bankID], (err, result) => {
+    if (err) {
+      console.log(err);
+      console.log("\n!!!!! GET_ACC_FROM_BANK: ERROR RETRIEVING VALUES !!!!!");
+      res.send("GET_ACC_FROM_BANK call " + get_acc_from_bank_idx + ": ERROR RETRIEVING VALUES");
+    } else {
+      console.log(result);
+      console.log("\nGET_ACC_FROM_BANK: SUCCESSFUL");
       res.send(result);
     }
     console.log("/////////////////////////////////////////////////////////////////\n");
