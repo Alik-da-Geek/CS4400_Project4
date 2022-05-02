@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
 import "../styles/main.css";
@@ -15,7 +15,7 @@ class DisplayAccountStats extends React.Component<any, any> {
     componentDidMount() {
         Axios.get("http://localhost:3001/display_account_stats").then(r => {
             const res = r.data;
-            this.setState({rowData: res});
+            this.setState({ rowData: res });
         });
     }
 
@@ -29,18 +29,18 @@ class DisplayAccountStats extends React.Component<any, any> {
                 <table className="styled-table">
                     <thead>
                         <tr>
-                        <th>
-                            Bank
-                        </th>
-                        <th>
-                            Account ID
-                        </th>
-                        <th>
-                            Account Balance ($)
-                        </th>
-                        <th>
-                            Number of Owners
-                        </th>
+                            <th>
+                                Bank
+                            </th>
+                            <th>
+                                Account ID
+                            </th>
+                            <th>
+                                Account Balance ($)
+                            </th>
+                            <th>
+                                Number of Owners
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +52,7 @@ class DisplayAccountStats extends React.Component<any, any> {
     }
 }
 
-class TableRow extends Component {
+class TableRow extends Component<{ row }, {}> {
     render() {
         var row = this.props.row;
         return (

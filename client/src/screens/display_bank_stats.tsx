@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
 import "../styles/main.css";
@@ -15,7 +15,8 @@ class DisplayBankStats extends React.Component<any, any> {
     componentDidMount() {
         Axios.get("http://localhost:3001/display_bank_stats").then(r => {
             const res = r.data;
-            this.setState({rowData: res});
+            console.log(res)
+            this.setState({ rowData: res });
         });
     }
 
@@ -28,41 +29,41 @@ class DisplayBankStats extends React.Component<any, any> {
                 </div>
                 <table className="styled-table">
                     <thead>
-                    <tr>
-                    <th>
-                        Bank ID
-                    </th>
-                    <th>
-                        Corporation Name
-                    </th>
-                    <th>
-                        Bank Name
-                    </th>
-                    <th>
-                        Street
-                    </th>
-                    <th>
-                        City
-                    </th>
-                    <th>
-                        State
-                    </th>
-                    <th>
-                        Zip
-                    </th>
-                    <th>
-                        Number of Accounts
-                    </th>
-                    <th>
-                        Bank Assets ($)
-                    </th>
-                    <th>
-                        Total Assets ($)
-                    </th>
-                    </tr>
+                        <tr>
+                            <th>
+                                Bank ID
+                            </th>
+                            <th>
+                                Corporation Name
+                            </th>
+                            <th>
+                                Bank Name
+                            </th>
+                            <th>
+                                Street
+                            </th>
+                            <th>
+                                City
+                            </th>
+                            <th>
+                                State
+                            </th>
+                            <th>
+                                Zip
+                            </th>
+                            <th>
+                                Number of Accounts
+                            </th>
+                            <th>
+                                Bank Assets ($)
+                            </th>
+                            <th>
+                                Total Assets ($)
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
-                    {this.state.rowData.map(row => <TableRow row={row} />)}
+                        {this.state.rowData.map(row => <TableRow row={row} />)}
                     </tbody>
                 </table>
             </div>
@@ -70,7 +71,7 @@ class DisplayBankStats extends React.Component<any, any> {
     }
 }
 
-class TableRow extends Component {
+class TableRow extends Component<{ row }, {}> {
     render() {
         var row = this.props.row;
         return (

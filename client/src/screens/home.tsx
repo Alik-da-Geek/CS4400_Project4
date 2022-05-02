@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/main.css";
 import { HomeState } from "../types/State";
-import { LoginProps } from "../types/props";
+import { CreateFeeProps, LoginProps } from "../types/props";
 //@ts-ignore
 import Login from "./login.tsx";
 
@@ -16,7 +16,6 @@ class Home extends React.Component<{}, HomeState> {
       customer: true,
       username: "",
       password: "",
-      accountID: "",
     }
     this.changeRole = this.changeRole.bind(this)
     this.getScreen = this.getScreen.bind(this)
@@ -50,6 +49,13 @@ class Home extends React.Component<{}, HomeState> {
 
   getScreen() {
     if (this.state.loggedIn) {
+      // const CreateFeeProps: CreateFeeProps = {
+      //   customerID: this.state.username,
+      // }
+      const CreateFeeProps: any = {
+        pathname: "create_fee",
+        param1: "Par1"
+      };
       return (
         <div className="list">
           <ol>
@@ -96,7 +102,8 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.admin &&
               <li>
-                <Link to="create_fee">Create Fee (CHECK)</Link>
+                {/* <Link to="create_fee" {...CreateFeeProps}>Create Fee (CHECK)</Link> */}
+                <Link to={CreateFeeProps}>Create Fee (CHECK)</Link>
               </li>
             }
             {(this.state.admin || this.state.customer) &&
@@ -165,7 +172,6 @@ class Home extends React.Component<{}, HomeState> {
       loggedIn: false,
       username: "",
       password: "",
-      accountID: "",
     })
   }
 
