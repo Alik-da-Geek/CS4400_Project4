@@ -19,6 +19,43 @@ class DisplayCorporationStats extends React.Component<any, any> {
         });
     }
 
+    sortTable = (n) => {
+        let table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
+        table = document.getElementById("corpTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchCount ++;
+            } else {
+                if (switchCount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+
     render() {
         return (
             <div className="container">
@@ -26,25 +63,25 @@ class DisplayCorporationStats extends React.Component<any, any> {
                     <h6><Link to="../">Home</Link></h6>
                     <h1>Q22: Display Corporation Stats</h1>
                 </div>
-                <table className="styled-table">
+                <table className="styled-table" id="corpTable">
                     <thead>
                     <tr>
-                    <th>
+                    <th onClick={() => this.sortTable(0)}>
                         Corporation ID
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(1)}>
                         Short Name
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(2)}>
                         Formal Name
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(3)}>
                         Number of Banks
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(4)}>
                         Corporation Assets ($)
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(5)}>
                         Total Assets ($)
                     </th>
                     </tr>

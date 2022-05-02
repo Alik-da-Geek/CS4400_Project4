@@ -19,6 +19,43 @@ class DisplayCustomerStats extends React.Component<any, any> {
         });
     }
 
+    sortTable = (n) => {
+        let table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
+        table = document.getElementById("customerTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchCount ++;
+            } else {
+                if (switchCount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+
     render() {
         return (
             <div className="container">
@@ -26,40 +63,40 @@ class DisplayCustomerStats extends React.Component<any, any> {
                     <h6><Link to="../">Home</Link></h6>
                     <h1>Q23: Display Customer Stats</h1>
                 </div>
-                <table className="styled-table">
+                <table className="styled-table" id="customerTable">
                     <thead>
                     <tr>
-                    <th>
+                    <th onClick={() => this.sortTable(0)}>
                         Customer ID
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(1)}>
                         TAX ID
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(2)}>
                         Customer Name
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(3)}>
                         Date of Birth
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(4)}>
                         Joined Date
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(5)}>
                         Street
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(6)}>
                         City
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(7)}>
                         State
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(8)}>
                         Zip
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(9)}>
                         Number of Accounts
                     </th>
-                    <th>
+                    <th onClick={() => this.sortTable(10)}>
                         Customer Assets ($)
                     </th>
                     </tr>
