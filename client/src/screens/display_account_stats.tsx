@@ -44,7 +44,7 @@ class DisplayAccountStats extends React.Component<any, any> {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.rowData.map(row => <TableRow row={row} />)}
+                        {this.state.rowData.map(row => <TableRow key={row.name_of_bank + row.account_identifier} row={row} />)}
                     </tbody>
                 </table>
             </div>
@@ -55,7 +55,6 @@ class DisplayAccountStats extends React.Component<any, any> {
 class TableRow extends Component<{ row }, {}> {
     render() {
         var row = this.props.row;
-        console.table(row);
         return (
             <tr>
                 <td>

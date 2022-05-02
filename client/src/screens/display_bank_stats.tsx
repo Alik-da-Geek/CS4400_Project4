@@ -15,7 +15,6 @@ class DisplayBankStats extends React.Component<any, any> {
     componentDidMount() {
         Axios.get("http://localhost:3001/display_bank_stats").then(r => {
             const res = r.data;
-            console.log(res)
             this.setState({ rowData: res });
         });
     }
@@ -63,7 +62,7 @@ class DisplayBankStats extends React.Component<any, any> {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.rowData.map(row => <TableRow row={row} />)}
+                        {this.state.rowData.map(row => <TableRow key={row.bank_identifier} row={row} />)}
                     </tbody>
                 </table>
             </div>

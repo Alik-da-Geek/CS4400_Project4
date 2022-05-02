@@ -50,7 +50,7 @@ class DisplayCorporationStats extends React.Component<any, any> {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.rowData.map(row => <TableRow row={row} />)}
+                    {this.state.rowData.map(row => <TableRow key={row.corporation_identifier} row={row} />)}
                     </tbody>
                 </table>
             </div>

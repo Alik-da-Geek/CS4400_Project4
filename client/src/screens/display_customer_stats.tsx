@@ -65,7 +65,7 @@ class DisplayCustomerStats extends React.Component<any, any> {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.rowData.map(row => <TableRow row={row} />)}
+                    {this.state.rowData.map(row => <TableRow key={row.person_identifier} row={row} />)}
                     </tbody>
                 </table>
             </div>
