@@ -366,7 +366,7 @@ app.post("/start_customer_role", (req, res) => {
       state,
       zip,
       dtJoined,
-      emp_password,
+      cust_password,
     ],
     (err, result) => {
       if (err) {

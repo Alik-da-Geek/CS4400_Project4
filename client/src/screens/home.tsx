@@ -70,10 +70,10 @@ class Home extends React.Component<{}, HomeState> {
               </li>
             }
             <li>
-              <Link to="create_employee">Create Employee (CHECK)</Link>
+              <Link to="create_employee">Create Employee</Link>
             </li>
             <li>
-              <Link to="create_customer">Create Customer (CHECK)</Link>
+              <Link to="create_customer">Create Customer</Link>
             </li>
             {this.state.admin &&
               <li>
@@ -103,7 +103,7 @@ class Home extends React.Component<{}, HomeState> {
             {this.state.admin &&
               <li>
                 {/* <Link to="create_fee" {...CreateFeeProps}>Create Fee (CHECK)</Link> */}
-                <Link to={CreateFeeProps}>Create Fee (CHECK)</Link>
+                <Link to={CreateFeeProps}>Create Fee (CHECK: drop down box fix)</Link>
               </li>
             }
             {(this.state.admin || this.state.customer) &&
@@ -128,32 +128,32 @@ class Home extends React.Component<{}, HomeState> {
             }
             {(this.state.admin || this.state.manager) &&
               <li>
-                <Link to="pay_employees">Pay Employees (CHECK)</Link>
+                <Link to="pay_employees">Pay Employees (CHECK: stored procedure bug fix)</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="display_account_stats">Account Stats (CHECK)</Link>
+                <Link to="display_account_stats">Account Stats</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="display_bank_stats">Bank Stats (CHECK)</Link>
+                <Link to="display_bank_stats">Bank Stats</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="display_corporation_stats">Corporation Stats (CHECK)</Link>
+                <Link to="display_corporation_stats">Corporation Stats</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="display_customer_stats">Customer Stats (CHECK)</Link>
+                <Link to="display_customer_stats">Customer Stats</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="display_employee_stats">Employee Stats (CHECK)</Link>
+                <Link to="display_employee_stats">Employee Stats</Link>
               </li>
             }
           </ol>
