@@ -1,12 +1,17 @@
 export interface HomeState {
     username: string,
     password: string,
-    accountID: string,
     loggedIn: boolean,
     admin: boolean,
     manager: boolean,
     customer: boolean,
 }
+
+export interface Person {
+    username: string,
+    passowrd: string,
+}
+
 export interface CreateCorpState {
     corpID: string,
     longName: string,
@@ -31,16 +36,18 @@ export interface CreateBankState {
 }
 
 export interface CreateEmployeeState {
-    personList: Array<string>,
+    people: Array<any>
     personID: string,
+    password: string,
     salary: number,
     numPayments: number,
     accumulatedEarnings: number
 }
 
 export interface CreateCustomerState {
-    personList: Array<string>,
+    peopleList: Array<any>,
     personID: string,
+    password: string,
 }
 
 export interface StopEmployeeState {

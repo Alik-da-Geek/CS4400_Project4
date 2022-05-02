@@ -9,8 +9,9 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   constructor(props) {
     super(props);
     this.state = {
-      personList: [],
+      people: [],
       personID: "",
+      password: "",
       salary: 0,
       numPayments: 0,
       accumulatedEarnings: 0
@@ -25,35 +26,32 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   }
 
   componentDidMount() {
-    let data = [];
-    //TODO check this endpoint
     Axios.get("http://localhost:3001/get_perID").then(r => {
-      data = r.data;
-      for (let i = 0; i < data.length; i++) {
-        data[i] = data[i].perID;
-      }
-      this.setState({ personList: data });
-      this.setState({ personID: data[0] });
+      this.setState({
+        people: r.data,
+        personID: r.data[0]['perID'],
+        password: r.data[0]['pwd']
+      });
     });
   }
 
   handlePersonIDChange(event) {
-    this.setState({ personID: event.target.value });
+    const tempArray = event.target.value.split(",")
+    const username = tempArray[0]
+    const password = tempArray[1]
+    this.setState({
+      personID: username,
+      password: password
+    });
   }
   handleSalaryChange(event) {
-    if (event.target.validity.valid) {
-      this.setState({ salary: event.target.value });
-    }
+    this.setState({ salary: event.target.value });
   }
   handleNumPaymentsChange(event) {
-    if (event.target.validity.valid) {
-      this.setState({ numPayments: event.target.value });
-    }
+    this.setState({ numPayments: event.target.value });
   }
   handleAccumulatedEarningsChange(event) {
-    if (event.target.validity.valid) {
-      this.setState({ accumulatedEarnings: event.target.value });
-    }
+    this.setState({ accumulatedEarnings: event.target.value });
   }
 
   clearState(event) {
@@ -67,20 +65,17 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
     event.preventDefault();
   }
 
-  getPeople() {
-
-  }
-
   handleSubmit(event) {
     Axios.post("http://localhost:3001/start_employee_role", {
-      personID: this.state.personID,
+      perID: this.state.personID,
+      emp_password: this.state.password,
       salary: this.state.salary,
-      numPayments: this.state.numPayments,
-      accumulatedEarnings: this.state.accumulatedEarnings
+      payments: this.state.numPayments,
+      earned: this.state.accumulatedEarnings
     }).then(() => {
       console.log("Employee data sent!");
+      this.clearState(event)
     })
-    this.clearState(event)
     event.preventDefault();
   }
 
@@ -98,7 +93,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
                 Person ID:
               </label>
               <select name="selectList" id="selectList" onChange={this.handlePersonIDChange}>
-                {this.state.personList.map(name => <option key={name} value={name}>{name}</option>)}
+                {this.state.people.map(name => <option key={name['perID']} value={[name['perID'], name['pwd']]}>{name['perID']}</option>)}
               </select>
             </div>
             <div className="formItem">

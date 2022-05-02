@@ -9,47 +9,53 @@ export class CreateCustomer extends React.Component<{}, CreateCustomerState> {
   constructor(props) {
     super(props);
     this.state = {
-      personList: [],
+      peopleList: [],
       personID: "",
+      password: "",
     };
-
     this.handlePersonIDChange = this.handlePersonIDChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearState = this.clearState.bind(this);
   }
 
   componentDidMount() {
-    let data = [];
-    //TODO should I get employees or people too
-    Axios.get("http://localhost:3001/get_employee_id").then(r => {
-      data = r.data;
-      for (let i = 0; i < data.length; i++) {
-        data[i] = data[i].perID;
-      }
-      this.setState({ personList: data });
-      this.setState({ personID: data[0] });
+    Axios.get("http://localhost:3001/get_perID").then(r => {
+      this.setState({
+        peopleList: r.data,
+        personID: r.data[0]['perID'],
+        password: r.data[0]['pwd']
+      })
     });
   }
 
   handlePersonIDChange(event) {
-    this.setState({ personID: event.target.value });
+    const tempArray = event.target.value.split(",")
+    const username = tempArray[0]
+    const password = tempArray[1]
+    this.setState({
+      personID: username,
+      password: password
+    });
   }
 
   clearState(event) {
     console.log('cleared')
     this.setState({
       personID: "",
+      password: ""
     })
     event.preventDefault();
   }
 
   handleSubmit(event) {
+    console.log(this.state)
     Axios.post("http://localhost:3001/start_customer_role", {
-      accountName: this.state.personID,
+      perID: this.state.personID,
+      cust_password: this.state.password,
     }).then(() => {
       console.log("Customer data sent!");
+      this.clearState(event)
     })
-    this.clearState(event)
     event.preventDefault();
   }
 
@@ -67,7 +73,7 @@ export class CreateCustomer extends React.Component<{}, CreateCustomerState> {
                 Person ID:
               </label>
               <select name="selectList" id="selectList" onChange={this.handlePersonIDChange}>
-                {this.state.personList.map(name => <option key={name} value={name}>{name}</option>)}
+                {this.state.peopleList.map(name => <option key={name['perID']} value={[name['perID'], name['pwd']]}>{name['perID']}</option>)}
               </select>
             </div>
             <div className="formButtons">

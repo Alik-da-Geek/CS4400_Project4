@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
+import moment from "moment";
 import "../styles/main.css";
 import "../styles/forms.css";
 import { MakeDepositState } from '../types/State'
@@ -68,10 +69,13 @@ export class MakeDeposit extends React.Component<MakeDepositProps, MakeDepositSt
   }
 
   handleSubmit(event) {
-    Axios.post("http://localhost:3001/replace_manager", {
+    const date = moment().format("DD-MM-YYYY")
+    Axios.post("http://localhost:3001/account_deposit", {
+      requester: this.props.customerID,
+      depositAmount: this.state.amount,
       bankID: this.state.bank,
-      perID: this.state.employee,
-      salary: this.state.salary
+      accountID: this.state.account,
+      dtAction: date
     }).then(() => {
       console.log("Replace manager data sent!");
       this.clearState(event)
@@ -84,10 +88,16 @@ export class MakeDeposit extends React.Component<MakeDepositProps, MakeDepositSt
       <div className="container">
         <div className="mainHeader">
           <h6><Link to="../">Home</Link></h6>
-          <h1>Q8: Replace Manager</h1>
+          <h1>Q14: Make Deposit</h1>
         </div>
         <div className="formContainer">
           <form onSubmit={this.handleSubmit}>
+            <div className="formItem">
+              <label>
+                Amount:
+              </label>
+              <input type="text" value={this.state.amount} onChange={this.handleAccountChange} />
+            </div>
             <div className="formItem">
               <label>
                 Bank:
@@ -98,18 +108,13 @@ export class MakeDeposit extends React.Component<MakeDepositProps, MakeDepositSt
             </div>
             <div className="formItem">
               <label>
-                Employee:
+                Account:
               </label>
-              <select name="selectList" id="selectList" onChange={this.handleEmployeeChange}>
-                {this.state.employeeList.map(name => <option key={name} value={name}>{name}</option>)}
+              <select name="selectList" id="selectList" onChange={this.handleAccountChange}>
+                {this.state.accountList.map(name => <option key={name} value={name}>{name}</option>)}
               </select>
             </div>
-            <div className="formItem">
-              <label>
-                Salary:
-              </label>
-              <input type="text" value={this.state.salary} onChange={this.handleSalaryChange} />
-            </div>
+
             <div className="formButtons">
               <button onClick={this.clearState} className="formCancel">
                 Cancel

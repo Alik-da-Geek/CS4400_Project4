@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
+// import { useLocation } from "react-router-dom";
 import "../styles/main.css";
 import "../styles/forms.css";
 import { CreateFeeState } from '../types/State'
@@ -9,6 +10,7 @@ import { CreateFeeProps } from "../types/props";
 export class CreateFee extends React.Component<CreateFeeProps, CreateFeeState> {
   constructor(props) {
     super(props);
+    console.log(props)
     this.state = {
       bankList: [],
       bank: "",
@@ -16,6 +18,8 @@ export class CreateFee extends React.Component<CreateFeeProps, CreateFeeState> {
       account: "",
       feeType: "",
     };
+    // const location = useLocation();
+
     this.handleBankChange = this.handleBankChange.bind(this);
     this.handleAccountChange = this.handleAccountChange.bind(this);
     this.handleFeeTypeChange = this.handleFeeTypeChange.bind(this);

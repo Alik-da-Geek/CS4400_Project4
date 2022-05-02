@@ -36,6 +36,8 @@ import { ReplaceManager } from "./screens/replace_manager.tsx";
 import { CreateFee } from "./screens/create_fee.tsx";
 // @ts-ignore
 import { PayEmployees } from "./screens/pay_employee.tsx";
+// @ts-ignore
+import { MakeDeposit } from "./screens/make_deposit.tsx";
 
 
 const rootElement = document.getElementById("root");
@@ -54,6 +56,7 @@ ReactDOM.render(
                 <Route path="replace_manager" element={<ReplaceManager />}></Route>
                 <Route path="create_fee" element={<CreateFee />}></Route>
                 <Route path="pay_employees" element={<PayEmployees />}></Route>
+                <Route path="make_deposit" element={<MakeDeposit />}></Route>
                 <Route path="display_account_stats" element={<DisplayAccountStats />}></Route>
                 <Route path="display_bank_stats" element={<DisplayBankStats />}></Route>
                 <Route path="display_corporation_stats" element={<DisplayCorporationStats />}></Route>
