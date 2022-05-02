@@ -36,7 +36,6 @@ export function MakeDeposit() {
 
   function clearState(event) {
     console.log('cleared')
-    setAccount("")
     setAmount(0)
     event.preventDefault();
   }

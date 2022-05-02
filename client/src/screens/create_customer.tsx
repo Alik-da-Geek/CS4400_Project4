@@ -41,8 +41,6 @@ export class CreateCustomer extends React.Component<{}, CreateCustomerState> {
   clearState(event) {
     console.log('cleared')
     this.setState({
-      personID: "",
-      password: ""
     })
     event.preventDefault();
   }

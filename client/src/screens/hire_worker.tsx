@@ -51,8 +51,7 @@ export class HireWorker extends React.Component<{}, HireWorkerState> {
   clearState(event) {
     console.log('cleared')
     this.setState({
-      bank: "",
-      employee: "",
+
     })
     event.preventDefault();
   }

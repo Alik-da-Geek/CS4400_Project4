@@ -37,7 +37,7 @@ export class StopCustomer extends React.Component<{}, StopCustomerState> {
     clearState(event) {
         console.log('cleared')
         this.setState({
-            personID: "",
+
         })
         event.preventDefault();
     }

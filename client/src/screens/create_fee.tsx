@@ -65,11 +65,7 @@ export class CreateFee extends React.Component<CreateFeeProps, CreateFeeState> {
   clearState(event) {
     console.log('cleared')
     this.setState({
-      bankList: [],
-      bank: "",
-      accountList: [],
-      account: "",
-      feeType: "",
+      feeType: ""
     })
     event.preventDefault();
   }

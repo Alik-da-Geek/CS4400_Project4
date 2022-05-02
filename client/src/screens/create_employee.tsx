@@ -57,7 +57,6 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   clearState(event) {
     console.log('cleared')
     this.setState({
-      personID: "",
       salary: 0,
       numPayments: 0,
       accumulatedEarnings: 0

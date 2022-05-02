@@ -56,8 +56,7 @@ export class ReplaceManager extends React.Component<{}, ReplaceManagerState> {
   clearState(event) {
     console.log('cleared')
     this.setState({
-      bank: "",
-      employee: "",
+      salary: 0
     })
     event.preventDefault();
   }

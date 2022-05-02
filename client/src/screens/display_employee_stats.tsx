@@ -85,7 +85,7 @@ class TableRow extends Component {
                     {row.tax_identifier}
                 </td>
                 <td>
-                    {row.customer_name}
+                    {row.employee_name}
                 </td>
                 <td>
                     {new Date(row.date_of_birth).toDateString()}
