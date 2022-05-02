@@ -92,7 +92,7 @@ export function ManagerOverdraft() {
         <div className="container">
             <div className="mainHeader">
                 <h6><Link to="../">Home</Link></h6>
-                <h1>Q16: Make Tranfer</h1>
+                <h1>Manage Overdraft</h1>
             </div>
             <div className="formContainer">
                 <form onSubmit={handleSubmit}>

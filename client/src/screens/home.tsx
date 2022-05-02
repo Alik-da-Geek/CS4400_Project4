@@ -95,7 +95,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.admin &&
               <li>
-                <Link to="create_fee" state={{ username: this.state.username }}>Create Fee (CHECK)</Link>
+                <Link to="create_fee" state={{ username: this.state.username }}>Create Fee</Link>
               </li>
             }
             {(this.state.admin || this.state.customer) &&
