@@ -39,9 +39,11 @@ import { PayEmployees } from "./screens/pay_employee.tsx";
 // @ts-ignore
 import { MakeDeposit } from "./screens/make_deposit.tsx";
 
-
+import * as ReactDOMClient from 'react-dom/client';
 const rootElement = document.getElementById("root");
-ReactDOM.render(
+const root = ReactDOMClient.createRoot(rootElement);
+
+root.render(
     <div className="container">
         <BrowserRouter>
             <Routes>
@@ -65,4 +67,4 @@ ReactDOM.render(
             </Routes>
         </BrowserRouter>
     </div>
-    , rootElement);
+);
