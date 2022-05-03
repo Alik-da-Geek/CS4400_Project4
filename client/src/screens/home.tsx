@@ -120,7 +120,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {(this.state.admin || this.state.manager) &&
               <li>
-                <Link to="pay_employees">Pay Employees (CHECK: stored procedure bug fix)</Link>
+                <Link to="pay_employees">Pay Employees</Link>
               </li>
             }
             {this.state.admin &&
