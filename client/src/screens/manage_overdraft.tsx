@@ -11,7 +11,8 @@ export function ManagerOverdraft() {
     const [savingsAccountList, setSavingsAccountList] = useState<Array<string>>([])
     const [checkingAccount, setCheckingAccount] = useState<string>("")
     const [savingsAccount, setSavingsAccount] = useState<string>("")
-    const [startOverdraft, setStartOverdraft] = useState(true)
+    const overdraftList = ["Add Account", "Remove Account"]
+    const [overdraft, setOverdraft] = useState(overdraftList[0])
 
     useEffect(() => {
         console.log(username)
@@ -44,13 +45,12 @@ export function ManagerOverdraft() {
     function handleSavingsAccountChange(event) {
         setSavingsAccount(event.target.value);
     }
-    function handleOverdraftChange(event) {
-        setStartOverdraft(!startOverdraft)
+    function handleOverdraft(event) {
+        setOverdraft(event.target.value);
     }
 
     function clearState(event) {
-        console.log('cleared')
-        setStartOverdraft(true)
+        setOverdraft(overdraftList[0])
         setCheckingAccount("")
         setSavingsAccount("")
         event.preventDefault();
@@ -60,7 +60,7 @@ export function ManagerOverdraft() {
         let accountArray = checkingAccount.split(": ")
         const checkingBankID = accountArray[0]
         const checkingAccountID = accountArray[1]
-        if (startOverdraft) {
+        if (overdraft === overdraftList[0]) {
             accountArray = savingsAccount.split(": ")
             const savingsBankID = accountArray[0]
             const savingsAccountID = accountArray[1]
@@ -97,9 +97,11 @@ export function ManagerOverdraft() {
                 <form onSubmit={handleSubmit}>
                     <div className="formItem">
                         <label>
-                            Start Overdraft:
+                            Add Or Remove:
                         </label>
-                        <input type="checkbox" checked={startOverdraft} onChange={handleOverdraftChange} />
+                        <select name="selectList" id="selectList" onChange={handleOverdraft}>
+                            {overdraftList.map(name => <option key={name} value={name}>{name}</option>)}
+                        </select>
                     </div>
                     <div className="formItem">
                         <label>
