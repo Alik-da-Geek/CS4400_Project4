@@ -140,6 +140,7 @@ export function ManageAccount() {
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
           <div className="formItem">
+            <h4>Add access to existing account</h4>
             <label>
               Account:
             </label>
@@ -167,7 +168,7 @@ export function ManageAccount() {
               OR
             </label>
           </div> */}
-          <h4>OR</h4>
+          <h4>OR create new account</h4>
           <div className="formItem">
             <label>
               Bank:
