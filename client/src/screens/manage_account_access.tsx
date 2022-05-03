@@ -92,6 +92,8 @@ export function ManageAccountAccess() {
       <div className="mainHeader">
         <h6><Link to="../">Home</Link></h6>
         <h1>Q9: Manage Account Access</h1>
+        <p className="currentUser">{username}</p>
+
       </div>
       <div className="formContainer">
         <form onSubmit={handleSubmit}>

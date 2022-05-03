@@ -210,6 +210,10 @@ class Home extends React.Component<{}, HomeState> {
       <div className="container">
         <div className="mainHeader">
           <h1>CS 4400 Phase 4</h1>
+          <p className="currentUser">{this.state.username}<br/> {this.state.admin && "Admin "}
+            {this.state.customer && "Customer "}
+            {this.state.employee && "Employee "}
+            {this.state.manager && "Manager "}</p>
           <h6 onClick={this.handleLogout}>Logout</h6>
         </div>
         {homePage}

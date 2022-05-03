@@ -160,6 +160,7 @@ export function ManageAccount() {
       <div className="mainHeader">
         <h6><Link to="../">Home</Link></h6>
         <h1>Q9.2: Manage Accounts</h1>
+        <p className="currentUser">{username}</p>
       </div>
       <div className="formContainer">
         <form onSubmit={handleAddAccountSubmit}>

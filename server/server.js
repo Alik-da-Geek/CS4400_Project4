@@ -1902,6 +1902,58 @@ app.get("/get_non_customers", (req, res) => {
   );
 });
 
+// H16
+// Get all checking accounts with their overdraft protection status
+// Returns (bankID, accountID, protectionBank, protectionAccount)
+var get_all_chk_w_status_idx = 0;
+app.get("/get_all_chk_w_status", (req, res) => {
+  get_all_chk_w_status_idx++;
+
+  console.log("\n/////////////////////////////////////////////////////////////////");
+  console.log("GET_ALL_CHK_W_STATUS call " + get_all_chk_w_status_idx + "\n");
+  db.query(
+    "select bankID, accountID, protectionBank, protectionAccount from checking;",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        console.log("\n!!!!! GET_ALL_CHK_W_STATUS: ERROR RETRIEVING VALUES !!!!!");
+        res.send("GET_ALL_CHK_W_STATUS call " + get_all_chk_w_status_idx + ": ERROR RETRIEVING VALUES");
+      } else {
+        console.log(result);
+        console.log("\nGET_ALL_CHK_W_STATUS: SUCCESSFUL");
+        res.send(result);
+      }
+      console.log("/////////////////////////////////////////////////////////////////\n");
+    }
+  );
+});
+
+// H17
+// Get all savings accounts
+// Returns (bankID, accountID)
+var get_all_sav_idx = 0;
+app.get("/get_all_sav", (req, res) => {
+  get_all_sav_idx++;
+
+  console.log("\n/////////////////////////////////////////////////////////////////");
+  console.log("GET_ALL_SAV call " + get_all_sav_idx + "\n");
+  db.query(
+    "select bankID, accountID from savings;",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        console.log("\n!!!!! GET_ALL_SAV: ERROR RETRIEVING VALUES !!!!!");
+        res.send("GET_ALL_SAV call " + get_all_sav_idx + ": ERROR RETRIEVING VALUES");
+      } else {
+        console.log(result);
+        console.log("\nGET_ALL_SAV: SUCCESSFUL");
+        res.send(result);
+      }
+      console.log("/////////////////////////////////////////////////////////////////\n");
+    }
+  );
+});
+
 app.listen(3001, () => {
   console.log("Server running on port 3001 ...");
 });
