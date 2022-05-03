@@ -11,25 +11,27 @@ export function ManagerOverdraft() {
     const [savingsAccountList, setSavingsAccountList] = useState<Array<string>>([])
     const [checkingAccount, setCheckingAccount] = useState<string>("")
     const [savingsAccount, setSavingsAccount] = useState<string>("")
-    const overdraftList = ["Add Account", "Remove Account"]
-    const [overdraft, setOverdraft] = useState(overdraftList[0])
+    const protectedString = " - (protected)";
+    const [fetchAll, setFetchAll] = useState(0)
 
     useEffect(() => {
         console.log(username)
         let data = []
-        Axios.post("http://localhost:3001/get_accessible_chk_accounts", {
-            customerID: username
-        }).then(r => {
+        console.log("penis")
+        Axios.get("http://localhost:3001/get_all_chk_w_status").then(r => {
             data = r.data;
+            console.log(data)
             for (let i = 0; i < data.length; i++) {
-                data[i] = data[i].bankID + ": " + data[i].accountID;
+                if (data[i].protectionBank == null) {
+                    data[i] = data[i].bankID + ": " + data[i].accountID + protectedString;
+                } else {
+                    data[i] = data[i].bankID + ": " + data[i].accountID;
+                }
             }
             setCheckingAccountList(data)
             setCheckingAccount(data[0])
         })
-        Axios.post("http://localhost:3001/get_accessible_sav_accounts", {
-            customerID: username
-        }).then(r => {
+        Axios.get("http://localhost:3001/get_all_sav").then(r => {
             data = r.data;
             for (let i = 0; i < data.length; i++) {
                 data[i] = data[i].bankID + ": " + data[i].accountID;
@@ -37,7 +39,7 @@ export function ManagerOverdraft() {
             setSavingsAccountList(data)
             setSavingsAccount(data[0])
         })
-    }, [username, location])
+    }, [fetchAll])
 
     function handleCheckingAccountChange(event) {
         setCheckingAccount(event.target.value);
@@ -45,12 +47,8 @@ export function ManagerOverdraft() {
     function handleSavingsAccountChange(event) {
         setSavingsAccount(event.target.value);
     }
-    function handleOverdraft(event) {
-        setOverdraft(event.target.value);
-    }
 
     function clearState(event) {
-        setOverdraft(overdraftList[0])
         setCheckingAccount("")
         setSavingsAccount("")
         event.preventDefault();
@@ -59,8 +57,9 @@ export function ManagerOverdraft() {
     function handleSubmit(event) {
         let accountArray = checkingAccount.split(": ")
         const checkingBankID = accountArray[0]
-        const checkingAccountID = accountArray[1]
-        if (overdraft === overdraftList[0]) {
+        const checkingAccountID = accountArray[1].replace(protectedString, "")
+        const removeOverdraft = checkingAccountID.includes(protectedString)
+        if (!removeOverdraft) {
             accountArray = savingsAccount.split(": ")
             const savingsBankID = accountArray[0]
             const savingsAccountID = accountArray[1]
@@ -73,6 +72,7 @@ export function ManagerOverdraft() {
             }).then(() => {
                 console.log("Start overdraft data sent!");
                 clearState(event)
+                setFetchAll(fetchAll + 1)
             })
         } else {
             Axios.post("http://localhost:3001/stop_overdraft", {
@@ -82,6 +82,7 @@ export function ManagerOverdraft() {
             }).then(() => {
                 console.log("Stop overdraft data sent!");
                 clearState(event)
+                setFetchAll(fetchAll + 1)
             })
         }
         event.preventDefault();
@@ -96,14 +97,6 @@ export function ManagerOverdraft() {
             </div>
             <div className="formContainer">
                 <form onSubmit={handleSubmit}>
-                    <div className="formItem">
-                        <label>
-                            Add Or Remove:
-                        </label>
-                        <select name="selectList" id="selectList" onChange={handleOverdraft}>
-                            {overdraftList.map(name => <option key={name} value={name}>{name}</option>)}
-                        </select>
-                    </div>
                     <div className="formItem">
                         <label>
                             Checking Account:
