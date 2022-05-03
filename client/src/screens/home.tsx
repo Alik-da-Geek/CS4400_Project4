@@ -88,12 +88,16 @@ class Home extends React.Component<{}, HomeState> {
                 <Link to="create_bank">Create Bank</Link>
               </li>
             }
-            <li>
-              <Link to="create_employee">Create Employee</Link>
-            </li>
-            <li>
-              <Link to="create_customer">Create Customer</Link>
-            </li>
+            {this.state.admin &&
+              <li>
+                <Link to="create_employee">Create Employee</Link>
+              </li>
+            }
+            {this.state.admin &&
+              <li>
+                <Link to="create_customer">Create Customer</Link>
+              </li>
+            }
             {this.state.admin &&
               <li>
                 <Link to="stop_employee">Stop Employee</Link>
