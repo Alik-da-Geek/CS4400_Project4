@@ -122,3 +122,8 @@ http://localhost:3001/get_non_customers
 H16: (Get all checking accounts with their overdraft protection status)
 http://localhost:3001/get_all_chk_w_status
 
+H17: (Get all savings accounts)
+http://localhost:3001/get_all_sav
+
+H18: (Get accessible checking accounts with their overdraft protection status)
+http://localhost:3001/get_accessible_chk_w_status

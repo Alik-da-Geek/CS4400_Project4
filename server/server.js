@@ -1954,6 +1954,43 @@ app.get("/get_all_sav", (req, res) => {
   );
 });
 
+// H18
+// Get accessible checking accounts with their overdraft protection status
+// Returns (bankID, accountID, protectionBank, protectionAccount)
+var get_accessible_chk_w_status_idx = 0;
+app.post("/get_accessible_chk_w_status", (req, res) => {
+  get_accessible_chk_w_status_idx++;
+
+  const customerID = req.body.customerID;
+
+  console.log("\n/////////////////////////////////////////////////////////////////"
+  );
+  console.log("GET_ACCESSIBLE_CHK_W_STATUS call " + get_accessible_chk_w_status_idx + "\n");
+  console.log(
+      "Received Data\n" +
+      "--------------------------\n" +
+      "customerID: " + customerID + "\n" +
+      "--------------------------\n"
+  );
+
+  db.query(
+    "select x.bankID, x.accountID, checking.protectionBank, checking.protectionAccount from (select bankID, accountID from access where perID = ? and (bankID, accountID) in (select bankID, accountID from checking)) as x left join checking on x.bankID = checking.bankID and x.accountID = checking.accountID;",
+    [customerID],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        console.log("\n!!!!! GET_ACCESSIBLE_CHK_W_STATUS: ERROR RETRIEVING VALUES !!!!!");
+        res.send("GET_ACCESSIBLE_CHK_W_STATUS call " + get_accessible_chk_w_status_idx + ": ERROR RETRIEVING VALUES");
+      } else {
+        console.log(result);
+        console.log("\nGET_ACCESSIBLE_CHK_W_STATUS: SUCCESSFUL");
+        res.send(result);
+      }
+      console.log("/////////////////////////////////////////////////////////////////\n");
+    }
+  );
+});
+
 app.listen(3001, () => {
   console.log("Server running on port 3001 ...");
 });
