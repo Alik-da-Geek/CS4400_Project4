@@ -164,6 +164,7 @@ export function ManageAccount() {
       <div className="formContainer">
         <form onSubmit={handleAddAccountSubmit}>
           <div className="formItem">
+            <h4>Add access to existing account</h4>
             <label>
               Account:
             </label>
