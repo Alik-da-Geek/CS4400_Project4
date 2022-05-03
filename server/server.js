@@ -1809,7 +1809,7 @@ app.post("/get_acc_from_bank", (req, res) => {
 });
 
 // H13
-// Get accounts from a specific bank
+// Get all accounts
 var get_all_acc = 0;
 app.get("/get_all_acc", (req, res) => {
   get_all_acc++;
@@ -1836,8 +1836,8 @@ app.get("/get_all_acc", (req, res) => {
   });
 });
 
-// H13
-// Get accounts from a specific bank
+// H14
+// Get IDs for non-employees
 var get_non_employees_idx = 0;
 app.get("/get_non_employees", (req, res) => {
   get_non_employees_idx++;
@@ -1869,8 +1869,8 @@ app.get("/get_non_employees", (req, res) => {
   );
 });
 
-// H14
-// Get accounts from a specific bank
+// H15
+// Get IDs for non-customers 
 var get_non_customers_idx = 0;
 app.get("/get_non_customers", (req, res) => {
   get_non_customers_idx++;
