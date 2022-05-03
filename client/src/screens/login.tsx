@@ -26,7 +26,6 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 
     clearState(event) {
-        console.log('cleared')
         this.setState({
             id: '',
             password: '',

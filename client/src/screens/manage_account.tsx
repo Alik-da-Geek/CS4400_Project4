@@ -88,13 +88,13 @@ export function ManageAccount() {
   }
 
   function clearAddAccountState(event) {
-    console.log('cleared')
+    setAccount(accountList[0])
+    setCustomer(customerList[0])
     setAddOwner(true)
     event.preventDefault();
   }
 
   function clearCreateAccountState(event) {
-    console.log('cleared')
     setBank(bankList[0])
     setAccountID("")
     setBalance(0)
@@ -104,6 +104,7 @@ export function ManageAccount() {
   }
 
   function handleAddAccountSubmit(event) {
+    const date = moment().format("YYYY-MM-DD");
     let accountArray = account.split(": ")
     const bankID = accountArray[0]
     const accountID = accountArray[1]
@@ -113,22 +114,24 @@ export function ManageAccount() {
         customer: customer,
         bankID: bankID,
         accountID: accountID,
+        dtShareStart: date,
       }).then(() => {
         console.log("Account access added!");
         clearAddAccountState(event)
       })
-      event.preventDefault();
     } else {
       Axios.post("http://localhost:3001/remove_account_access", {
         requester: username,
         sharer: customer,
         bankID: bankID,
         accountID: accountID,
+        dtShareStart: date,
       }).then(() => {
         console.log("Account access removed!");
         clearAddAccountState(event)
       })
     }
+    event.preventDefault();
   }
 
   function handleCreateAccountSubmit(event) {

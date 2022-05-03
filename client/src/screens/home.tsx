@@ -26,7 +26,6 @@ class Home extends React.Component<{}, HomeState> {
   setState(state) {
     window.localStorage.setItem('state', JSON.stringify(state));
     super.setState(state);
-    console.log(state)
   }
 
   changeRole(role: string, username: string) {
