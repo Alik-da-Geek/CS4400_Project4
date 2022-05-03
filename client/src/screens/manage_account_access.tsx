@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Axios from 'axios';
+import moment from "moment";
 import "../styles/main.css";
 import "../styles/forms.css";
 
@@ -56,6 +57,7 @@ export function ManageAccountAccess() {
   }
 
   function handleSubmit(event) {
+    const date = moment().format("YYYY-MM-DD");
     let accountArray = account.split(": ")
     const bankID = accountArray[0]
     const accountID = accountArray[1]
@@ -65,6 +67,7 @@ export function ManageAccountAccess() {
         customer: customer,
         bankID: bankID,
         accountID: accountID,
+        dtShareStart: date,
       }).then(() => {
         clearState(event)
         console.log("Account access added!");
@@ -75,6 +78,7 @@ export function ManageAccountAccess() {
         sharer: customer,
         bankID: bankID,
         accountID: accountID,
+        dtShareStart: date,
       }).then(() => {
         console.log("Account access removed!");
         clearState(event)
@@ -88,6 +92,8 @@ export function ManageAccountAccess() {
       <div className="mainHeader">
         <h6><Link to="../">Home</Link></h6>
         <h1>Q9: Manage Account Access</h1>
+        <p className="currentUser">{username}</p>
+
       </div>
       <div className="formContainer">
         <form onSubmit={handleSubmit}>

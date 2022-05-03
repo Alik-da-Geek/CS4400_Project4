@@ -78,6 +78,7 @@ export function MakeTransfer() {
           <Link to="../">Home</Link>
         </h6>
         <h1>Q16: Make Tranfer</h1>
+        <p className="currentUser">{username}</p>
       </div>
       <div className="formContainer">
         <form onSubmit={handleSubmit}>

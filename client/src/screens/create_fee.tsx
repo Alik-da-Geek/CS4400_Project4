@@ -60,6 +60,7 @@ export function CreateFee() {
       <div className="mainHeader">
         <h6><Link to="../">Home</Link></h6>
         <h1>Q11: Create Fee</h1>
+        <p className="currentUser">{username}</p>
       </div>
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
