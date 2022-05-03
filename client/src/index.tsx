@@ -1,6 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "./styles/main.css";
+import * as ReactDOMClient from 'react-dom/client';
+
 // @ts-ignore
 import CreateCorp from "./screens/create_corp.tsx";
 // @ts-ignore
@@ -44,7 +45,10 @@ import { MakeWithdrawal } from "./screens/make_withdrawal.tsx";
 import { MakeTransfer } from "./screens/make_transfer.tsx";
 //@ts-ignore
 import { ManagerOverdraft } from "./screens/manage_overdraft.tsx";
-import * as ReactDOMClient from 'react-dom/client';
+//@ts-ignore
+import { ManageAccountAccess } from "./screens/manage_account_access.tsx";
+//@ts-ignore
+import { ManageAccount } from "./screens/manage_account.tsx";
 const rootElement = document.getElementById("root");
 const root = ReactDOMClient.createRoot(rootElement);
 
@@ -66,6 +70,8 @@ root.render(
                 <Route path="make_deposit" element={<MakeDeposit />}></Route>
                 <Route path="make_withdrawal" element={<MakeWithdrawal />}></Route>
                 <Route path="make_transfer" element={<MakeTransfer />}></Route>
+                <Route path="manage_account_access" element={<ManageAccountAccess />}></Route>
+                <Route path="manage_account" element={<ManageAccount />}></Route>
                 <Route path="manage_overdraft" element={<ManagerOverdraft />}></Route>
                 <Route path="display_account_stats" element={<DisplayAccountStats />}></Route>
                 <Route path="display_bank_stats" element={<DisplayBankStats />}></Route>

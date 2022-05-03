@@ -90,7 +90,12 @@ class Home extends React.Component<{}, HomeState> {
             }
             {(this.state.admin || this.state.customer) &&
               <li>
-                <Link to="manage_account_access">Manage Account Access (TODO)</Link>
+                <Link to="manage_account_access" state={{ username: this.state.username }}>Manage Account Access</Link>
+              </li>
+            }
+            {this.state.admin &&
+              <li>
+                <Link to="manage_account" state={{ username: this.state.username }}>Create Account (TODO)</Link>
               </li>
             }
             {this.state.admin &&
