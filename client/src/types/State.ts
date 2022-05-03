@@ -1,10 +1,10 @@
 export interface HomeState {
     username: string,
-    password: string,
     loggedIn: boolean,
     admin: boolean,
     manager: boolean,
     customer: boolean,
+    employee: boolean
 }
 
 export interface Person {

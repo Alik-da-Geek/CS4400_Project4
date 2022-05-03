@@ -42,7 +42,7 @@ class Login extends React.Component<LoginProps, LoginState> {
             console.log("Login data recieved!");
             const key = "check_per_type('" + this.state.id + "','" + this.state.password + "')"
             const data = res.data[0][key]
-            this.props.setRole(data, this.state.id, this.state.password)
+            this.props.setRole(data, this.state.id)
             this.clearState(event)
         })
         event.preventDefault();

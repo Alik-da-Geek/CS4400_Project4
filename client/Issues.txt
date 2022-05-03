@@ -5,7 +5,6 @@ CHECK:
 2. make withdrawal
 3. create bank
 4. make transfer
-
-TODO:
-1. Manage Account Access
-2. Manage overdraft
+5. Manage Account Access
+6. Manage Account
+7. Manage overdraft

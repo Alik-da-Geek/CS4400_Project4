@@ -9,40 +9,66 @@ import Login from "./login.tsx";
 class Home extends React.Component<{}, HomeState> {
   constructor(props) {
     super(props)
-    this.state = {
-      loggedIn: true,
-      admin: true,
-      manager: true,
-      customer: true,
+    this.state = JSON.parse(window.localStorage.getItem('state')) || {
       username: "",
-      password: "",
+      loggedIn: false,
+      admin: false,
+      manager: false,
+      customer: false,
+      employee: false,
     }
     this.changeRole = this.changeRole.bind(this)
     this.getScreen = this.getScreen.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+    this.setState = this.setState.bind(this)
   }
 
-  changeRole(role: string, username: string, password: string) {
-    console.log(role, username, password)
+  setState(state) {
+    window.localStorage.setItem('state', JSON.stringify(state));
+    super.setState(state);
+    console.log(state)
+  }
+
+  changeRole(role: string, username: string) {
+    console.log(role, username)
     if (role === 'NA') {
       return
     }
-    this.setState({
-      loggedIn: true,
-      username: username,
-      password: password,
-    })
     if (role === 'admin') {
       this.setState({
+        ...this.state,
+        loggedIn: true,
+        username: username,
         admin: true,
+      })
+    } else if (role === 'manager') {
+      this.setState({
+        ...this.state,
+        loggedIn: true,
+        username: username,
+        manager: true,
       })
     } else if (role === 'double') {
       this.setState({
+        ...this.state,
+        loggedIn: true,
+        username: username,
+        employee: true,
         customer: true,
       })
     } else if (role === 'customer') {
       this.setState({
+        ...this.state,
+        loggedIn: true,
+        username: username,
         customer: true,
+      })
+    } else if (role === 'employee') {
+      this.setState({
+        ...this.state,
+        loggedIn: true,
+        username: username,
+        employee: true,
       })
     }
   }
@@ -88,14 +114,14 @@ class Home extends React.Component<{}, HomeState> {
                 <Link to="replace_manager">Replace Manager</Link>
               </li>
             }
-            {(this.state.admin || this.state.customer) &&
+            {this.state.customer &&
               <li>
                 <Link to="manage_account_access" state={{ username: this.state.username }}>Manage Account Access</Link>
               </li>
             }
             {this.state.admin &&
               <li>
-                <Link to="manage_account" state={{ username: this.state.username }}>Create Account (TODO)</Link>
+                <Link to="manage_account" state={{ username: this.state.username }}>Manage Account</Link>
               </li>
             }
             {this.state.admin &&
@@ -105,7 +131,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {(this.state.admin || this.state.customer) &&
               <li>
-                <Link to={"manage_overdraft"} state={{ username: this.state.username }}>Manager Overdraft Policies (TODO)</Link>
+                <Link to={"manage_overdraft"} state={{ username: this.state.username }}>Manager Overdraft Policies</Link>
               </li>
             }
             {this.state.customer &&
@@ -166,9 +192,12 @@ class Home extends React.Component<{}, HomeState> {
 
   handleLogout() {
     this.setState({
-      loggedIn: false,
       username: "",
-      password: "",
+      loggedIn: false,
+      admin: false,
+      manager: false,
+      customer: false,
+      employee: false,
     })
   }
 
