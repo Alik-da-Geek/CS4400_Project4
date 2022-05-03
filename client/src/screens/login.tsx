@@ -65,10 +65,10 @@ class Login extends React.Component<LoginProps, LoginState> {
                             <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
                         </div>
                         <div className="formButtons">
-                            <button onClick={this.clearState} className="formCancel">
+                            <button onClick={this.clearState} className="formCancel" type="reset">
                                 Cancel
                             </button>
-                            <button onClick={this.handleSubmit} className="formSubmit">
+                            <button onClick={this.handleSubmit} type="submit" className="formSubmit">
                                 Submit
                             </button>
                         </div>
