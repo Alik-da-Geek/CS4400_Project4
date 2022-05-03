@@ -89,8 +89,6 @@ export function ManageAccount() {
 
   function clearAddAccountState(event) {
     console.log('cleared')
-    setAccount(accountList[0])
-    setCustomer(customerList[0])
     setAddOwner(true)
     event.preventDefault();
   }
@@ -99,7 +97,6 @@ export function ManageAccount() {
     console.log('cleared')
     setBank(bankList[0])
     setAccountID("")
-    setAccountType(accountTypeList[0])
     setBalance(0)
     setMaxWithdrawal(0)
     setMinBalance(0)

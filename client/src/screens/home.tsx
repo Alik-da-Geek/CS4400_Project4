@@ -140,17 +140,17 @@ class Home extends React.Component<{}, HomeState> {
             }
             {this.state.customer &&
               <li>
-                <Link to={"make_deposit"} state={{ username: this.state.username }}>Make Deposit (CHECK)</Link>
+                <Link to={"make_deposit"} state={{ username: this.state.username }}>Make Deposit</Link>
               </li>
             }
             {this.state.customer &&
               <li>
-                <Link to={"make_withdrawal"} state={{ username: this.state.username }}>Make Withdrawal (CHECK)</Link>
+                <Link to={"make_withdrawal"} state={{ username: this.state.username }}>Make Withdrawal</Link>
               </li>
             }
             {this.state.customer &&
               <li>
-                <Link to={"make_transfer"} state={{ username: this.state.username }}>Make Transfer (CHECK)</Link>
+                <Link to={"make_transfer"} state={{ username: this.state.username }}>Make Transfer</Link>
               </li>
             }
             {(this.state.admin || this.state.manager) &&

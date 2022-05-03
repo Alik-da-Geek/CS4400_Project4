@@ -48,7 +48,7 @@ export function MakeDeposit() {
     const accountID = accountArray[1]
     Axios.post("http://localhost:3001/account_deposit", {
       requester: username,
-      depositAmount: amount,
+      deposit_amount: amount,
       bankID: bankID,
       accountID: accountID,
       dtAction: date
