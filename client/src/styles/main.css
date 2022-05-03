@@ -4,6 +4,16 @@
   /* font-family: 'Times New Roman', Times, serif; */
 }
 
+.currentUser {
+  font-size: 0.6em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  padding-right: 5px;
+  margin: 0;
+}
+
 .mainHeader {
   display: flex;
   padding: 20px;
