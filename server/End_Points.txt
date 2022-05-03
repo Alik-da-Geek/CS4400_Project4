@@ -104,7 +104,7 @@ http://localhost:3001/get_accessible_chk_accounts
 H10: (Get accessible saving accounts)
 http://localhost:3001/get_accessible_sav_accounts
 
-H11: (Get Person IDs)
+H11: (Get person IDs)
 http://localhost:3001/get_perID
 
 H12: (Get accounts from a specific bank)
@@ -118,3 +118,7 @@ http://localhost:3001/get_non_employees
 
 H15: (Get IDs for non-customers)
 http://localhost:3001/get_non_customers
+
+H16: (Get all checking accounts with their overdraft protection status)
+http://localhost:3001/get_all_chk_w_status
+
