@@ -11,7 +11,6 @@ import Home from "./screens/home.tsx";
 // @ts-ignore
 import CreateEmployee from "./screens/create_employee.tsx";
 // @ts-ignore
-import Login from "./screens/login.tsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // @ts-ignore
 import DisplayAccountStats from "./screens/display_account_stats.tsx";

@@ -4,6 +4,7 @@ import Axios from 'axios';
 import "../styles/main.css";
 import "../styles/forms.css";
 
+// FOR CUSTOMER USE
 export function ManageAccountAccess() {
   const location = useLocation()
   const username = location.state['username']
@@ -65,19 +66,20 @@ export function ManageAccountAccess() {
         bankID: bankID,
         accountID: accountID,
       }).then(() => {
-        console.log("Employee data sent!");
+        clearState(event)
+        console.log("Account access added!");
       })
     } else {
       Axios.post("http://localhost:3001/remove_account_access", {
         requester: username,
-        customer: customer,
+        sharer: customer,
         bankID: bankID,
         accountID: accountID,
       }).then(() => {
-        console.log("Employee data sent!");
+        console.log("Account access removed!");
+        clearState(event)
       })
     }
-    clearState(event)
     event.preventDefault();
   }
 
