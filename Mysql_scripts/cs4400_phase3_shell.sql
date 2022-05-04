@@ -438,7 +438,10 @@ proc_Exit: begin
         (select perID from access where (bankID, accountID) = (ip_checking_bankID, ip_checking_accountID)) as checking_account_owners_2
         where perID = ip_requester) = 0)
     then
-        leave proc_Exit;
+        if (select not exists (select perID from system_admin where perID = ip_requester))
+        then
+            leave proc_Exit;
+        end if;
     end if;
 
     # condition satisfied, perform operation
