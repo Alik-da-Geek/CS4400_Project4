@@ -22,7 +22,7 @@ export class StopEmployee extends React.Component<{}, StopEmployeeState> {
     }
 
     updatePersonList() {
-        Axios.get("http://localhost:3001/get_employee_id").then(r => {
+        Axios.get("http://localhost:3001/get_stop_employee_id").then(r => {
             let data = r.data;
             for (let i = 0; i < data.length; i++) {
                 data[i] = data[i].perID;

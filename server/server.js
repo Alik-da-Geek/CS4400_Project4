@@ -2072,6 +2072,33 @@ app.get("/get_interest_bearing", (req, res) => {
   });
 });
 
+app.get("/get_stop_employee_id", (req, res) => {
+  console.log(
+      "\n/////////////////////////////////////////////////////////////////"
+  );
+  db.query(
+      "select perID from employee " +
+      "where perID not in (select perID from system_admin) " +
+      "and perID not in (select manager from bank) " +
+      "and perID not in " +
+      "(select perID from workFor where bankID in " +
+      " (select bankID from workFor group by bankID having count(workFor.perID) = 1));",
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          console.log("\n!!!!! get_stop_employee_id: ERROR RETRIEVING VALUES !!!!!");
+        } else {
+          console.log("\nget_stop_employee_id: VALUES RETRIEVED");
+          console.log(result);
+          res.send(result);
+        }
+        console.log(
+            "/////////////////////////////////////////////////////////////////\n"
+        );
+      }
+  );
+});
+
 app.listen(3001, () => {
   console.log("Server running on port 3001 ...");
 });
