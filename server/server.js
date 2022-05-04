@@ -1949,7 +1949,10 @@ app.get("/get_all_sav", (req, res) => {
     "\n/////////////////////////////////////////////////////////////////"
   );
   console.log("GET_ALL_SAV call " + get_all_sav_idx + "\n");
-  db.query("select bankID, accountID from savings;", (err, result) => {
+  db.query("select s.bankID, s.accountID from savings s where concat(s.bankID, s.accountID) not in " +
+      "(select concat(s.bankID, s.accountID) from savings s " +
+      "inner join checking c " +
+      "on s.bankID = c.protectionBank and s.accountID = c.protectionAccount);\n", (err, result) => {
     if (err) {
       console.log(err);
       console.log("\n!!!!! GET_ALL_SAV: ERROR RETRIEVING VALUES !!!!!");

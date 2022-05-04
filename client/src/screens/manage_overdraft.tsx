@@ -32,6 +32,14 @@ export function ManagerOverdraft() {
                 }
                 setCheckingAccountList(data)
                 setCheckingAccount(data[0])
+
+                if (data[0].includes(protectedString)) {
+                    console.log("protected account, no savings")
+                    setProtection(true)
+                } else {
+                    console.log("unprotected account, " + data[0])
+                    setProtection(false)
+                }
             })
             Axios.get("http://localhost:3001/get_all_sav").then(r => {
                 data = r.data;
@@ -40,11 +48,6 @@ export function ManagerOverdraft() {
                 }
                 setSavingsAccountList(data)
                 setSavingsAccount(data[0])
-                if (data[0].includes(protectedString)) {
-                    setProtection(true)
-                } else {
-                    setProtection(false)
-                }
             })
         } else {
             console.log('customer called')
@@ -127,6 +130,7 @@ export function ManagerOverdraft() {
                 console.log("Start overdraft data sent!");
                 clearState(event)
                 setFetchAll(fetchAll + 1)
+                window.location.reload();
             })
         } else {
             Axios.post("http://localhost:3001/stop_overdraft", {
@@ -137,6 +141,7 @@ export function ManagerOverdraft() {
                 console.log("Stop overdraft data sent!");
                 clearState(event)
                 setFetchAll(fetchAll + 1)
+                window.location.reload();
             })
         }
         event.preventDefault();
