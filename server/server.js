@@ -617,7 +617,7 @@ app.post("/add_account_access", (req, res) => {
   const interest_rate = req.body.interest_rate;
   const dtDeposit = req.body.dtDeposit;
   const minBalance = req.body.minBalance;
-  const numWithdrawals = req.body.numWithdrawals;
+  const numWithdrawals = 0;
   const maxWithdrawals = req.body.maxWithdrawals;
   const dtShareStart = req.body.dtShareStart;
 

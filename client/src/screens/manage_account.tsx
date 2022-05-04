@@ -18,6 +18,7 @@ export function ManageAccount() {
   // CREATE ACCOUNT
   const [bank, setBank] = useState("")
   const [bankList, setBankList] = useState<Array<string>>([])
+  const [customer2, setCustomer2] = useState("")
   const [newAccountID, setAccountID] = useState("")
   const accountTypeList = ["checking", "savings", "market"]
   const [accountType, setAccountType] = useState(accountTypeList[0])
@@ -60,6 +61,9 @@ export function ManageAccount() {
   }
   function handleCustomerChange(event) {
     setCustomer(event.target.value)
+  }
+  function handleCustomer2Change(event) {
+    setCustomer2(event.target.value)
   }
   function handleAddOwnerChange(event) {
     setAddOwner(!addOwner);
@@ -138,6 +142,7 @@ export function ManageAccount() {
     const date = moment().format("YYYY-MM-DD");
     Axios.post("http://localhost:3001/add_account_access", {
       requester: username,
+      customer: customer2,
       bankID: bank,
       accountID: newAccountID,
       account_type: accountType,
@@ -145,8 +150,8 @@ export function ManageAccount() {
       interest_rate: interest,
       dtDeposit: date,
       minBalance: minBalance,
-      numWithdawals: 0,
-      maxWithdawals: maxWithdrawal,
+      numWithdrawals: 0,
+      maxWithdrawals: maxWithdrawal,
       dtShareStart: date,
     }).then(() => {
       console.log("Added account access!");
@@ -207,6 +212,14 @@ export function ManageAccount() {
             </label>
             <select name="selectList" id="selectList" onChange={handleBankChange}>
               {bankList.map(name => <option key={name} value={name}>{name}</option>)}
+            </select>
+          </div>
+          <div className="formItem">
+            <label>
+              Customer:
+            </label>
+            <select name="selectList" id="selectList" onChange={handleCustomer2Change}>
+              {customerList.map(name => <option key={name} value={name}>{name}</option>)}
             </select>
           </div>
           <div className="formItem">
