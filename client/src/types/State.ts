@@ -42,7 +42,8 @@ export interface CreateEmployeeState {
     password: string,
     salary: number,
     numPayments: number,
-    accumulatedEarnings: number
+    accumulatedEarnings: number,
+    passwords: { [key: string]: string }
 }
 
 export interface CreateCustomerState {

@@ -12,16 +12,18 @@ export class StopEmployee extends React.Component<{}, StopEmployeeState> {
             personList: [],
             personID: "",
         };
-
         this.handlePersonIDChange = this.handlePersonIDChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearState = this.clearState.bind(this);
     }
 
     componentDidMount() {
-        let data = [];
+        this.updatePersonList()
+    }
+
+    updatePersonList() {
         Axios.get("http://localhost:3001/get_employee_id").then(r => {
-            data = r.data;
+            let data = r.data;
             for (let i = 0; i < data.length; i++) {
                 data[i] = data[i].perID;
             }
@@ -35,21 +37,19 @@ export class StopEmployee extends React.Component<{}, StopEmployeeState> {
     }
 
     clearState(event) {
-        console.log('cleared')
         this.setState({
-
+            personID: this.state.personList[0]
         })
         event.preventDefault();
     }
 
     handleSubmit(event) {
+        console.log("Stop employee: " + this.state.personID)
         Axios.post("http://localhost:3001/stop_employee_role", {
             perID: this.state.personID,
         }).then((res) => {
-            console.log("Response:");
-            console.log(res.data)
+            this.updatePersonList()
         })
-        this.clearState(event)
         event.preventDefault();
     }
 
@@ -66,7 +66,7 @@ export class StopEmployee extends React.Component<{}, StopEmployeeState> {
                             <label>
                                 Person ID:
                             </label>
-                            <select name="selectList" id="selectList" onChange={this.handlePersonIDChange}>
+                            <select name="selectList" id="selectList" value={this.state.personID} onChange={this.handlePersonIDChange}>
                                 {this.state.personList.map(name => <option key={name} value={name}>{name}</option>)}
                             </select>
                         </div>
