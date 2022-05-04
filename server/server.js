@@ -2023,23 +2023,19 @@ app.get("/get_stop_customer_IDs", (req, res) => {
   console.log(
     "\n/////////////////////////////////////////////////////////////////"
   );
-  db.query(
-    "select perID from customer where not perID in " +
-      "(select access.perID from access where accountID in " +
-      "(select accountID from access " +
-      "group by accountID having count(perID) = 1));",
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        console.log(
-          "\n!!!!! get_stop_customer_IDs: ERROR RETRIEVING VALUES !!!!!"
-        );
-      } else {
-        console.log("\nget_stop_customer_IDs: VALUES RETRIEVED");
-        console.log(result);
-        res.send(result);
-      }
-      console.log(
+  db.query("select perID from customer where perID not in (select c.perID from customer c " +
+      "inner join access a on c.perID = a.perID " +
+      "inner join (select accountID, bankID from access group by accountID, bankID having count(perID) = 1) combined " +
+      "on (a.bankID, a.accountID) = (combined.bankID, combined.accountID));", (err, result) => {
+    if (err) {
+      console.log(err);
+      console.log("\n!!!!! get_stop_customer_IDs: ERROR RETRIEVING VALUES !!!!!");
+    } else {
+      console.log("\nget_stop_customer_IDs: VALUES RETRIEVED");
+      console.log(result);
+      res.send(result);
+    }
+    console.log(
         "/////////////////////////////////////////////////////////////////\n"
       );
     }
