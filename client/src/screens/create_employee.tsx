@@ -37,12 +37,15 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
       let peopleTemp = []
       let perID = ""
       let pwd = ""
+      console.table(data)
       for (let i = 0; i < data.length; i++) {
         perID = data[i]['perID']
         pwd = data[i]['pwd']
         passwordTemp[perID] = pwd
         peopleTemp[i] = perID
       }
+      console.log(peopleTemp)
+      console.log(passwordTemp)
       this.setState({
         people: peopleTemp,
         personID: peopleTemp[0],
@@ -83,7 +86,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   handleSubmit(event) {
     Axios.post("http://localhost:3001/start_employee_role", {
       perID: this.state.personID,
-      emp_password: this.state.password,
+      emp_password: this.state.passwords[this.state.personID],
       salary: this.state.salary,
       payments: this.state.numPayments,
       earned: this.state.accumulatedEarnings

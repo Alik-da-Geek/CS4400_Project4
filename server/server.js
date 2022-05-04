@@ -1870,7 +1870,7 @@ app.get("/get_non_employees", (req, res) => {
 });
 
 // H15
-// Get IDs for non-customers 
+// Get IDs for non-customers
 var get_non_customers_idx = 0;
 app.get("/get_non_customers", (req, res) => {
   get_non_customers_idx++;
@@ -1909,21 +1909,31 @@ var get_all_chk_w_status_idx = 0;
 app.get("/get_all_chk_w_status", (req, res) => {
   get_all_chk_w_status_idx++;
 
-  console.log("\n/////////////////////////////////////////////////////////////////");
+  console.log(
+    "\n/////////////////////////////////////////////////////////////////"
+  );
   console.log("GET_ALL_CHK_W_STATUS call " + get_all_chk_w_status_idx + "\n");
   db.query(
     "select bankID, accountID, protectionBank, protectionAccount from checking;",
     (err, result) => {
       if (err) {
         console.log(err);
-        console.log("\n!!!!! GET_ALL_CHK_W_STATUS: ERROR RETRIEVING VALUES !!!!!");
-        res.send("GET_ALL_CHK_W_STATUS call " + get_all_chk_w_status_idx + ": ERROR RETRIEVING VALUES");
+        console.log(
+          "\n!!!!! GET_ALL_CHK_W_STATUS: ERROR RETRIEVING VALUES !!!!!"
+        );
+        res.send(
+          "GET_ALL_CHK_W_STATUS call " +
+            get_all_chk_w_status_idx +
+            ": ERROR RETRIEVING VALUES"
+        );
       } else {
         console.log(result);
         console.log("\nGET_ALL_CHK_W_STATUS: SUCCESSFUL");
         res.send(result);
       }
-      console.log("/////////////////////////////////////////////////////////////////\n");
+      console.log(
+        "/////////////////////////////////////////////////////////////////\n"
+      );
     }
   );
 });
@@ -1935,23 +1945,26 @@ var get_all_sav_idx = 0;
 app.get("/get_all_sav", (req, res) => {
   get_all_sav_idx++;
 
-  console.log("\n/////////////////////////////////////////////////////////////////");
-  console.log("GET_ALL_SAV call " + get_all_sav_idx + "\n");
-  db.query(
-    "select bankID, accountID from savings;",
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        console.log("\n!!!!! GET_ALL_SAV: ERROR RETRIEVING VALUES !!!!!");
-        res.send("GET_ALL_SAV call " + get_all_sav_idx + ": ERROR RETRIEVING VALUES");
-      } else {
-        console.log(result);
-        console.log("\nGET_ALL_SAV: SUCCESSFUL");
-        res.send(result);
-      }
-      console.log("/////////////////////////////////////////////////////////////////\n");
-    }
+  console.log(
+    "\n/////////////////////////////////////////////////////////////////"
   );
+  console.log("GET_ALL_SAV call " + get_all_sav_idx + "\n");
+  db.query("select bankID, accountID from savings;", (err, result) => {
+    if (err) {
+      console.log(err);
+      console.log("\n!!!!! GET_ALL_SAV: ERROR RETRIEVING VALUES !!!!!");
+      res.send(
+        "GET_ALL_SAV call " + get_all_sav_idx + ": ERROR RETRIEVING VALUES"
+      );
+    } else {
+      console.log(result);
+      console.log("\nGET_ALL_SAV: SUCCESSFUL");
+      res.send(result);
+    }
+    console.log(
+      "/////////////////////////////////////////////////////////////////\n"
+    );
+  });
 });
 
 // H18
@@ -1963,13 +1976,18 @@ app.post("/get_accessible_chk_w_status", (req, res) => {
 
   const customerID = req.body.customerID;
 
-  console.log("\n/////////////////////////////////////////////////////////////////"
-  );
-  console.log("GET_ACCESSIBLE_CHK_W_STATUS call " + get_accessible_chk_w_status_idx + "\n");
   console.log(
-      "Received Data\n" +
+    "\n/////////////////////////////////////////////////////////////////"
+  );
+  console.log(
+    "GET_ACCESSIBLE_CHK_W_STATUS call " + get_accessible_chk_w_status_idx + "\n"
+  );
+  console.log(
+    "Received Data\n" +
       "--------------------------\n" +
-      "customerID: " + customerID + "\n" +
+      "customerID: " +
+      customerID +
+      "\n" +
       "--------------------------\n"
   );
 
@@ -1979,22 +1997,31 @@ app.post("/get_accessible_chk_w_status", (req, res) => {
     (err, result) => {
       if (err) {
         console.log(err);
-        console.log("\n!!!!! GET_ACCESSIBLE_CHK_W_STATUS: ERROR RETRIEVING VALUES !!!!!");
-        res.send("GET_ACCESSIBLE_CHK_W_STATUS call " + get_accessible_chk_w_status_idx + ": ERROR RETRIEVING VALUES");
+        console.log(
+          "\n!!!!! GET_ACCESSIBLE_CHK_W_STATUS: ERROR RETRIEVING VALUES !!!!!"
+        );
+        res.send(
+          "GET_ACCESSIBLE_CHK_W_STATUS call " +
+            get_accessible_chk_w_status_idx +
+            ": ERROR RETRIEVING VALUES"
+        );
       } else {
         console.log(result);
         console.log("\nGET_ACCESSIBLE_CHK_W_STATUS: SUCCESSFUL");
         res.send(result);
       }
-      console.log("/////////////////////////////////////////////////////////////////\n");
+      console.log(
+        "/////////////////////////////////////////////////////////////////\n"
+      );
     }
   );
 });
 
-
+// H19
+// Get available customer IDs to stop
 app.get("/get_stop_customer_IDs", (req, res) => {
   console.log(
-      "\n/////////////////////////////////////////////////////////////////"
+    "\n/////////////////////////////////////////////////////////////////"
   );
   db.query("select perID from customer where perID not in (select c.perID from customer c " +
       "inner join access a on c.perID = a.perID " +
@@ -2010,24 +2037,29 @@ app.get("/get_stop_customer_IDs", (req, res) => {
     }
     console.log(
         "/////////////////////////////////////////////////////////////////\n"
-    );
-  });
+      );
+    }
+  );
 });
 
+// H20
+// Get all interest-bearing accounts
 var get_interest_bearing = 0;
 app.get("/get_interest_bearing", (req, res) => {
   get_all_acc++;
   console.log(
-      "\n/////////////////////////////////////////////////////////////////"
+    "\n/////////////////////////////////////////////////////////////////"
   );
   console.log("get_interest_bearing call " + get_all_acc + "\n");
 
   db.query("select * from interest_bearing;", (err, result) => {
     if (err) {
       console.log(err);
-      console.log("\n!!!!! get_interest_bearing: ERROR RETRIEVING VALUES !!!!!");
+      console.log(
+        "\n!!!!! get_interest_bearing: ERROR RETRIEVING VALUES !!!!!"
+      );
       res.send(
-          "get_interest_bearing call " + get_all_acc + ": ERROR RETRIEVING VALUES"
+        "get_interest_bearing call " + get_all_acc + ": ERROR RETRIEVING VALUES"
       );
     } else {
       console.log(result);
@@ -2035,11 +2067,10 @@ app.get("/get_interest_bearing", (req, res) => {
       res.send(result);
     }
     console.log(
-        "/////////////////////////////////////////////////////////////////\n"
+      "/////////////////////////////////////////////////////////////////\n"
     );
   });
 });
-
 
 app.listen(3001, () => {
   console.log("Server running on port 3001 ...");

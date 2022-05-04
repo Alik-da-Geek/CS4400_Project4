@@ -23,18 +23,20 @@ export class ReplaceManager extends React.Component<{}, ReplaceManagerState> {
   }
 
   componentDidMount() {
-    let data = [];
     Axios.get("http://localhost:3001/get_bank_IDs").then(r => {
-      data = r.data;
+      let data = r.data;
       for (let i = 0; i < data.length; i++) {
         data[i] = data[i].bankID;
       }
       this.setState({ bankList: data });
       this.setState({ bank: data[0] });
     });
+    this.updateEmployeeList()
+  }
 
+  updateEmployeeList() {
     Axios.get("http://localhost:3001/get_available_manager_ids").then(r => {
-      data = r.data;
+      let data = r.data;
       for (let i = 0; i < data.length; i++) {
         data[i] = data[i].perID;
       }
@@ -54,8 +56,8 @@ export class ReplaceManager extends React.Component<{}, ReplaceManagerState> {
   }
 
   clearState(event) {
-    console.log('cleared')
     this.setState({
+      bank: this.state.bankList[0],
       salary: 0
     })
     event.preventDefault();
@@ -69,7 +71,7 @@ export class ReplaceManager extends React.Component<{}, ReplaceManagerState> {
       salary: this.state.salary
     }).then(() => {
       console.log("Replace manager data sent!");
-      this.clearState(event)
+      this.updateEmployeeList()
     })
     event.preventDefault();
   }
@@ -87,7 +89,7 @@ export class ReplaceManager extends React.Component<{}, ReplaceManagerState> {
               <label>
                 Bank:
               </label>
-              <select name="selectList" id="selectList" onChange={this.handleBankChange}>
+              <select name="selectList" id="selectList" value={this.state.bank} onChange={this.handleBankChange}>
                 {this.state.bankList.map(name => <option key={name} value={name}>{name}</option>)}
               </select>
             </div>
@@ -95,7 +97,7 @@ export class ReplaceManager extends React.Component<{}, ReplaceManagerState> {
               <label>
                 Employee:
               </label>
-              <select name="selectList" id="selectList" onChange={this.handleEmployeeChange}>
+              <select name="selectList" id="selectList" value={this.state.employee} onChange={this.handleEmployeeChange}>
                 {this.state.employeeList.map(name => <option key={name} value={name}>{name}</option>)}
               </select>
             </div>
