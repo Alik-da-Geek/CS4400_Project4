@@ -4,7 +4,8 @@ export interface HomeState {
     admin: boolean,
     manager: boolean,
     customer: boolean,
-    employee: boolean
+    employee: boolean,
+    role: string,
 }
 
 export interface Person {

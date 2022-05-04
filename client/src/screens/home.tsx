@@ -16,6 +16,7 @@ class Home extends React.Component<{}, HomeState> {
       manager: false,
       customer: false,
       employee: false,
+      role: "",
     }
     this.changeRole = this.changeRole.bind(this)
     this.getScreen = this.getScreen.bind(this)
@@ -36,6 +37,7 @@ class Home extends React.Component<{}, HomeState> {
     if (role === 'admin') {
       this.setState({
         ...this.state,
+        role: role,
         loggedIn: true,
         username: username,
         admin: true,
@@ -43,6 +45,7 @@ class Home extends React.Component<{}, HomeState> {
     } else if (role === 'manager') {
       this.setState({
         ...this.state,
+        role: role,
         loggedIn: true,
         username: username,
         manager: true,
@@ -50,6 +53,7 @@ class Home extends React.Component<{}, HomeState> {
     } else if (role === 'double') {
       this.setState({
         ...this.state,
+        role: role,
         loggedIn: true,
         username: username,
         employee: true,
@@ -58,6 +62,7 @@ class Home extends React.Component<{}, HomeState> {
     } else if (role === 'customer') {
       this.setState({
         ...this.state,
+        role: role,
         loggedIn: true,
         username: username,
         customer: true,
@@ -65,6 +70,7 @@ class Home extends React.Component<{}, HomeState> {
     } else if (role === 'employee') {
       this.setState({
         ...this.state,
+        role: role,
         loggedIn: true,
         username: username,
         employee: true,
@@ -134,7 +140,7 @@ class Home extends React.Component<{}, HomeState> {
             }
             {(this.state.admin || this.state.customer) &&
               <li>
-                <Link to={"manage_overdraft"} state={{ username: this.state.username }}>Manager Overdraft Policies</Link>
+                <Link to={"manage_overdraft"} state={{ username: this.state.username, role: this.state.role }}>Manager Overdraft Policies</Link>
               </li>
             }
             {this.state.customer &&
@@ -210,7 +216,7 @@ class Home extends React.Component<{}, HomeState> {
       <div className="container">
         <div className="mainHeader">
           <h1>CS 4400 Phase 4</h1>
-          <p className="currentUser">{this.state.username}<br/> {this.state.admin && "Admin "}
+          <p className="currentUser">{this.state.username}<br /> {this.state.admin && "Admin "}
             {this.state.customer && "Customer "}
             {this.state.employee && "Employee "}
             {this.state.manager && "Manager "}</p>

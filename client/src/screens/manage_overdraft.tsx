@@ -7,41 +7,79 @@ import "../styles/forms.css";
 export function ManagerOverdraft() {
     const location = useLocation()
     const username = location.state['username']
+    const role = location.state['role']
     const [checkingAccountList, setCheckingAccountList] = useState<Array<string>>([])
     const [savingsAccountList, setSavingsAccountList] = useState<Array<string>>([])
     const [checkingAccount, setCheckingAccount] = useState<string>("")
     const [savingsAccount, setSavingsAccount] = useState<string>("")
     const protectedString = " - (protected)";
     const [fetchAll, setFetchAll] = useState(0)
+    const [hasProtection, setProtection] = useState(false)
 
     useEffect(() => {
-        console.log(username)
+        console.log(username + ", " + role)
         let data = []
-        console.log("penis")
-        Axios.get("http://localhost:3001/get_all_chk_w_status").then(r => {
-            data = r.data;
-            console.log(data)
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].protectionBank == null) {
-                    data[i] = data[i].bankID + ": " + data[i].accountID + protectedString;
-                } else {
+        if (role === 'admin') {
+            console.log('admin called')
+            Axios.get("http://localhost:3001/get_all_chk_w_status").then(r => {
+                data = r.data;
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].protectionBank == null) {
+                        data[i] = data[i].bankID + ": " + data[i].accountID;
+                    } else {
+                        data[i] = data[i].bankID + ": " + data[i].accountID + protectedString;
+                    }
+                }
+                setCheckingAccountList(data)
+                setCheckingAccount(data[0])
+            })
+            Axios.get("http://localhost:3001/get_all_sav").then(r => {
+                data = r.data;
+                for (let i = 0; i < data.length; i++) {
                     data[i] = data[i].bankID + ": " + data[i].accountID;
                 }
-            }
-            setCheckingAccountList(data)
-            setCheckingAccount(data[0])
-        })
-        Axios.get("http://localhost:3001/get_all_sav").then(r => {
-            data = r.data;
-            for (let i = 0; i < data.length; i++) {
-                data[i] = data[i].bankID + ": " + data[i].accountID;
-            }
-            setSavingsAccountList(data)
-            setSavingsAccount(data[0])
-        })
-    }, [fetchAll])
+                setSavingsAccountList(data)
+                setSavingsAccount(data[0])
+            })
+        } else {
+            console.log('customer called')
+            Axios.post("http://localhost:3001/get_accessible_chk_w_status", {
+                customerID: username
+            }).then(r => {
+                data = r.data;
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].protectionBank == null) {
+                        data[i] = data[i].bankID + ": " + data[i].accountID;
+                    } else {
+                        data[i] = data[i].bankID + ": " + data[i].accountID + protectedString;
+                    }
+                }
+                setCheckingAccountList(data)
+                setCheckingAccount(data[0])
+            })
+            Axios.post("http://localhost:3001/get_accessible_accounts", {
+                customerID: username
+            }).then(r => {
+                data = r.data;
+                for (let i = 0; i < data.length; i++) {
+                    data[i] = data[i].bankID + ": " + data[i].accountID;
+                }
+                setSavingsAccountList(data)
+                setSavingsAccount(data[0])
+            })
+        }
+    }, [fetchAll, role, username])
 
     function handleCheckingAccountChange(event) {
+        if (event.target.value.includes(protectedString)) {
+            console.log("protected account, no savings")
+            setProtection(true)
+            setSavingsAccount("")
+        } else {
+            console.log("unprotected account, " + savingsAccountList[0])
+            setProtection(false)
+            setSavingsAccount(savingsAccountList[0])
+        }
         setCheckingAccount(event.target.value);
     }
     function handleSavingsAccountChange(event) {
@@ -51,6 +89,7 @@ export function ManagerOverdraft() {
     function clearState(event) {
         setCheckingAccount("")
         setSavingsAccount("")
+        setProtection(false)
         event.preventDefault();
     }
 
@@ -58,8 +97,7 @@ export function ManagerOverdraft() {
         let accountArray = checkingAccount.split(": ")
         const checkingBankID = accountArray[0]
         const checkingAccountID = accountArray[1].replace(protectedString, "")
-        const removeOverdraft = checkingAccountID.includes(protectedString)
-        if (!removeOverdraft) {
+        if (!hasProtection) {
             accountArray = savingsAccount.split(": ")
             const savingsBankID = accountArray[0]
             const savingsAccountID = accountArray[1]
@@ -105,14 +143,14 @@ export function ManagerOverdraft() {
                             {checkingAccountList.map(name => <option key={name} value={name}>{name}</option>)}
                         </select>
                     </div>
-                    <div className="formItem">
+                    {!hasProtection && <div className="formItem">
                         <label>
                             Savings Account:
                         </label>
                         <select name="selectList" id="selectList" onChange={handleSavingsAccountChange}>
                             {savingsAccountList.map(name => <option key={name} value={name}>{name}</option>)}
                         </select>
-                    </div>
+                    </div>}
                     <div className="formButtons">
                         <button onClick={clearState} className="formCancel">
                             Cancel
