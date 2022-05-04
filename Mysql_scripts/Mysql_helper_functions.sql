@@ -30,5 +30,3 @@ begin
 	return (per_type);
 end //
 delimiter ;
-
-select check_per_type('ghopper9', 'password16')
