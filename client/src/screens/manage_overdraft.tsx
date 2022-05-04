@@ -40,6 +40,11 @@ export function ManagerOverdraft() {
                 }
                 setSavingsAccountList(data)
                 setSavingsAccount(data[0])
+                if (data[0].includes(protectedString)) {
+                    setProtection(true)
+                } else {
+                    setProtection(false)
+                }
             })
         } else {
             console.log('customer called')
@@ -56,6 +61,11 @@ export function ManagerOverdraft() {
                 }
                 setCheckingAccountList(data)
                 setCheckingAccount(data[0])
+                if (data[0].includes(protectedString)) {
+                    setProtection(true)
+                } else {
+                    setProtection(false)
+                }
             })
             Axios.post("http://localhost:3001/get_accessible_accounts", {
                 customerID: username
@@ -87,8 +97,13 @@ export function ManagerOverdraft() {
     }
 
     function clearState(event) {
-        setCheckingAccount("")
-        setSavingsAccount("")
+        setCheckingAccount(checkingAccountList[0])
+        if (checkingAccountList[0].includes(protectedString)) {
+            setProtection(true)
+        } else {
+            setProtection(false)
+        }
+        setSavingsAccount(savingsAccountList[0])
         setProtection(false)
         event.preventDefault();
     }
