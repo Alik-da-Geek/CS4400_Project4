@@ -10,6 +10,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
     super(props);
     this.state = {
       people: [],
+      passwords: {},
       personID: "",
       password: "",
       salary: 0,
@@ -26,11 +27,26 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   }
 
   componentDidMount() {
+    this.updatePeople()
+  }
+
+  updatePeople() {
     Axios.get("http://localhost:3001/get_non_employees").then(r => {
+      let data = r.data
+      let passwordTemp: { [key: string]: string } = {}
+      let peopleTemp = []
+      let perID = ""
+      let pwd = ""
+      for (let i = 0; i < data.length; i++) {
+        perID = data[i]['perID']
+        pwd = data[i]['pwd']
+        passwordTemp[perID] = pwd
+        peopleTemp[i] = perID
+      }
       this.setState({
-        people: r.data,
-        personID: r.data[0]['perID'],
-        password: r.data[0]['pwd']
+        people: peopleTemp,
+        personID: peopleTemp[0],
+        passwords: passwordTemp
       });
     });
   }
@@ -74,6 +90,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
     }).then(() => {
       console.log("Employee data sent!");
       this.clearState(event)
+      this.updatePeople()
     })
     event.preventDefault();
   }
@@ -92,7 +109,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
                 Person ID:
               </label>
               <select name="selectList" id="selectList" onChange={this.handlePersonIDChange}>
-                {this.state.people.map(name => <option key={name['perID']} value={[name['perID'], name['pwd']]}>{name['perID']}</option>)}
+                {this.state.people.map(name => <option key={name} value={name}>{name}</option>)}
               </select>
             </div>
             <div className="formItem">

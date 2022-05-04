@@ -12,13 +12,16 @@ export class StopEmployee extends React.Component<{}, StopEmployeeState> {
             personList: [],
             personID: "",
         };
-
         this.handlePersonIDChange = this.handlePersonIDChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearState = this.clearState.bind(this);
     }
 
     componentDidMount() {
+        this.updatePersonList()
+    }
+
+    updatePersonList() {
         let data = [];
         Axios.get("http://localhost:3001/get_employee_id").then(r => {
             data = r.data;
@@ -43,13 +46,12 @@ export class StopEmployee extends React.Component<{}, StopEmployeeState> {
     }
 
     handleSubmit(event) {
+        console.log(this.state.personID)
         Axios.post("http://localhost:3001/stop_employee_role", {
             perID: this.state.personID,
         }).then((res) => {
-            console.log("Response:");
-            console.log(res.data)
+            this.clearState(event)
         })
-        this.clearState(event)
         event.preventDefault();
     }
 
