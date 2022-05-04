@@ -13,7 +13,9 @@ export function ManageAccountAccess() {
   const [customer, setCustomer] = useState("")
   const [accountList, setAccountList] = useState<Array<string>>([]);
   const [account, setAccount] = useState("")
-  const [addOwner, setAddOwner] = useState(true)
+  const ownerList = ["Add Access", "Remove Access"]
+  const [addOwner, setAddOwner] = useState(ownerList[0])
+  const [refresh, setRefresh] = useState(0)
 
   useEffect(() => {
     console.log(username)
@@ -36,7 +38,7 @@ export function ManageAccountAccess() {
       setCustomerList(data)
       setCustomer(data[0])
     })
-  }, [username, location])
+  }, [username, location, refresh])
 
   function handleAccountChange(event) {
     setAccount(event.target.value)
@@ -45,14 +47,11 @@ export function ManageAccountAccess() {
     setCustomer(event.target.value)
   }
   function handleAddOwnerChange(event) {
-    setAddOwner(!addOwner);
+    setAddOwner(event.target.value);
   }
 
   function clearState(event) {
-    console.log('cleared')
-    setAccount(accountList[0])
-    setCustomer(customerList[0])
-    setAddOwner(true)
+    setAddOwner(ownerList[0])
     event.preventDefault();
   }
 
@@ -61,7 +60,8 @@ export function ManageAccountAccess() {
     let accountArray = account.split(": ")
     const bankID = accountArray[0]
     const accountID = accountArray[1]
-    if (addOwner) {
+    if (addOwner === ownerList[0]) {
+      console.log("Adding account access to " + accountID)
       Axios.post("http://localhost:3001/add_account_access", {
         requester: username,
         customer: customer,
@@ -70,9 +70,10 @@ export function ManageAccountAccess() {
         dtShareStart: date,
       }).then(() => {
         clearState(event)
-        console.log("Account access added!");
+        setRefresh(refresh + 1)
       })
     } else {
+      console.log("Removing account access from " + accountID)
       Axios.post("http://localhost:3001/remove_account_access", {
         requester: username,
         sharer: customer,
@@ -80,8 +81,8 @@ export function ManageAccountAccess() {
         accountID: accountID,
         dtShareStart: date,
       }).then(() => {
-        console.log("Account access removed!");
         clearState(event)
+        setRefresh(refresh + 1)
       })
     }
     event.preventDefault();
@@ -101,7 +102,7 @@ export function ManageAccountAccess() {
             <label>
               Account:
             </label>
-            <select name="selectList" id="selectList" onChange={handleAccountChange}>
+            <select name="selectList" id="selectList" value={account} onChange={handleAccountChange}>
               {accountList.map(name => <option key={name} value={name}>{name}</option>)}
             </select>
           </div>
@@ -109,15 +110,17 @@ export function ManageAccountAccess() {
             <label>
               Customer:
             </label>
-            <select name="selectList" id="selectList" onChange={handleCustomerChange}>
+            <select name="selectList" id="selectList" value={customer} onChange={handleCustomerChange}>
               {customerList.map(name => <option key={name} value={name}>{name}</option>)}
             </select>
           </div>
           <div className="formItem">
             <label>
-              Add Owner:
+              Add or Remove Access:
             </label>
-            <input type="checkbox" id="addOwner" checked={addOwner} onChange={handleAddOwnerChange} />
+            <select name="selectList" id="selectList" value={addOwner} onChange={handleAddOwnerChange}>
+              {ownerList.map(name => <option key={name} value={name}>{name}</option>)}
+            </select>
           </div>
           <div className="formButtons">
             <button onClick={clearState} className="formCancel">

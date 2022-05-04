@@ -14,18 +14,21 @@ export function ManageAccount() {
   const [customer, setCustomer] = useState("")
   const [accountList, setAccountList] = useState<Array<string>>([]);
   const [account, setAccount] = useState("")
-  const [addOwner, setAddOwner] = useState(true)
+  const ownerList = ["Add Access", "Remove Access"]
+  const [addOwner, setAddOwner] = useState(ownerList[0])
   // CREATE ACCOUNT
   const [bank, setBank] = useState("")
   const [bankList, setBankList] = useState<Array<string>>([])
   const [customer2, setCustomer2] = useState("")
-  const [newAccountID, setAccountID] = useState("")
+  const [newAccountID, setNewAccountID] = useState("")
   const accountTypeList = ["checking", "savings", "market"]
   const [accountType, setAccountType] = useState(accountTypeList[0])
   const [balance, setBalance] = useState(0)
   const [minBalance, setMinBalance] = useState(0)
   const [interest, setInterest] = useState(0.0)
   const [maxWithdrawal, setMaxWithdrawal] = useState(0)
+  // EXTRA
+  const [refresh, setRefresh] = useState(0)
 
   useEffect(() => {
     console.log(username)
@@ -45,6 +48,7 @@ export function ManageAccount() {
       }
       setCustomerList(data)
       setCustomer(data[0])
+      setCustomer2(data[0])
     })
     Axios.get("http://localhost:3001/get_bank_IDs").then(r => {
       data = r.data;
@@ -54,7 +58,7 @@ export function ManageAccount() {
       setBankList(data)
       setBank(data[0])
     })
-  }, [username, location])
+  }, [username, location, refresh])
 
   function handleAccountChange(event) {
     setAccount(event.target.value)
@@ -66,14 +70,13 @@ export function ManageAccount() {
     setCustomer2(event.target.value)
   }
   function handleAddOwnerChange(event) {
-    setAddOwner(!addOwner);
+    setAddOwner(event.target.value);
   }
-
   function handleBankChange(event) {
     setBank(event.target.value);
   }
   function handleAccountIDChange(event) {
-    setAccountID(event.target.value);
+    setNewAccountID(event.target.value);
   }
   function handleAccountTypeChange(event) {
     setAccountType(event.target.value);
@@ -92,15 +95,12 @@ export function ManageAccount() {
   }
 
   function clearAddAccountState(event) {
-    setAccount(accountList[0])
-    setCustomer(customerList[0])
-    setAddOwner(true)
+    setAddOwner(ownerList[0])
     event.preventDefault();
   }
 
   function clearCreateAccountState(event) {
-    setBank(bankList[0])
-    setAccountID("")
+    setNewAccountID("")
     setBalance(0)
     setMaxWithdrawal(0)
     setMinBalance(0)
@@ -112,7 +112,8 @@ export function ManageAccount() {
     let accountArray = account.split(": ")
     const bankID = accountArray[0]
     const accountID = accountArray[1]
-    if (addOwner) {
+    if (addOwner === ownerList[0]) {
+      console.log("Adding account access to " + accountID)
       Axios.post("http://localhost:3001/add_account_access", {
         requester: username,
         customer: customer,
@@ -120,10 +121,11 @@ export function ManageAccount() {
         accountID: accountID,
         dtShareStart: date,
       }).then(() => {
-        console.log("Account access added!");
         clearAddAccountState(event)
+        setRefresh(refresh + 1)
       })
     } else {
+      console.log("Removing account access from " + accountID)
       Axios.post("http://localhost:3001/remove_account_access", {
         requester: username,
         sharer: customer,
@@ -131,8 +133,8 @@ export function ManageAccount() {
         accountID: accountID,
         dtShareStart: date,
       }).then(() => {
-        console.log("Account access removed!");
         clearAddAccountState(event)
+        setRefresh(refresh + 1)
       })
     }
     event.preventDefault();
@@ -140,6 +142,7 @@ export function ManageAccount() {
 
   function handleCreateAccountSubmit(event) {
     const date = moment().format("YYYY-MM-DD");
+    console.log("Creating account for " + customer2)
     Axios.post("http://localhost:3001/add_account_access", {
       requester: username,
       customer: customer2,
@@ -154,8 +157,8 @@ export function ManageAccount() {
       maxWithdrawals: maxWithdrawal,
       dtShareStart: date,
     }).then(() => {
-      console.log("Added account access!");
-      clearAddAccountState(event)
+      clearCreateAccountState(event)
+      setRefresh(refresh + 1)
     })
     event.preventDefault();
   }
@@ -174,7 +177,7 @@ export function ManageAccount() {
             <label>
               Account:
             </label>
-            <select name="selectList" id="selectList" onChange={handleAccountChange}>
+            <select name="selectList" id="selectList" value={account} onChange={handleAccountChange}>
               {accountList.map(name => <option key={name} value={name}>{name}</option>)}
             </select>
           </div>
@@ -182,15 +185,17 @@ export function ManageAccount() {
             <label>
               Customer:
             </label>
-            <select name="selectList" id="selectList" onChange={handleCustomerChange}>
+            <select name="selectList" id="selectList" value={customer} onChange={handleCustomerChange}>
               {customerList.map(name => <option key={name} value={name}>{name}</option>)}
             </select>
           </div>
           <div className="formItem">
             <label>
-              Add Owner:
+              Add or Remove Access:
             </label>
-            <input type="checkbox" id="addOwner" checked={addOwner} onChange={handleAddOwnerChange} />
+            <select name="selectList" id="selectList" value={addOwner} onChange={handleAddOwnerChange}>
+              {ownerList.map(name => <option key={name} value={name}>{name}</option>)}
+            </select>
           </div>
           <div className="formButtons">
             <button onClick={clearAddAccountState} className="formCancel">
@@ -210,7 +215,7 @@ export function ManageAccount() {
             <label>
               Bank:
             </label>
-            <select name="selectList" id="selectList" onChange={handleBankChange}>
+            <select name="selectList" id="selectList" value={bank} onChange={handleBankChange}>
               {bankList.map(name => <option key={name} value={name}>{name}</option>)}
             </select>
           </div>
@@ -218,7 +223,7 @@ export function ManageAccount() {
             <label>
               Customer:
             </label>
-            <select name="selectList" id="selectList" onChange={handleCustomer2Change}>
+            <select name="selectList" id="selectList" value={customer2} onChange={handleCustomer2Change}>
               {customerList.map(name => <option key={name} value={name}>{name}</option>)}
             </select>
           </div>
@@ -232,7 +237,7 @@ export function ManageAccount() {
             <label>
               Account Type:
             </label>
-            <select name="selectList" id="selectList" onChange={handleAccountTypeChange}>
+            <select name="selectList" id="selectList" value={accountType} onChange={handleAccountTypeChange}>
               {accountTypeList.map(name => <option key={name} value={name}>{name}</option>)}
             </select>
           </div>
