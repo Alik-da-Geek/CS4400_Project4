@@ -20,9 +20,9 @@ export function ManagerOverdraft() {
         console.log(username + ", " + role)
         let data = []
         if (role === 'admin') {
-            console.log('admin called')
             Axios.get("http://localhost:3001/get_all_chk_w_status").then(r => {
                 data = r.data;
+                console.log(data)
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].protectionBank == null) {
                         data[i] = data[i].bankID + ": " + data[i].accountID;
@@ -52,6 +52,7 @@ export function ManagerOverdraft() {
                 customerID: username
             }).then(r => {
                 data = r.data;
+                console.log(data)
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].protectionBank == null) {
                         data[i] = data[i].bankID + ": " + data[i].accountID;
@@ -86,7 +87,7 @@ export function ManagerOverdraft() {
             setProtection(true)
             setSavingsAccount("")
         } else {
-            console.log("unprotected account, " + savingsAccountList[0])
+            console.log("unprotected account, " + event.target.value)
             setProtection(false)
             setSavingsAccount(savingsAccountList[0])
         }
