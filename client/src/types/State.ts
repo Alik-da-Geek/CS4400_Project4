@@ -39,7 +39,6 @@ export interface CreateBankState {
 export interface CreateEmployeeState {
     people: Array<any>
     personID: string,
-    password: string,
     salary: number,
     numPayments: number,
     accumulatedEarnings: number,
@@ -48,8 +47,8 @@ export interface CreateEmployeeState {
 
 export interface CreateCustomerState {
     peopleList: Array<any>,
+    passwords: { [key: string]: string },
     personID: string,
-    password: string,
 }
 
 export interface StopEmployeeState {

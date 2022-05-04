@@ -1880,7 +1880,7 @@ app.get("/get_non_customers", (req, res) => {
   );
   console.log("get_non_customers call " + get_non_customers_idx + "\n");
   db.query(
-    "select perID from person where perID not in (select perID from customer) and perID not in (select * from system_admin);",
+    "select perID, pwd from person where perID not in (select perID from customer) and perID not in (select * from system_admin);",
     (err, result) => {
       if (err) {
         console.log(err);

@@ -12,7 +12,6 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
       people: [],
       passwords: {},
       personID: "",
-      password: "",
       salary: 0,
       numPayments: 0,
       accumulatedEarnings: 0
@@ -55,13 +54,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   }
 
   handlePersonIDChange(event) {
-    const tempArray = event.target.value.split(",")
-    const username = tempArray[0]
-    const password = tempArray[1]
-    this.setState({
-      personID: username,
-      password: password
-    });
+    this.setState({ personID: event.target.value });
   }
   handleSalaryChange(event) {
     this.setState({ salary: event.target.value });
@@ -74,7 +67,6 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   }
 
   clearState(event) {
-    console.log('cleared')
     this.setState({
       salary: 0,
       numPayments: 0,
@@ -84,6 +76,7 @@ class CreateEmployee extends React.Component<{}, CreateEmployeeState> {
   }
 
   handleSubmit(event) {
+    console.log("Creating employee: " + this.state.personID)
     Axios.post("http://localhost:3001/start_employee_role", {
       perID: this.state.personID,
       emp_password: this.state.passwords[this.state.personID],

@@ -11,7 +11,7 @@ export class CreateCustomer extends React.Component<{}, CreateCustomerState> {
     this.state = {
       peopleList: [],
       personID: "",
-      password: "",
+      passwords: {},
     };
     this.handlePersonIDChange = this.handlePersonIDChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,28 +19,42 @@ export class CreateCustomer extends React.Component<{}, CreateCustomerState> {
   }
 
   componentDidMount() {
+    this.updatePeopleList()
+  }
+
+  updatePeopleList() {
     Axios.get("http://localhost:3001/get_non_customers").then(r => {
+      let data = r.data
+      let passwordTemp: { [key: string]: string } = {}
+      let peopleTemp = []
+      let perID = ""
+      let pwd = ""
+      console.table(data)
+      for (let i = 0; i < data.length; i++) {
+        perID = data[i]['perID']
+        pwd = data[i]['pwd']
+        passwordTemp[perID] = pwd
+        peopleTemp[i] = perID
+      }
+      console.log(peopleTemp)
+      console.log(passwordTemp)
       this.setState({
-        peopleList: r.data,
-        personID: r.data[0]['perID'],
-        password: r.data[0]['pwd']
-      })
+        peopleList: peopleTemp,
+        personID: peopleTemp[0],
+        passwords: passwordTemp
+      });
     });
   }
 
   handlePersonIDChange(event) {
-    const tempArray = event.target.value.split(",")
-    const username = tempArray[0]
-    const password = tempArray[1]
     this.setState({
-      personID: username,
-      password: password
+      personID: event.target.value,
     });
   }
 
   clearState(event) {
-    console.log('cleared')
     this.setState({
+      personID: this.state.peopleList[0]
     })
     event.preventDefault();
   }
@@ -49,7 +63,7 @@ export class CreateCustomer extends React.Component<{}, CreateCustomerState> {
     console.log(this.state)
     Axios.post("http://localhost:3001/start_customer_role", {
       perID: this.state.personID,
-      cust_password: this.state.password,
+      cust_password: this.state.passwords[this.state.personID],
     }).then(() => {
       console.log("Customer data sent!");
       this.clearState(event)
@@ -71,7 +85,7 @@ export class CreateCustomer extends React.Component<{}, CreateCustomerState> {
                 Person ID:
               </label>
               <select name="selectList" id="selectList" onChange={this.handlePersonIDChange}>
-                {this.state.peopleList.map(name => <option key={name['perID']} value={[name['perID'], name['pwd']]}>{name['perID']}</option>)}
+                {this.state.peopleList.map(name => <option key={name} value={name}>{name}</option>)}
               </select>
             </div>
             <div className="formButtons">
