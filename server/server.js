@@ -1837,7 +1837,7 @@ app.get("/get_all_acc", (req, res) => {
 });
 
 // H14
-// Get IDs for non-employees
+// Get IDs and passwords for non-employees
 var get_non_employees_idx = 0;
 app.get("/get_non_employees", (req, res) => {
   get_non_employees_idx++;
@@ -1847,7 +1847,7 @@ app.get("/get_non_employees", (req, res) => {
   );
   console.log("get_non_employees call " + get_non_employees_idx + "\n");
   db.query(
-    "select perID from person where perID not in (select perID from employee) and perID not in (select * from system_admin);",
+    "select perID, pwd from person where perID not in (select perID from employee) and perID not in (select * from system_admin);",
     (err, result) => {
       if (err) {
         console.log(err);
@@ -1990,6 +1990,7 @@ app.post("/get_accessible_chk_w_status", (req, res) => {
     }
   );
 });
+
 
 app.listen(3001, () => {
   console.log("Server running on port 3001 ...");
