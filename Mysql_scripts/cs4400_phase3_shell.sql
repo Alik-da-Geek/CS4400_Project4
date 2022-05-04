@@ -405,6 +405,20 @@ proc_Exit: begin
     then
         leave proc_Exit;
     end if;
+    
+    # and (select protectionAccount from checking where bankID = ip_checking_bankID and accountID = ip_checking_accountID) != NULL
+    
+    # if the checking account already has overdraft protection
+    if ((select protectionBank from checking where bankID = ip_checking_bankID and accountID = ip_checking_accountID) is not NULL)
+	then	# do nothing
+		leave proc_Exit;
+    end if;
+    
+    # if the protection account is already protecting another checking account
+    if (select exists (select protectionBank, protectionAccount from checking where protectionBank = ip_savings_bankID and protectionAccount = ip_savings_accountID))
+    then	# do nothing
+		leave proc_Exit;
+    end if;
 
     # condition satisfied, perform operation
     update checking set protectionBank = ip_savings_bankID, protectionAccount = ip_savings_accountID where (bankID, accountID) = (ip_checking_bankID, ip_checking_accountID);
