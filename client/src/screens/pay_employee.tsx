@@ -23,7 +23,7 @@ export class PayEmployees extends React.Component<{}, {}> {
       <div className="container">
         <div className="mainHeader">
           <h6><Link to="../">Home</Link></h6>
-          <h1>Q9: Create Fee</h1>
+          <h1>Q17: Pay Employee</h1>
         </div>
         <div className="formContainer">
           <form onSubmit={this.handleSubmit}>
