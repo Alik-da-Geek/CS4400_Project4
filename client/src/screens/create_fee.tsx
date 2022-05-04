@@ -16,7 +16,7 @@ export function CreateFee() {
   useEffect(() => {
     console.log(username)
     let data = []
-    Axios.get("http://localhost:3001/get_all_acc").then(r => {
+    Axios.get("http://localhost:3001/get_interest_bearing").then(r => {
       data = r.data;
       for (let i = 0; i < data.length; i++) {
         data[i] = data[i].bankID + ": " + data[i].accountID;

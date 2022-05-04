@@ -20,7 +20,7 @@ export class StopCustomer extends React.Component<{}, StopCustomerState> {
 
     componentDidMount() {
         let data = [];
-        Axios.get("http://localhost:3001/get_customer_IDs").then(r => {
+        Axios.get("http://localhost:3001/get_stop_customer_IDs").then(r => {
             data = r.data;
             for (let i = 0; i < data.length; i++) {
                 data[i] = data[i].perID;
