@@ -1991,7 +1991,8 @@ app.post("/get_accessible_chk_w_status", (req, res) => {
   );
 });
 
-
+// H19
+// Get available customer IDs to stop
 app.get("/get_stop_customer_IDs", (req, res) => {
   console.log(
       "\n/////////////////////////////////////////////////////////////////"
@@ -2014,6 +2015,8 @@ app.get("/get_stop_customer_IDs", (req, res) => {
   });
 });
 
+// H20
+// Get all interest-bearing accounts
 var get_interest_bearing = 0;
 app.get("/get_interest_bearing", (req, res) => {
   get_all_acc++;

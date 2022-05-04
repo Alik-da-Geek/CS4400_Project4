@@ -111,6 +111,9 @@ delimiter //
 create procedure stop_employee_role (in ip_perID varchar(100))
 proc_Exit: begin
     -- Implement your code here
+    declare n integer default 0;
+    declare m integer default 0;
+    
     # If the person doesn't exist as an employee then don't change the database state
     if ((select count(*) from employee where perID = ip_perID) = 0)
     then
@@ -124,7 +127,12 @@ proc_Exit: begin
     end if;
 
     # If the employee is the last employee at a bank then don't change the database state
-    if ((select count(*) from workfor where bankID = (select bankID from workfor where perID = ip_perID)) = 1)
+    
+    select count(*) from workfor where bankID in (select bankID from workfor where perID = ip_perID) into n;
+	select count(*) from (select distinct bankID from workfor where perID = ip_perID) as x into m;
+    
+    # if ((select count(*) from workfor where bankID = (select bankID from workfor where perID = ip_perID)) = 1)
+    if (n < (2 * m))
     then
         leave proc_Exit;
     end if;
