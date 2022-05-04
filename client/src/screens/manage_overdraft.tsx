@@ -71,7 +71,7 @@ export function ManagerOverdraft() {
                     setProtection(false)
                 }
             })
-            Axios.post("http://localhost:3001/get_accessible_accounts", {
+            Axios.post("http://localhost:3001/get_accessible_sav_accounts", {
                 customerID: username
             }).then(r => {
                 data = r.data;
@@ -86,11 +86,9 @@ export function ManagerOverdraft() {
 
     function handleCheckingAccountChange(event) {
         if (event.target.value.includes(protectedString)) {
-            console.log("protected account, no savings")
             setProtection(true)
             setSavingsAccount("")
         } else {
-            console.log("unprotected account, " + event.target.value)
             setProtection(false)
             setSavingsAccount(savingsAccountList[0])
         }
