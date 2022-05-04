@@ -2014,6 +2014,33 @@ app.get("/get_stop_customer_IDs", (req, res) => {
   });
 });
 
+var get_interest_bearing = 0;
+app.get("/get_interest_bearing", (req, res) => {
+  get_all_acc++;
+  console.log(
+      "\n/////////////////////////////////////////////////////////////////"
+  );
+  console.log("get_interest_bearing call " + get_all_acc + "\n");
+
+  db.query("select * from interest_bearing;", (err, result) => {
+    if (err) {
+      console.log(err);
+      console.log("\n!!!!! get_interest_bearing: ERROR RETRIEVING VALUES !!!!!");
+      res.send(
+          "get_interest_bearing call " + get_all_acc + ": ERROR RETRIEVING VALUES"
+      );
+    } else {
+      console.log(result);
+      console.log("\nget_interest_bearing: SUCCESSFUL");
+      res.send(result);
+    }
+    console.log(
+        "/////////////////////////////////////////////////////////////////\n"
+    );
+  });
+});
+
+
 app.listen(3001, () => {
   console.log("Server running on port 3001 ...");
 });
