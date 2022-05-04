@@ -8,6 +8,8 @@
   - Packages needed: express, mysql, cors
   - Set up server: `cd` to `/server` then execute `npm start`
 
+After downloading run "npm install" in client and server and you should get all dependencies you need.
+
 
 
 - If you encounter the following error when initializing the server 
