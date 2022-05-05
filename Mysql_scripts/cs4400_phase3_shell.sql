@@ -513,11 +513,7 @@ proc_Exit: begin
     end if;
 
     # If the person making the deposit does not have access to the account then don't change the database state
-    if ((select count(*) from
-         (select perID from access where (bankID, accountID) = (ip_bankID, ip_accountID)) as account_owners_4 where perID = ip_requester) = 0)
-    then
-        leave proc_Exit;
-    end if;
+    
 
     # Perform operation for different type of account
     if (select exists (select * from interest_bearing where (bankID, accountID) = (ip_bankID, ip_accountID)))
