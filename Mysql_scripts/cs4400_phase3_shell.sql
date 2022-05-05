@@ -503,6 +503,8 @@ proc_Exit: begin
     -- Implement your code here
     declare checking_balance integer default 0;
     declare overdraft_balance integer default 0;
+    declare protection_bank varchar(100) default '';
+    declare protection_account varchar(100) default '';
 
     # If the account does not exist, don't change the database state
     if (select exists (select * from bank_account where (bankID, accountID) = (ip_bankID, ip_accountID)) = 0)
@@ -511,11 +513,7 @@ proc_Exit: begin
     end if;
 
     # If the person making the deposit does not have access to the account then don't change the database state
-    if ((select count(*) from
-         (select perID from access where (bankID, accountID) = (ip_bankID, ip_accountID)) as account_owners_4 where perID = ip_requester) = 0)
-    then
-        leave proc_Exit;
-    end if;
+    
 
     # Perform operation for different type of account
     if (select exists (select * from interest_bearing where (bankID, accountID) = (ip_bankID, ip_accountID)))
@@ -533,8 +531,7 @@ proc_Exit: begin
         end if;
     elseif (select exists (select * from checking where (bankID, accountID) = (ip_bankID, ip_accountID)))
     then		# the account is a checking account
-        if ((select protectionBank from checking where (bankID, accountID) = (ip_bankID, ip_accountID)) is NULL or
-            ((select amount from checking where (bankID, accountID) = (ip_bankID, ip_accountID)) is NULL))
+        if ((select protectionBank from checking where (bankID, accountID) = (ip_bankID, ip_accountID)) is NULL)
         then		# the checking account does not have overdraft protection
             if (ip_withdrawal_amount <= checking_balance)
             then		# withdrawal amount is less or equal to the balance in the checking account
@@ -544,7 +541,9 @@ proc_Exit: begin
             end if;
         else		# the checking account has overdraft protection
             select balance from bank_account where (bankID, accountID) = (ip_bankID, ip_accountID) into checking_balance;
-            select amount from checking where (bankID, accountID) = (ip_bankID, ip_accountID) into overdraft_balance;
+            select protectionAccount from checking where (bankID, accountID) = (ip_bankID, ip_accountID) into protection_account;
+            select protectionBank from checking where (bankID, accountID) = (ip_bankID, ip_accountID) into protection_bank;
+            select balance from bank_account where (bankID, accountID) = (protection_bank, protection_account) into overdraft_balance;
             # If the withdrawal amount is more than the account balance + the overdraft balance for a checking account then don't change the database state
             if (ip_withdrawal_amount > checking_balance + overdraft_balance)
             then	# the withdrawal amount exceeds the overdraft balance
